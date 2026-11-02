@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mots fléchés spécial maths</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1d2a3a; --muted:#5b6778; --rose:#c2456b; --rose-soft:#fbe3ea; --rose-mid:#f4c3d2;
+    --dark:#2b3a4f; --hl:#fdf1f5; --cur:#ffd7e3; --ok:#2e8b57; --bad:#d23c3c; --bg:#faf7f8;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Inter,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg);
+       -webkit-tap-highlight-color:transparent}
+  .wrap{max-width:1080px;margin:0 auto;padding:28px 18px 40px}
+  header{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+  .logos{display:flex;align-items:center;gap:22px}
+  .logos img{display:block;height:64px;width:auto}
+  .logos img.mint{height:72px}
+  @media (max-width:600px){.logos img{height:44px}.logos img.mint{height:50px}}
+  footer .flogos{display:flex;align-items:center;gap:16px}
+  footer .flogos img{height:34px;width:auto;display:block}
+  header h1{margin:0;font-size:clamp(28px,5vw,44px);font-weight:800;letter-spacing:-.02em}
+  header h1 span{color:var(--rose)}
+  header p{margin:6px 0 0;color:var(--muted);font-size:15px}
+  .layout{display:grid;grid-template-columns:minmax(0,640px) minmax(0,1fr);gap:28px;margin-top:22px;align-items:start}
+  @media (max-width:860px){.layout{grid-template-columns:1fr}}
+
+  .bar{display:flex;align-items:center;gap:10px;background:#fff;border:1.5px solid var(--ink);border-radius:10px;
+       padding:10px 14px;margin-bottom:12px;min-height:54px}
+  .bar .dir{flex:none;width:30px;height:30px;border-radius:50%;background:var(--rose);color:#fff;display:grid;place-items:center;font-weight:700}
+  .bar .txt{font-weight:600;font-size:16px;line-height:1.25}
+  .bar .len{margin-left:auto;color:var(--muted);font-size:13px;white-space:nowrap}
+
+  .board{position:relative;container-type:inline-size;width:100%;aspect-ratio:1;border:3px solid var(--ink);background:var(--ink);
+         user-select:none;touch-action:manipulation}
+  .grid{display:grid;width:100%;height:100%;gap:1px}
+  .cell{position:relative;background:#fff;display:grid;place-items:center;overflow:hidden}
+  .cell.empty{background:var(--dark)}
+  .cell.clue{background:var(--rose-soft);display:flex;flex-direction:column;padding:0}
+  .cell.clue .half{flex:1;display:grid;place-items:center;text-align:center;padding:.3cqw .4cqw;line-height:1.08;
+                   font-weight:500;overflow:hidden;cursor:pointer}
+  .cell.clue .half + .half{border-top:1px solid var(--ink)}
+  .cell.clue .half.on{background:var(--rose-mid)}
+  .cell.letter{cursor:pointer;font-weight:700;font-size:5.4cqw;transition:background .12s}
+  .cell.letter.word{background:var(--hl)}
+  .cell.letter.cur{background:var(--cur)}
+  .cell.letter.bad{color:var(--bad)}
+  .cell.letter.bad::after{content:"";position:absolute;inset:0;background:linear-gradient(to top right,transparent 47%,rgba(210,60,60,.45) 48%,rgba(210,60,60,.45) 52%,transparent 53%)}
+  .cell.letter.revealed{color:var(--rose)}
+  .board.solved .cell.letter{color:var(--ok)}
+  svg.arrows{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+
+  .tools{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;align-items:center}
+  button{font:inherit;font-size:14px;font-weight:600;border:1.5px solid var(--ink);background:#fff;color:var(--ink);
+         border-radius:8px;padding:8px 12px;cursor:pointer}
+  button:hover{background:var(--hl)}
+  button.primary{background:var(--rose);border-color:var(--rose);color:#fff}
+  button.primary:hover{filter:brightness(1.07)}
+  .timer{margin-left:auto;font-variant-numeric:tabular-nums;font-weight:700;color:var(--muted)}
+  .msg{margin-top:10px;min-height:22px;font-size:14px;font-weight:600}
+
+  aside h2{font-size:15px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:0 0 8px}
+  aside ol{list-style:none;margin:0 0 20px;padding:0}
+  aside li{display:flex;gap:10px;align-items:baseline;padding:7px 10px;border-radius:8px;cursor:pointer;font-size:15px}
+  aside li:hover{background:#fff}
+  aside li.on{background:var(--cur)}
+  aside li.done .t{color:var(--muted);text-decoration:line-through}
+  aside li .n{flex:none;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;width:34px}
+
+  #kbd{position:absolute;opacity:0;width:1px;height:1px;left:0;top:0;border:0;padding:0;font-size:16px}
+
+  .modal{position:fixed;inset:0;background:rgba(29,42,58,.55);display:none;place-items:center;padding:20px;z-index:10}
+  .modal.show{display:grid}
+  .card{background:#fff;border-radius:16px;padding:28px;max-width:420px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.25)}
+  .card h3{margin:0 0 8px;font-size:26px}
+  .card p{color:var(--muted);margin:0 0 18px;line-height:1.45}
+  .card .row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+  footer{margin-top:34px;color:var(--muted);font-size:13px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+  footer b{color:var(--rose)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+    <h1>Mots fléchés <span>spécial maths</span></h1>
+    <p>Cliquez sur une case et tapez. Recliquez ou utilisez les flèches pour changer de sens. Les accents s'ignorent.</p>
+    </div>
+    <div class="logos">
+      <a target="_blank" rel="noopener" href="https://www.math.univ-toulouse.fr/" title="Institut de Mathématiques de Toulouse"><img src="logos/imt.png" alt="Institut de Mathématiques de Toulouse"></a>
+      <a target="_blank" rel="noopener" href="https://mint.math.univ-toulouse.fr/" title="EUR MINT"><img class="mint" src="logos/eur-mint.png" alt="EUR MINT – Mathematics and Interactions in Toulouse"></a>
+    </div>
+  </header>
+
+  <div class="layout">
+    <section>
+      <div class="bar"><div class="dir" id="dirIcon">→</div><div class="txt" id="clueTxt">Choisissez une case</div><div class="len" id="clueLen"></div></div>
+      <div class="board" id="board">
+        <div class="grid" id="grid"></div>
+        <svg class="arrows" id="arrows"></svg>
+        <input id="kbd" autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false" inputmode="text" aria-label="Saisie">
+      </div>
+      <div class="tools">
+        <button class="primary" id="btnCheck">Vérifier</button>
+        <button id="btnHint">Révéler une lettre</button>
+        <button id="btnReveal">Solution</button>
+        <button id="btnReset">Effacer</button>
+        <span class="timer" id="timer">00:00</span>
+      </div>
+      <div class="msg" id="msg"></div>
+    </section>
+
+    <aside>
+      <h2>Horizontalement →</h2>
+      <ol id="listH"></ol>
+      <h2>Verticalement ↓</h2>
+      <ol id="listV"></ol>
+    </aside>
+  </div>
+
+  <footer><span><b>Les maths à Toulouse</b> · IMT &amp; EUR MINT · Mots fléchés n°1</span><span class="flogos"><img src="logos/imt.png" alt="IMT"><img src="logos/eur-mint.png" alt="EUR MINT"></span></footer>
+</div>
+
+<div class="modal" id="modal"><div class="card" id="card"></div></div>
+
+<script>
+const DATA = {"N": 10, "words": [{"a": "THEOREME", "r": 1, "c": 1, "d": "H", "cr": 1, "cc": 0, "slot": "E", "kind": "R", "t": "Résultat démontré"}, {"a": "NUL", "r": 3, "c": 0, "d": "H", "cr": 2, "cc": 0, "slot": "S", "kind": "DR", "t": "Égal à zéro"}, {"a": "MATRICE", "r": 4, "c": 3, "d": "H", "cr": 4, "cc": 2, "slot": "E", "kind": "R", "t": "Tableau de nombres"}, {"a": "CUBE", "r": 6, "c": 0, "d": "H", "cr": 5, "cc": 0, "slot": "S", "kind": "DR", "t": "Puissance trois"}, {"a": "FERMAT", "r": 7, "c": 4, "d": "H", "cr": 7, "cc": 3, "slot": "E", "kind": "R", "t": "Toulousain au célèbre « dernier théorème »"}, {"a": "REEL", "r": 8, "c": 0, "d": "H", "cr": 7, "cc": 0, "slot": "S", "kind": "DR", "t": "Habite dans ℝ"}, {"a": "EULER", "r": 9, "c": 4, "d": "H", "cr": 9, "cc": 3, "slot": "E", "kind": "R", "t": "Son identité relie e, i, π, 1 et 0"}, {"a": "DE", "r": 0, "c": 3, "d": "V", "cr": 0, "cc": 2, "slot": "E", "kind": "RD", "t": "Il a six faces"}, {"a": "FRACTALE", "r": 0, "c": 5, "d": "V", "cr": 0, "cc": 4, "slot": "E", "kind": "RD", "t": "Elle se répète à toutes les échelles"}, {"a": "IMPAIR", "r": 0, "c": 7, "d": "V", "cr": 0, "cc": 6, "slot": "E", "kind": "RD", "t": "Pas divisible par deux"}, {"a": "TOULOUSE", "r": 1, "c": 1, "d": "V", "cr": 0, "cc": 1, "slot": "S", "kind": "D", "t": "Ville rose des maths"}, {"a": "AXE", "r": 2, "c": 9, "d": "V", "cr": 1, "cc": 9, "slot": "S", "kind": "D", "t": "Abscisses ou ordonnées"}, {"a": "PAIR", "r": 6, "c": 8, "d": "V", "cr": 5, "cc": 8, "slot": "S", "kind": "D", "t": "Divisible par deux"}, {"a": "ET", "r": 8, "c": 2, "d": "V", "cr": 7, "cc": 2, "slot": "S", "kind": "D", "t": "Connecteur logique"}]};
+const N = DATA.N, W = DATA.words;
+const $ = id => document.getElementById(id);
+const key = (r,c) => r+","+c;
+
+// Build cell model
+const sol = {}, wordsAt = {};
+W.forEach((w,i) => {
+  w.i = i; w.cells = [];
+  for (let k=0;k<w.a.length;k++){
+    const r = w.r + (w.d==="V"?k:0), c = w.c + (w.d==="H"?k:0);
+    sol[key(r,c)] = w.a[k]; w.cells.push([r,c]);
+    (wordsAt[key(r,c)] ||= {})[w.d] = i;
+  }
+});
+const clues = {};
+W.forEach(w => (clues[key(w.cr,w.cc)] ||= {})[w.slot] = w);
+
+let entry = {}, revealed = {}, cur = null, dir = "H", t0 = null, elapsed = 0, solved = false, timerId = null;
+const STORE = "mots-fleches-maths-1";
+try { const s = JSON.parse(localStorage.getItem(STORE)||"null"); if (s){ entry=s.entry||{}; revealed=s.revealed||{}; elapsed=s.elapsed||0; } } catch(e){}
+function save(){ try{ localStorage.setItem(STORE, JSON.stringify({entry,revealed,elapsed:curElapsed()})) }catch(e){} }
+
+// Render grid
+const grid = $("grid");
+grid.style.gridTemplateColumns = `repeat(${N},1fr)`;
+grid.style.gridTemplateRows = `repeat(${N},1fr)`;
+const cellEl = {};
+for (let r=0;r<N;r++) for (let c=0;c<N;c++){
+  const d = document.createElement("div"), k = key(r,c);
+  d.className = "cell";
+  if (clues[k]) {
+    d.classList.add("clue");
+    ["E","S"].forEach(s => { const w = clues[k][s]; if (!w) return;
+      const h = document.createElement("div"); h.className="half"; h.textContent = w.t;
+      const len = w.t.length;
+      h.style.fontSize = (len<16?1.85:len<26?1.6:len<36?1.42:1.3)+"cqw";
+      h.dataset.w = w.i; h.onclick = e => { e.stopPropagation(); selectWord(w.i); };
+      d.appendChild(h); w.el = h;
+    });
+  } else if (sol[k]) {
+    d.classList.add("letter");
+    d.onclick = () => clickCell(r,c);
+  } else d.classList.add("empty");
+  grid.appendChild(d); cellEl[k] = d;
+}
+
+// Arrows (SVG in a 100-per-cell coordinate system)
+const svg = $("arrows"), S = 100;
+svg.setAttribute("viewBox", `0 0 ${N*S} ${N*S}`);
+let a = "";
+const ROSE = "#c2456b";
+W.forEach(w => {
+  const x = w.cc*S, y = w.cr*S, two = Object.keys(clues[key(w.cr,w.cc)]).length===2;
+  const ay = y + (two ? (w.slot==="E"?S/4:S*3/4) : S/2);
+  if (w.kind==="R") a += `<path d="M${x+S+2},${ay-8} L${x+S+13},${ay} L${x+S+2},${ay+8}Z" fill="${ROSE}"/>`;
+  if (w.kind==="D") a += `<path d="M${x+S/2-8},${y+S+2} L${x+S/2},${y+S+13} L${x+S/2+8},${y+S+2}Z" fill="${ROSE}"/>`;
+  if (w.kind==="RD"){ const bx=x+S+13; a += `<path d="M${x+S},${ay} H${bx} V${ay+10}" stroke="${ROSE}" stroke-width="3" fill="none"/><path d="M${bx-7},${ay+9} L${bx},${ay+19} L${bx+7},${ay+9}Z" fill="${ROSE}"/>`; }
+  if (w.kind==="DR"){ const ax=x+S/2, by=y+S+13; a += `<path d="M${ax},${y+S} V${by} H${ax+10}" stroke="${ROSE}" stroke-width="3" fill="none"/><path d="M${ax+9},${by-7} L${ax+19},${by} L${ax+9},${by+7}Z" fill="${ROSE}"/>`; }
+});
+svg.innerHTML = a;
+
+// Clue lists
+W.forEach(w => {
+  const li = document.createElement("li");
+  li.innerHTML = `<span class="n">${w.a.length} l.</span><span class="t"></span>`;
+  li.querySelector(".t").textContent = w.t;
+  li.onclick = () => selectWord(w.i);
+  $(w.d==="H"?"listH":"listV").appendChild(li); w.li = li;
+});
+
+// Interaction
+const kbd = $("kbd");
+function focusKbd(){ try{ kbd.focus({preventScroll:true}) }catch(e){ kbd.focus() } }
+function curWord(){ if(!cur) return null; const m = wordsAt[key(...cur)]; return m ? W[m[dir] ?? m[dir==="H"?"V":"H"]] : null; }
+function clickCell(r,c){
+  const m = wordsAt[key(r,c)];
+  if (cur && cur[0]===r && cur[1]===c && m.H!==undefined && m.V!==undefined) dir = dir==="H"?"V":"H";
+  else if (m[dir]===undefined) dir = m.H!==undefined?"H":"V";
+  cur=[r,c]; startTimer(); paint(); focusKbd();
+}
+function selectWord(i){
+  const w = W[i]; dir = w.d;
+  const firstEmpty = w.cells.find(([r,c]) => !entry[key(r,c)]) || w.cells[0];
+  cur = [...firstEmpty]; startTimer(); paint(); focusKbd();
+}
+function paint(){
+  const w = curWord();
+  if (w) dir = w.d;
+  const inWord = new Set(w ? w.cells.map(p=>key(...p)) : []);
+  for (const k in sol){
+    const el = cellEl[k];
+    el.textContent = entry[k] || "";
+    el.classList.toggle("word", inWord.has(k));
+    el.classList.toggle("cur", !!cur && k===key(...cur));
+    el.classList.toggle("revealed", !!revealed[k]);
+  }
+  W.forEach(x => {
+    x.el.classList.toggle("on", w===x);
+    x.li.classList.toggle("on", w===x);
+    x.li.classList.toggle("done", x.cells.every(p => entry[key(...p)]));
+  });
+  $("dirIcon").textContent = w ? (w.d==="H"?"→":"↓") : "→";
+  $("clueTxt").textContent = w ? w.t : "Choisissez une case";
+  $("clueLen").textContent = w ? w.a.length+" lettres" : "";
+}
+function move(dr,dc){
+  if(!cur) return;
+  let [r,c] = cur;
+  for (let s=0;s<N;s++){ r+=dr; c+=dc; if(r<0||c<0||r>=N||c>=N) return; if(sol[key(r,c)]){ cur=[r,c]; return; } }
+}
+function step(sign){
+  const w = curWord(); if(!w) return;
+  const idx = w.cells.findIndex(p => p[0]===cur[0]&&p[1]===cur[1]);
+  const n = idx+sign; if (n>=0 && n<w.cells.length) cur=[...w.cells[n]];
+}
+function typeLetter(ch){
+  if(!cur || solved) return;
+  const k = key(...cur);
+  if (!revealed[k]) entry[k]=ch;
+  cellEl[k].classList.remove("bad");
+  step(1); paint(); save(); checkSolved();
+}
+kbd.addEventListener("keydown", e => {
+  if (!cur) return;
+  const k = e.key;
+  if (k==="ArrowRight"){ if(dir!=="H"&&wordsAt[key(...cur)].H!==undefined){dir="H"} else move(0,1); e.preventDefault(); }
+  else if (k==="ArrowLeft"){ if(dir!=="H"&&wordsAt[key(...cur)].H!==undefined){dir="H"} else move(0,-1); e.preventDefault(); }
+  else if (k==="ArrowDown"){ if(dir!=="V"&&wordsAt[key(...cur)].V!==undefined){dir="V"} else move(1,0); e.preventDefault(); }
+  else if (k==="ArrowUp"){ if(dir!=="V"&&wordsAt[key(...cur)].V!==undefined){dir="V"} else move(-1,0); e.preventDefault(); }
+  else if (k==="Backspace"||k==="Delete"){
+    const ck = key(...cur);
+    if (entry[ck] && !revealed[ck]) delete entry[ck];
+    else { step(-1); const pk=key(...cur); if(!revealed[pk]) delete entry[pk]; }
+    cellEl[key(...cur)].classList.remove("bad");
+    e.preventDefault(); save();
+  }
+  else if (k==="Tab"){ const w=curWord(); const nx=W[(w.i+(e.shiftKey?W.length-1:1))%W.length]; selectWord(nx.i); e.preventDefault(); return; }
+  else return;
+  paint();
+});
+kbd.addEventListener("input", () => {
+  const v = kbd.value.normalize("NFD").replace(/[̀-ͯ]/g,"").toUpperCase().replace(/[^A-Z]/g,"");
+  kbd.value = "";
+  for (const ch of v) typeLetter(ch);
+});
+
+// Timer
+function curElapsed(){ return elapsed + (t0 ? (Date.now()-t0)/1000 : 0); }
+function fmt(s){ s=Math.floor(s); return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0"); }
+function startTimer(){ if(t0||solved) return; t0=Date.now(); timerId=setInterval(()=>{$("timer").textContent=fmt(curElapsed())},500); }
+function stopTimer(){ if(t0){ elapsed=curElapsed(); t0=null; } clearInterval(timerId); $("timer").textContent=fmt(elapsed); }
+$("timer").textContent = fmt(elapsed);
+
+// Tools
+function msg(t, color){ $("msg").textContent=t; $("msg").style.color=color||"var(--ink)"; }
+$("btnCheck").onclick = () => {
+  let bad=0, empty=0;
+  for (const k in sol){ const e=entry[k]; if(!e){empty++; continue;} const wrong = e!==sol[k]; cellEl[k].classList.toggle("bad",wrong); if(wrong) bad++; }
+  if (!bad && !empty) return checkSolved();
+  msg(bad ? `${bad} lettre${bad>1?"s":""} à revoir${empty?`, ${empty} case${empty>1?"s":""} vide${empty>1?"s":""}`:""}.` : `Aucune erreur pour l'instant, encore ${empty} case${empty>1?"s":""} à remplir !`, bad?"var(--bad)":"var(--ok)");
+};
+$("btnHint").onclick = () => {
+  if (solved) return;
+  let k = cur && !revealed[key(...cur)] && entry[key(...cur)]!==sol[key(...cur)] ? key(...cur) : null;
+  if (!k){ const w=curWord(); const p = (w?w.cells:[]).map(p=>key(...p)).find(q=>entry[q]!==sol[q]) || Object.keys(sol).find(q=>entry[q]!==sol[q]); k=p; }
+  if (!k) return;
+  entry[k]=sol[k]; revealed[k]=true; cellEl[k].classList.remove("bad");
+  startTimer(); paint(); save(); msg("Une lettre offerte 😉"); checkSolved();
+};
+function confirmBox(title, text, okLabel, onOk){
+  $("card").innerHTML = `<h3></h3><p></p><div class="row"><button id="mNo">Annuler</button><button class="primary" id="mOk"></button></div>`;
+  $("card").querySelector("h3").textContent=title; $("card").querySelector("p").textContent=text; $("mOk").textContent=okLabel;
+  $("modal").classList.add("show");
+  $("mNo").onclick = () => $("modal").classList.remove("show");
+  $("mOk").onclick = () => { $("modal").classList.remove("show"); onOk(); };
+}
+$("btnReveal").onclick = () => confirmBox("Afficher la solution ?", "Toute la grille sera remplie. Pas de regrets ?", "Montrer", () => {
+  for (const k in sol){ if(entry[k]!==sol[k]){ entry[k]=sol[k]; revealed[k]=true; } cellEl[k].classList.remove("bad"); }
+  solved = true; stopTimer(); $("board").classList.add("solved"); paint(); save(); msg("Voici la solution. Rendez-vous au prochain numéro !");
+});
+$("btnReset").onclick = () => confirmBox("Tout effacer ?", "La grille et le chronomètre repartent de zéro.", "Effacer", () => {
+  entry={}; revealed={}; elapsed=0; t0=null; solved=false; clearInterval(timerId); $("timer").textContent="00:00";
+  $("board").classList.remove("solved"); for(const k in sol) cellEl[k].classList.remove("bad"); cur=null; paint(); save(); msg("");
+});
+$("modal").onclick = e => { if (e.target.id==="modal") $("modal").classList.remove("show"); };
+
+function checkSolved(){
+  if (solved) return;
+  if (!Object.keys(sol).every(k => entry[k]===sol[k])) return;
+  solved = true; stopTimer(); $("board").classList.add("solved"); paint(); save();
+  const hints = Object.keys(revealed).length, time = fmt(elapsed);
+  const share = `J'ai terminé les mots fléchés spécial maths de « Les maths à Toulouse » en ${time}${hints?` (avec ${hints} indice${hints>1?"s":""})`:" sans indice"} ! 🧮`;
+  $("card").innerHTML = `<h3>CQFD ! 🎉</h3><p>Grille terminée en <b>${time}</b>${hints?` avec ${hints} indice${hints>1?"s":""}`:" sans aucun indice"}.<br>Partagez votre temps en commentaire !</p><div class="row"><button id="mClose">Fermer</button><button class="primary" id="mCopy">Copier mon score</button></div>`;
+  $("modal").classList.add("show");
+  $("mClose").onclick = () => $("modal").classList.remove("show");
+  $("mCopy").onclick = async () => { try{ await navigator.clipboard.writeText(share); $("mCopy").textContent="Copié !"; }catch(e){ $("mCopy").textContent="Copie impossible"; } };
+  msg("Bravo, grille complète !", "var(--ok)");
+}
+
+if (Object.keys(sol).length && Object.keys(sol).every(k => entry[k]===sol[k])) { solved=true; $("board").classList.add("solved"); }
+paint();
+</script>
+</body>
+</html>
