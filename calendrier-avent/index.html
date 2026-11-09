@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calendrier de l'avent mathématique · Les maths à Toulouse</title>
+<meta name="description" content="24 cases, 24 énigmes et curiosités mathématiques, une par jour jusqu'à Noël. Par l'Institut de Mathématiques de Toulouse, le Labex CIMI et l'EUR MINT.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1f1d2b; --muted:#5d5a6e; --rose:#cd1919; --rose-soft:#ece8f4; --rose-mid:#c9c1de;
+    --violet:#9384BB; --violet-dk:#6c5e98; --red-dk:#a51212;
+    --dark:#2c2840; --hl:#f4f1f9; --bg:#ffffff; --gold:#9384BB;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{font-family:Inter,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg);-webkit-tap-highlight-color:transparent;overflow-x:hidden}
+  #snow{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+  #snow span{position:absolute;top:-40px;color:var(--violet);opacity:.28;font-weight:700;animation:fall linear infinite;will-change:transform}
+  @keyframes fall{to{transform:translateY(calc(100vh + 80px)) rotate(200deg)}}
+  @media (prefers-reduced-motion:reduce){#snow{display:none}}
+
+  .wrap{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding:28px 18px 40px}
+  header{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+  .logos{display:flex;align-items:center;gap:22px}
+  .logos img{display:block;height:64px;width:auto}
+  .logos img.mint{height:72px}
+  .logos img.cimi{height:52px}
+  footer .flogos img.cimi{height:28px}
+  .logos a,footer .flogos a{display:block}
+  .cimi-txt{display:inline-block;border:2px solid var(--violet);color:var(--violet-dk);border-radius:8px;padding:6px 10px;font-weight:800;font-size:15px;letter-spacing:.02em;white-space:nowrap}
+  footer .cimi-txt{font-size:11px;padding:3px 6px}
+  @media (max-width:600px){.logos{gap:14px}.logos img{height:40px}.logos img.mint{height:46px}.logos img.cimi{height:34px}}
+  header h1{margin:0;font-size:clamp(28px,5vw,44px);font-weight:800;letter-spacing:-.02em;line-height:1.05}
+  header h1 span{color:var(--rose)}
+  header p{margin:8px 0 0;color:var(--muted);font-size:15px;max-width:540px;line-height:1.45}
+
+  .status{margin:22px 0 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:#fff;border:1.5px solid var(--ink);
+          border-radius:10px;padding:10px 14px;font-weight:600;font-size:15px}
+  .status .pill{background:var(--violet-dk);color:#fff;border-radius:999px;padding:3px 11px;font-size:13px;font-weight:700}
+  .status .prog{margin-left:auto;color:var(--muted);font-weight:600;font-size:13px}
+
+  .grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+  @media (max-width:860px){.grid{grid-template-columns:repeat(4,1fr)}}
+  @media (max-width:480px){.grid{grid-template-columns:repeat(3,1fr);gap:9px}}
+
+  .slot{position:relative;aspect-ratio:1;perspective:900px;border-radius:12px}
+  .slot.big{grid-column:span 2;grid-row:span 2}
+  .inside{position:absolute;inset:0;border-radius:12px;background:#fff;border:1.5px dashed var(--rose-mid);
+          display:grid;place-items:center;text-align:center;padding:8px;color:var(--rose);font-weight:800;font-size:clamp(22px,4vw,34px)}
+  .inside small{display:block;font-size:11px;font-weight:600;color:var(--muted);margin-top:2px;letter-spacing:.02em}
+  .door{position:absolute;inset:0;border-radius:12px;cursor:pointer;transform-origin:left center;
+        transition:transform .7s cubic-bezier(.3,.8,.3,1),box-shadow .2s;transform-style:preserve-3d;
+        display:grid;place-items:center;border:none;font:inherit;color:#fff;padding:0;
+        box-shadow:0 2px 0 rgba(29,42,58,.25)}
+  .door:hover{box-shadow:0 6px 18px rgba(147,132,187,.45)}
+  .door:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+  .door .num{font-size:clamp(26px,4.4vw,40px);font-weight:800;letter-spacing:-.03em;text-shadow:0 2px 0 rgba(0,0,0,.12)}
+  .slot.big .door .num{font-size:clamp(54px,9vw,84px)}
+  .door .sym{position:absolute;top:7px;right:9px;font-size:13px;opacity:.55;font-weight:600}
+  .door .lock{position:absolute;bottom:7px;left:0;right:0;font-size:10.5px;font-weight:600;opacity:.75;letter-spacing:.03em}
+  .door.c0{background:var(--rose)}
+  .door.c1{background:var(--dark)}
+  .door.c2{background:var(--red-dk)}
+  .door.c3{background:var(--violet-dk)}
+  .door.c4{background:var(--violet)}
+  .slot.big .door{background:linear-gradient(140deg,var(--rose),var(--red-dk))}
+  .slot.big .door .sym{font-size:22px;opacity:.95;color:#fff}
+  .door.ribbon::before,.door.ribbon::after{content:"";position:absolute;background:var(--gold);opacity:.9}
+  .door.ribbon::before{left:50%;top:0;bottom:0;width:10px;transform:translateX(-50%)}
+  .door.ribbon::after{top:50%;left:0;right:0;height:10px;transform:translateY(-50%)}
+  .door.ribbon .num{position:relative;z-index:1;background:linear-gradient(140deg,var(--rose),var(--red-dk));padding:0 14px;border-radius:12px}
+  .slot.open{z-index:2}
+  .slot.open .door{transform:rotateY(-108deg);box-shadow:none}
+  .door .seen{display:none;position:absolute;bottom:7px;left:0;right:0;z-index:1;font-size:10.5px;font-weight:700;opacity:.85;letter-spacing:.03em}
+  .slot.seen .door .seen{display:block}
+  .slot.seen .door .num{opacity:.8}
+  .slot.locked .door{cursor:not-allowed}
+  .slot.locked .door .num{opacity:.92}
+  .slot.shake{animation:shake .4s}
+  @keyframes shake{20%,60%{transform:translateX(-5px)}40%,80%{transform:translateX(5px)}}
+  .slot.today .door{animation:glow 1.8s ease-in-out infinite}
+  @keyframes glow{50%{box-shadow:0 0 0 5px rgba(147,132,187,.85),0 8px 24px rgba(205,25,25,.3)}}
+  .door .lock{z-index:1}
+  .filler{grid-column:span 3;border-radius:12px;border:1.5px dashed var(--violet);background:#fff;display:grid;place-items:center;
+          text-align:center;padding:14px;color:var(--rose);font-weight:800;font-size:clamp(18px,2.4vw,26px);line-height:1.25}
+.filler div{color:var(--violet-dk)}
+  .filler small{display:block;color:var(--muted);font-weight:600;font-size:13px;margin-top:6px}
+  @media (max-width:860px){.filler{grid-column:span 1;font-size:15px}.filler small{display:none}}
+  @media (max-width:480px){.filler{display:none}}
+  .slot.open .inside{cursor:pointer}
+  .slot.open .inside:hover{background:var(--hl)}
+
+  .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;
+         padding:11px 18px;border-radius:10px;font-weight:600;font-size:14px;opacity:0;transition:.25s;z-index:30;pointer-events:none;
+         max-width:calc(100vw - 32px);text-align:center}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+  .modal{position:fixed;inset:0;background:rgba(29,42,58,.55);display:none;place-items:center;padding:18px;z-index:20}
+  .modal.show{display:grid}
+  .card{background:#fff;border-radius:16px;max-width:520px;width:100%;max-height:calc(100vh - 36px);overflow:auto;
+        box-shadow:0 20px 60px rgba(0,0,0,.25);animation:pop .35s cubic-bezier(.3,1.4,.5,1)}
+  @keyframes pop{from{transform:scale(.85);opacity:0}}
+  .card .top{background:linear-gradient(120deg,var(--rose),var(--red-dk));color:#fff;padding:18px 24px 16px;border-radius:16px 16px 0 0;position:relative}
+  .card .top .day{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;opacity:.85}
+  .card .top h2{margin:4px 0 0;font-size:24px;line-height:1.15;letter-spacing:-.01em}
+  .card .top .tag{display:inline-block;margin-top:10px;background:rgba(255,255,255,.2);border-radius:999px;padding:3px 10px;font-size:12px;font-weight:700}
+  .card .x{position:absolute;top:12px;right:12px;width:34px;height:34px;border-radius:50%;border:none;background:rgba(255,255,255,.2);color:#fff;font-size:20px;cursor:pointer;line-height:1}
+  .card .x:hover{background:rgba(255,255,255,.35)}
+  .card .pic{margin:-20px -24px 18px;background:var(--hl);border-bottom:1px solid var(--rose-soft);padding:10px 0}
+  .card .pic svg,.card .pic img{display:block;width:100%;max-width:400px;height:auto;margin:0 auto;max-height:180px;object-fit:contain}
+  .card .body{padding:20px 24px 24px;line-height:1.55;font-size:16px}
+  .card .body p{margin:0 0 12px}
+  .card .big-num{font-size:44px;font-weight:800;color:var(--rose);letter-spacing:-.02em;margin:0 0 6px;line-height:1.1}
+  .card .math{font-weight:700;color:var(--violet-dk);background:var(--hl);border-radius:6px;padding:1px 6px;white-space:nowrap}
+  .card ul{margin:0 0 12px;padding-left:20px}
+  .card .sol{display:none;margin-top:6px;background:var(--rose-soft);border-left:4px solid var(--violet);border-radius:8px;padding:12px 14px}
+  .card .sol.show{display:block}
+  .card .sol p:last-child{margin-bottom:0}
+  .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+  button.btn,a.btn{font:inherit;font-size:14px;font-weight:600;border:1.5px solid var(--ink);background:#fff;color:var(--ink);
+         border-radius:8px;padding:8px 12px;cursor:pointer;text-decoration:none;display:inline-block}
+  button.btn:hover,a.btn:hover{background:var(--hl)}
+  .btn.primary{background:var(--rose);border-color:var(--rose);color:#fff}
+  .btn.primary:hover{filter:brightness(1.07);background:var(--rose)}
+
+  footer{margin-top:34px;color:var(--muted);font-size:13px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+  footer b{color:var(--rose)}
+  footer .flogos{display:flex;align-items:center;gap:16px}
+  footer .flogos img{height:34px;width:auto;display:block}
+</style>
+</head>
+<body>
+<div id="snow" aria-hidden="true"></div>
+<div class="wrap">
+  <header>
+    <div>
+      <h1>Calendrier de l'avent <span>mathématique</span></h1>
+      <p>Une case par jour jusqu'à Noël : énigmes, curiosités et clins d'œil toulousains. Les solutions sont cachées sous chaque énigme, ne trichez pas&nbsp;!</p>
+    </div>
+    <div class="logos">
+      <a target="_blank" rel="noopener" href="https://www.math.univ-toulouse.fr" title="Institut de Mathématiques de Toulouse"><img src="logos/imt.png" alt="Institut de Mathématiques de Toulouse"></a>
+      <a target="_blank" rel="noopener" href="https://www.cimi.univ-toulouse.fr/" title="Labex CIMI"><img class="cimi" src="logos/cimi.png" alt="Labex CIMI" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'cimi-txt',textContent:'Labex CIMI'}))"></a>
+      <a target="_blank" rel="noopener" href="https://mint.math.univ-toulouse.fr" title="EUR MINT"><img class="mint" src="logos/eur-mint.png" alt="EUR MINT – Mathematics and Interactions in Toulouse"></a>
+    </div>
+  </header>
+
+  <div class="status" id="status"></div>
+  <div class="grid" id="grid"></div>
+
+  <footer>
+    <span><b>Les maths à Toulouse</b> · IMT · Labex CIMI · EUR MINT · Décembre 2026</span>
+    <span class="flogos"><a target="_blank" rel="noopener" href="https://www.math.univ-toulouse.fr"><img src="logos/imt.png" alt="IMT"></a><a target="_blank" rel="noopener" href="https://www.cimi.univ-toulouse.fr/"><img class="cimi" src="logos/cimi.png" alt="Labex CIMI" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'cimi-txt',textContent:'Labex CIMI'}))"></a><a target="_blank" rel="noopener" href="https://mint.math.univ-toulouse.fr"><img src="logos/eur-mint.png" alt="EUR MINT"></a></span>
+  </footer>
+</div>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="m-title">
+  <div class="card">
+    <div class="top">
+      <div class="day" id="m-day"></div>
+      <h2 id="m-title"></h2>
+      <span class="tag" id="m-tag"></span>
+      <button class="x" id="m-close" aria-label="Fermer">×</button>
+    </div>
+    <div class="body" id="m-body"></div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* =====================================================================
+   CONTENU DES 24 CASES — à modifier librement.
+   type : "enigme" (avec solution cachée), "savoir", "nombre", "toulouse", "jeu", "noel"
+   ===================================================================== */
+const YEAR = 2026;
+const DAYS = {
+  1:{type:"savoir", title:"Le flocon infini",
+     body:`<p>Prenez un triangle équilatéral. Sur chaque côté, ajoutez un petit triangle au milieu. Recommencez sur chaque nouveau côté… à l'infini.</p>
+           <p>Vous obtenez le <b>flocon de Koch</b> (1904) : son <b>périmètre est infini</b>, mais son <b>aire reste finie</b>, exactement <span class="math">8/5</span> de celle du triangle de départ.</p>
+           <p>Une fractale qui tient dans une boîte, mais qu'on ne pourrait jamais entourer d'un ruban.</p>`},
+  2:{type:"enigme", title:"Les chaussettes de Noël",
+     body:`<p>Dans un tiroir plongé dans le noir, il y a des chaussettes rouges et des chaussettes vertes, bien mélangées.</p>
+           <p><b>Combien de chaussettes faut-il prendre, au minimum, pour être sûr·e d'avoir une paire de la même couleur ?</b></p>`,
+     sol:`<p><b>3 chaussettes.</b> Avec 2 couleurs, les 3 chaussettes ne peuvent pas être toutes de couleurs différentes : deux d'entre elles sont forcément assorties.</p>
+          <p>C'est le <b>principe des tiroirs</b> : si on range n+1 objets dans n tiroirs, un tiroir en contient au moins deux. Simple, mais redoutable en combinatoire !</p>`},
+  3:{type:"toulouse", title:"Fermat, le magistrat toulousain",
+     body:`<p>Au XVIIᵉ siècle, <b>Pierre de Fermat</b> est conseiller au parlement de Toulouse. Les maths sont son loisir… et quel loisir !</p>
+           <p>Dans la marge de son exemplaire de l'<i>Arithmétique</i> de Diophante, il affirme que l'équation <span class="math">xⁿ + yⁿ = zⁿ</span> n'a aucune solution en nombres entiers positifs dès que n&nbsp;≥&nbsp;3, et qu'il a une démonstration « merveilleuse » que la marge est trop étroite pour contenir.</p>
+           <p>Il a fallu attendre <b>plus de 350 ans</b> : Andrew Wiles en publie la preuve en 1995.</p>`},
+  4:{type:"enigme", title:"On trinque !",
+     body:`<p>Au réveillon, 10 ami·es lèvent leur verre. Chacun·e trinque <b>une seule fois</b> avec chacun·e des autres.</p>
+           <p><b>Combien de « tchin » entend-on en tout ?</b></p>`,
+     sol:`<p><b>45.</b> Chaque personne trinque avec 9 autres, soit 10 × 9 = 90… mais chaque « tchin » est alors compté deux fois (une fois par verre).</p>
+          <p>Donc 90 ÷ 2 = <b>45</b>. C'est le nombre de paires qu'on peut former dans un groupe de 10.</p>`},
+  5:{type:"nombre", title:"1729, le nombre du taxi",
+     body:`<p class="big-num">1729</p>
+           <p>Le mathématicien G. H. Hardy rend visite à Srinivasa Ramanujan, malade, et lui dit que le numéro de son taxi, 1729, est bien banal.</p>
+           <p>Ramanujan répond aussitôt que non : c'est <b>le plus petit nombre qui s'écrit de deux façons comme somme de deux cubes</b>.</p>
+           <p><span class="math">1729 = 1³ + 12³ = 9³ + 10³</span></p>`},
+  6:{type:"savoir", title:"Les abeilles sont-elles géomètres ?",
+     body:`<p>Pourquoi les alvéoles des ruches sont-elles des hexagones ?</p>
+           <p>Parmi toutes les façons de découper un plan en cases de même aire, le pavage hexagonal est celle qui <b>utilise le moins de « murs »</b>, donc le moins de cire.</p>
+           <p>On le soupçonnait depuis l'Antiquité, mais cette « conjecture du nid d'abeille » n'a été démontrée qu'en <b>1999</b>, par Thomas Hales.</p>`},
+  7:{type:"enigme", title:"L'escargot dans le puits",
+     body:`<p>Un escargot est au fond d'un puits de 10 mètres. Chaque jour il grimpe de 3 mètres, mais chaque nuit il glisse de 2 mètres.</p>
+           <p><b>Combien de jours lui faut-il pour sortir ?</b></p>`,
+     sol:`<p><b>8 jours</b> (et non 10 !). Au bout de 7 jours et 7 nuits, il est à 7 mètres. Le 8ᵉ jour, il grimpe de 3 mètres et atteint le bord : plus de nuit pour le faire redescendre.</p>`},
+  8:{type:"toulouse", title:"Stieltjes, de Delft à Toulouse",
+     body:`<p>Né aux Pays-Bas en 1856, <b>Thomas Joannes Stieltjes</b> devient professeur à la faculté des sciences de Toulouse en 1886, et y reste jusqu'à sa mort en 1894.</p>
+           <p>C'est à Toulouse qu'il écrit son grand mémoire sur les <b>fractions continues</b>, où apparaît l'<b>intégrale de Stieltjes</b>, encore enseignée aujourd'hui en analyse et en probabilités.</p>`},
+  9:{type:"savoir", title:"0,999… = 1",
+     body:`<p>Ça choque souvent, et pourtant c'est vrai : <span class="math">0,999… = 1</span> (avec une infinité de 9).</p>
+           <p>Une preuve express : <span class="math">1/3 = 0,333…</span> Multiplions par 3 : <span class="math">3/3 = 0,999…</span> Or 3/3 = 1.</p>
+           <p>Ce ne sont pas deux nombres très proches : ce sont <b>deux écritures du même nombre</b>.</p>`},
+  10:{type:"enigme", title:"Le paradoxe des anniversaires",
+     body:`<p>À une fête, on cherche deux personnes nées le même jour de l'année.</p>
+           <p><b>Combien faut-il d'invité·es pour avoir plus d'une chance sur deux d'y arriver ?</b></p>`,
+     sol:`<p><b>Seulement 23 !</b> Avec 23 personnes, la probabilité dépasse 50 %. Avec 57, elle dépasse 99 %.</p>
+          <p>L'intuition se trompe car on ne compare pas une personne aux autres : on compare <b>toutes les paires</b>. Et avec 23 personnes, il y a déjà 253 paires.</p>`},
+  11:{type:"savoir", title:"Le ruban qui n'a qu'une face",
+     body:`<p>À tester avec une chute de papier cadeau ! Prenez une bande, faites-lui faire un <b>demi-tour</b>, puis collez les deux bouts : c'est un <b>ruban de Möbius</b>.</p>
+           <p>Suivez-le du doigt : vous passez « dessus » puis « dessous » sans jamais franchir le bord. Il n'a <b>qu'une seule face</b>.</p>
+           <p>Bonus : coupez-le aux ciseaux le long de sa ligne médiane… vous n'obtiendrez pas deux rubans.</p>`},
+  12:{type:"enigme", title:"Les douze jours de Noël",
+     body:`<p>Dans un vieux chant anglais, on reçoit 1 cadeau le 1ᵉʳ jour ; 1 + 2 cadeaux le 2ᵉ jour ; 1 + 2 + 3 le 3ᵉ jour… et ainsi de suite jusqu'au 12ᵉ jour.</p>
+           <p><b>Combien de cadeaux en tout au bout des 12 jours ?</b></p>`,
+     sol:`<p><b>364 cadeaux</b>, presque un par jour de l'année !</p>
+          <p>Le k-ième jour on reçoit 1 + 2 + … + k (un nombre « triangulaire »). La somme des 12 premiers nombres triangulaires vaut <span class="math">12 × 13 × 14 ÷ 6 = 364</span>.</p>`},
+  13:{type:"jeu", title:"Pause mots fléchés",
+     body:`<p>Mi-parcours ! Pour patienter jusqu'à demain, une grille de mots fléchés 100 % maths, à jouer en ligne.</p>
+           <p>Fermat, Euler, fractales… saurez-vous tout trouver ?</p>
+`,
+     links:[{label:"Jouer aux mots fléchés", url:"https://labruyerechristelle.github.io/IMT/mots-fleches/"}]},
+  14:{type:"enigme", title:"Le loup, la chèvre et le chou",
+     body:`<p>Un passeur doit faire traverser une rivière à un loup, une chèvre et un chou. Sa barque ne porte qu'un passager à la fois. Laissés seuls, le loup mange la chèvre, et la chèvre mange le chou.</p>
+           <p><b>Comment faire, et en combien de traversées ?</b></p>
+           <p style="color:var(--muted);font-size:14px">Cette énigme a plus de 1 200 ans : on la trouve dans un recueil attribué à Alcuin, conseiller de Charlemagne.</p>`,
+     sol:`<p><b>7 traversées :</b></p>
+          <ul><li>aller avec la chèvre, retour à vide ;</li><li>aller avec le loup, retour avec la chèvre ;</li><li>aller avec le chou, retour à vide ;</li><li>aller avec la chèvre.</li></ul>
+          <p>L'astuce : on a le droit de <b>ramener</b> la chèvre !</p>`},
+  15:{type:"nombre", title:"6174, le trou noir de Kaprekar",
+     body:`<p class="big-num">6174</p>
+           <p>Prenez un nombre à 4 chiffres (pas tous identiques, par exemple 2026). Rangez ses chiffres du plus grand au plus petit, puis du plus petit au plus grand, et faites la différence. Recommencez.</p>
+           <p><span class="math">6220 − 0226 = 5994</span> → <span class="math">9954 − 4599 = 5355</span> → <span class="math">5553 − 3555 = 1998</span> → <span class="math">9981 − 1899 = 8082</span> → <span class="math">8820 − 0288 = 8532</span> → <span class="math">8532 − 2358 = 6174</span></p>
+           <p>Vous tombez <b>toujours</b> sur 6174, en 7 étapes au plus. Essayez avec votre année de naissance !</p>`},
+  16:{type:"toulouse", title:"Il y a des maths dans la météo",
+     body:`<p>Le Centre national de recherches météorologiques (CNRM) de Météo-France est installé à <b>Toulouse</b>.</p>
+           <p>Prévoir s'il neigera à Noël, c'est résoudre des <b>équations de la mécanique des fluides</b> sur une grille couvrant toute la planète, avec des millions d'inconnues.</p>
+           <p>Et comme l'atmosphère est chaotique, on lance des dizaines de simulations légèrement différentes : c'est la <b>prévision d'ensemble</b>, qui donne des probabilités plutôt qu'une certitude.</p>`},
+  17:{type:"enigme", title:"La bûche en 8",
+     body:`<p>Vous devez partager une bûche (bien cylindrique) en <b>8 parts identiques</b>…</p>
+           <p><b>…avec seulement 3 coups de couteau. Comment faire ?</b></p>`,
+     sol:`<p>Pensez en 3D ! Deux coupes verticales en croix, dans le sens de la longueur, donnent 4 parts. Puis <b>une coupe horizontale</b> à mi-hauteur coupe chacune en deux : <b>8 parts</b>.</p>
+          <p>(Les gourmand·es feront plutôt 7 coupes en tranches, on ne juge pas.)</p>`},
+  18:{type:"savoir", title:"Fibonacci dans le sapin",
+     body:`<p>Regardez une pomme de pin par en dessous : ses écailles forment des spirales dans les deux sens. Comptez-les.</p>
+           <p>Vous trouverez très souvent <b>8 spirales dans un sens et 13 dans l'autre</b> : deux nombres consécutifs de la suite de Fibonacci <span class="math">1, 1, 2, 3, 5, 8, 13, 21…</span> où chaque terme est la somme des deux précédents.</p>
+           <p>Même chose pour les ananas ou les cœurs de tournesol : une manière très efficace de ranger des graines.</p>`},
+  19:{type:"enigme", title:"La tournée du Père Noël",
+     body:`<p>Le Père Noël doit livrer <b>10 villes</b> et revenir à son point de départ. Il veut comparer tous les itinéraires possibles pour choisir le plus court.</p>
+           <p><b>Combien de tournées différentes doit-il examiner ?</b> (une tournée et la même dans l'autre sens comptent pour une)</p>`,
+     sol:`<p><b>181 440 tournées</b> : <span class="math">9! ÷ 2</span>. Pour 30 villes, on dépasse déjà 10³⁰ possibilités.</p>
+          <p>C'est le célèbre <b>problème du voyageur de commerce</b>, au cœur de la recherche en optimisation : logistique, tournées de livraison, perçage de circuits imprimés…</p>`},
+  20:{type:"nombre", title:"142857, le nombre qui tourne",
+     body:`<p class="big-num">142857</p>
+           <p>Multipliez-le par 2, 3, 4, 5 ou 6 : on retrouve <b>les mêmes chiffres, dans le même ordre circulaire</b>.</p>
+           <p><span class="math">× 2 = 285714</span> <span class="math">× 3 = 428571</span> <span class="math">× 4 = 571428</span> <span class="math">× 5 = 714285</span> <span class="math">× 6 = 857142</span></p>
+           <p>Et × 7 ? <span class="math">999999</span>. Le secret : <span class="math">1/7 = 0,142857142857…</span></p>`},
+  21:{type:"savoir", title:"Solstice : mesurer la Terre avec une ombre",
+     body:`<p>Aujourd'hui, c'est le jour le plus court de l'année.</p>
+           <p>Il y a plus de 2 200 ans, Ératosthène savait qu'au solstice d'été, à Syène (Assouan), le soleil de midi tombait à la verticale. Au même moment, à Alexandrie, plus au nord, un bâton faisait une ombre : les rayons y arrivaient avec un angle de <b>7,2°</b>, soit <b>1/50ᵉ de tour</b>.</p>
+           <p>Conclusion : la circonférence de la Terre vaut <b>50 fois la distance</b> entre les deux villes. Un résultat remarquablement proche de la réalité, avec un bâton et de la géométrie.</p>`},
+  22:{type:"enigme", title:"Le ruban autour de la Terre",
+     body:`<p>On entoure la Terre, à l'équateur, d'un ruban bien serré (environ 40 000 km). Puis on rallonge ce ruban de <b>1 mètre</b> seulement, et on le soulève uniformément tout autour.</p>
+           <p><b>Un chat pourrait-il passer dessous ?</b></p>`,
+     sol:`<p><b>Oui !</b> Le ruban se soulève d'environ <b>16 cm</b> partout.</p>
+          <p>Le périmètre d'un cercle vaut <span class="math">2πr</span>. Ajouter 1 m au périmètre augmente le rayon de <span class="math">1 ÷ 2π ≈ 0,16 m</span>… quelle que soit la taille du cercle. Ce serait pareil autour d'une boule de Noël !</p>`},
+  23:{type:"savoir", title:"Maryam Mirzakhani",
+     body:`<p>En 2014, la mathématicienne iranienne <b>Maryam Mirzakhani</b> devient la <b>première femme</b> à recevoir la médaille Fields, la plus haute distinction en mathématiques.</p>
+           <p>Elle étudiait la géométrie des surfaces courbes et les trajectoires qu'on peut y tracer, un peu comme une bille sur un billard aux formes étranges.</p>
+           <p>Depuis 2019, le <b>12 mai</b>, jour de sa naissance, est la Journée internationale des femmes en mathématiques.</p>`},
+  24:{type:"noel", title:"Joyeux Noël !",
+     body:`<p class="big-num">24 = 4!</p>
+           <p>Quatre cadeaux, quatre chaussettes : il y a <span class="math">4 × 3 × 2 × 1 = 24</span> façons de les répartir, une par chaussette. De quoi occuper le Père Noël jusqu'à minuit.</p>
+           <p>Merci d'avoir ouvert ce calendrier avec nous ! Toute l'équipe de l'<b>Institut de Mathématiques de Toulouse</b>, du <b>Labex CIMI</b> et de l'<b>EUR MINT</b> vous souhaite de très belles fêtes.</p>
+           <p>On se retrouve en 2027 pour de nouvelles énigmes.</p>`,
+     links:[{label:"IMT", url:"https://www.math.univ-toulouse.fr"},{label:"Labex CIMI", url:"https://www.cimi.univ-toulouse.fr/"},{label:"EUR MINT", url:"https://mint.math.univ-toulouse.fr"}]}
+};
+const TAGS = {enigme:"Énigme", savoir:"Le saviez-vous ?", nombre:"Le nombre du jour", toulouse:"Maths à Toulouse", jeu:"Jeu", noel:"Joyeux Noël"};
+const SYMS = ["π","∑","∞","√","∫","e","φ","∂","≈","∀","∃","ℝ","ℕ","Δ","λ","θ"];
+// Ordre des cases dans la grille (mélangé comme un vrai calendrier) ; le 24 est la grande case.
+const ORDER = [7,18,3,24,12,21,1,15,9,22,5,14,10,2,19,6,23,11,16,13,4,20,8,17];
+
+</script>
+<script>
+/* =====================================================================
+   ILLUSTRATIONS (une par case) — dessins SVG générés, 320 × 150.
+   Pour utiliser une image à la place : IMAGES[n] = "images/mon-image.jpg"
+   ===================================================================== */
+const IMAGES = {};
+const C = {red:"#cd1919", vio:"#9384BB", vdk:"#6c5e98", dark:"#2c2840", rdk:"#a51212", soft:"#ece8f4"};
+const W = 320, H = 150;
+const svgWrap = inner => `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" font-family="Inter,Helvetica,Arial,sans-serif">${inner}</svg>`;
+const pts = a => a.map(p => p[0].toFixed(1)+","+p[1].toFixed(1)).join(" ");
+function circlePts(n, cx, cy, r, rot=-Math.PI/2){ return [...Array(n)].map((_,i)=>[cx+r*Math.cos(rot+2*Math.PI*i/n), cy+r*Math.sin(rot+2*Math.PI*i/n)]); }
+function complete(n, r, col, w){
+  const P = circlePts(n, 160, 75, r); let s = "";
+  for (let i=0;i<n;i++) for (let j=i+1;j<n;j++) s += `<line x1="${P[i][0]}" y1="${P[i][1]}" x2="${P[j][0]}" y2="${P[j][1]}" stroke="${col}" stroke-width="${w}" opacity=".55"/>`;
+  P.forEach(p => s += `<circle cx="${p[0]}" cy="${p[1]}" r="4" fill="${C.dark}"/>`);
+  return s;
+}
+const ILLUS = {
+  1: () => { // flocon de Koch
+    let P = circlePts(3, 160, 82, 62, -Math.PI/2);
+    P = [P[0], P[1], P[2], P[0]];
+    for (let k=0;k<4;k++){ const Q=[]; for (let i=0;i<P.length-1;i++){ const [a,b]=[P[i],P[i+1]]; const dx=(b[0]-a[0])/3, dy=(b[1]-a[1])/3;
+      const p1=[a[0]+dx,a[1]+dy], p3=[a[0]+2*dx,a[1]+2*dy]; const ang=Math.atan2(dy,dx)-Math.PI/3, L=Math.hypot(dx,dy);
+      const p2=[p1[0]+L*Math.cos(ang), p1[1]+L*Math.sin(ang)]; Q.push(a,p1,p2,p3);} Q.push(P[P.length-1]); P=Q; }
+    return svgWrap(`<polygon points="${pts(P)}" fill="${C.soft}" stroke="${C.red}" stroke-width="1.6"/>`);
+  },
+  2: () => { // chaussettes
+    const sock = (x, col, r) => `<g transform="translate(${x},18) rotate(${r},30,60)"><path d="M10 0 h40 v62 q0 10 -8 16 l-28 22 q-14 10 -24 -2 q-8 -12 6 -22 l14 -12 z" fill="${col}"/><rect x="10" y="0" width="40" height="14" fill="#fff" opacity=".35"/></g>`;
+    return svgWrap(sock(70,C.red,-8)+sock(130,C.vio,4)+sock(190,C.red,10)+`<text x="160" y="146" text-anchor="middle" font-size="13" fill="${C.vdk}" font-weight="700">Combien en tirer ?</text>`);
+  },
+  3: () => svgWrap(`<path d="M50 30 q55 -12 110 6 v96 q-55 -18 -110 -6z" fill="${C.soft}" stroke="${C.vdk}" stroke-width="2"/><path d="M270 30 q-55 -12 -110 6 v96 q55 -18 110 -6z" fill="#fff" stroke="${C.vdk}" stroke-width="2"/>
+    <text x="215" y="76" text-anchor="middle" font-size="17" font-weight="800" fill="${C.red}">xⁿ + yⁿ ≠ zⁿ</text><text x="215" y="96" text-anchor="middle" font-size="11" fill="${C.vdk}" font-style="italic">n ≥ 3</text>
+    ${[52,64,76,88,100].map(y=>`<line x1="66" y1="${y}" x2="146" y2="${y+3}" stroke="${C.vio}" stroke-width="2" opacity=".6"/>`).join("")}
+    <path d="M308 8 q-26 40 -40 86 l6 2 q18 -46 34 -88z" fill="${C.dark}"/>`),
+  4: () => svgWrap(complete(10, 62, C.red, 1.3)),
+  5: () => { const cube=(x,y,s,c,l)=>`<g transform="translate(${x},${y})"><polygon points="0,${s*.3} ${s*.5},0 ${s},${s*.3} ${s*.5},${s*.6}" fill="${c}" opacity=".55"/><polygon points="0,${s*.3} ${s*.5},${s*.6} ${s*.5},${s*1.2} 0,${s*.9}" fill="${c}"/><polygon points="${s},${s*.3} ${s*.5},${s*.6} ${s*.5},${s*1.2} ${s},${s*.9}" fill="${c}" opacity=".8"/><text x="${s/2}" y="${s*1.2+16}" text-anchor="middle" font-size="13" font-weight="700" fill="${C.dark}">${l}</text></g>`;
+    return svgWrap(cube(30,62,22,C.red,"1³")+cube(64,22,62,C.red,"12³")+`<text x="152" y="80" font-size="26" font-weight="800" fill="${C.dark}">=</text>`+cube(180,26,54,C.vdk,"9³")+cube(240,20,60,C.vdk,"10³")); },
+  6: () => { let s=""; const r=17, w=Math.sqrt(3)*r; for (let row=-1;row<6;row++) for (let col=-1;col<12;col++){ const cx=col*w+(row%2?w/2:0)+8, cy=row*1.5*r+12;
+      const hex=circlePts(6,cx,cy,r-1.5,-Math.PI/2); const k=(row*7+col*3)%9; s+=`<polygon points="${pts(hex)}" fill="${k===0?C.red:k<3?C.vio:C.soft}" stroke="#fff" stroke-width="2"/>`; } return svgWrap(s); },
+  7: () => { let s=`<rect x="120" y="10" width="80" height="140" fill="${C.soft}"/><line x1="120" y1="10" x2="120" y2="150" stroke="${C.dark}" stroke-width="4"/><line x1="200" y1="10" x2="200" y2="150" stroke="${C.dark}" stroke-width="4"/>`;
+    let h=0, P=[[160,140]]; for(let d=1;d<=8;d++){ h+=3; P.push([d%2?170:150,140-12*Math.min(h,10.4)]); if(d<8){ h-=2; P.push([d%2?168:152,140-12*h]); } } let y=140-12*10.4;
+    s+=`<polyline points="${pts(P)}" fill="none" stroke="${C.red}" stroke-width="2" stroke-dasharray="4 3"/>`;
+    s+=`<g transform="translate(150,${y-14})"><path d="M0 14 h22 q6 0 6 -6" fill="none" stroke="${C.vdk}" stroke-width="3"/><circle cx="12" cy="6" r="8" fill="none" stroke="${C.vdk}" stroke-width="3"/><circle cx="12" cy="6" r="3" fill="${C.vdk}"/></g>`;
+    s+=`<text x="230" y="40" font-size="13" font-weight="700" fill="${C.red}">+3 m le jour</text><text x="230" y="60" font-size="13" font-weight="700" fill="${C.vdk}">−2 m la nuit</text>`;
+    return svgWrap(s); },
+  8: () => { let s=`<line x1="40" y1="130" x2="290" y2="130" stroke="${C.dark}" stroke-width="2"/><line x1="40" y1="130" x2="40" y2="12" stroke="${C.dark}" stroke-width="2"/>`;
+    const xs=[40,80,115,160,200,250,290], ys=[118,98,86,62,50,30]; for(let i=0;i<6;i++){ s+=`<line x1="${xs[i]}" y1="${ys[i]}" x2="${xs[i+1]}" y2="${ys[i]}" stroke="${C.red}" stroke-width="3"/>`; if(i>0) s+=`<circle cx="${xs[i]}" cy="${ys[i]}" r="4" fill="${C.red}"/><circle cx="${xs[i]}" cy="${ys[i-1]}" r="4" fill="#fff" stroke="${C.red}" stroke-width="2"/>`; }
+    return svgWrap(s+`<text x="60" y="30" font-size="20" font-style="italic" fill="${C.vdk}">∫ f dα</text>`); },
+  9: () => { let s=`<line x1="20" y1="80" x2="300" y2="80" stroke="${C.dark}" stroke-width="2"/><text x="20" y="108" font-size="14" fill="${C.dark}">0</text><text x="280" y="108" font-size="14" font-weight="800" fill="${C.red}">1</text><line x1="284" y1="70" x2="284" y2="90" stroke="${C.red}" stroke-width="3"/>`;
+    let x=20; for(let k=1;k<=6;k++){ const nx=20+264*(1-Math.pow(.1,k)); s+=`<path d="M${x} 74 Q${(x+nx)/2} ${74-40/k} ${nx} 74" fill="none" stroke="${C.vio}" stroke-width="2"/><circle cx="${nx}" cy="80" r="3.5" fill="${C.vdk}"/>`; x=nx; }
+    return svgWrap(s+`<text x="160" y="140" text-anchor="middle" font-size="16" font-weight="800" fill="${C.dark}">0,9 · 0,99 · 0,999 · …</text>`); },
+  10: () => svgWrap(complete(23, 64, C.vio, .6)),
+  11: () => { let s=""; const proj=(u,v)=>{ const x=(1+v/2*Math.cos(u/2))*Math.cos(u), y=(1+v/2*Math.cos(u/2))*Math.sin(u), z=v/2*Math.sin(u/2); return [160+95*x, 78+38*y-55*z]; };
+    for (let i=0;i<48;i++){ const u=2*Math.PI*i/48; const a=proj(u,-1), b=proj(u,1); s+=`<line x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}" stroke="${i%2?C.vio:C.red}" stroke-width="1.6" opacity=".8"/>`; }
+    const edge=[...Array(193)].map((_,i)=>proj(4*Math.PI*i/192,1)); s+=`<polyline points="${pts(edge)}" fill="none" stroke="${C.dark}" stroke-width="2"/>`; return svgWrap(s); },
+  12: () => { let s=""; [1,2,3,4].forEach((n,k)=>{ const cx=55+k*70; for(let r=0;r<n;r++) for(let c=0;c<=r;c++) s+=`<rect x="${cx-(r+1)*7+c*14+1.5}" y="${120-(n-r)*16}" width="11" height="11" rx="2" fill="${(r+c)%2?C.red:C.vio}"/>`; s+=`<text x="${cx}" y="142" text-anchor="middle" font-size="13" font-weight="700" fill="${C.dark}">${n*(n+1)/2}</text>`; });
+    return svgWrap(s); },
+  13: () => { let s=""; const L="FERMAT"; for(let r=0;r<5;r++) for(let c=0;c<9;c++){ const x=88+c*16, y=24+r*20; const on=(r===2)||(c===4); s+=`<rect x="${x}" y="${y}" width="15" height="19" fill="${on?"#fff":C.soft}" stroke="${C.dark}" stroke-width="1"/>`; if(r===2&&c>=1&&c<7) s+=`<text x="${x+7.5}" y="${y+14}" text-anchor="middle" font-size="12" font-weight="800" fill="${C.red}">${L[c-1]}</text>`; }
+    return svgWrap(s+`<polygon points="70,64 82,70 70,76" fill="${C.red}"/>`); },
+  14: () => svgWrap(`<rect x="0" y="0" width="320" height="150" fill="#fff"/><path d="M110 0 q20 40 0 75 q-20 40 0 75 h100 q20 -40 0 -75 q-20 -40 0 -75z" fill="${C.soft}"/>
+    <path d="M128 92 h64 l-10 16 h-44z" fill="${C.vdk}"/><text x="160" y="88" text-anchor="middle" font-size="22">🐐</text>
+    <text x="50" y="70" text-anchor="middle" font-size="30">🐺</text><text x="50" y="112" text-anchor="middle" font-size="30">🥬</text>
+    <path d="M200 120 q40 20 70 -10" fill="none" stroke="${C.red}" stroke-width="2" stroke-dasharray="4 3"/><text x="272" y="66" text-anchor="middle" font-size="26" font-weight="800" fill="${C.red}">?</text>`),
+  15: () => { const nums=["2026","5994","5355","1998","8082","8532"]; let s=`<circle cx="160" cy="75" r="30" fill="${C.red}"/><text x="160" y="81" text-anchor="middle" font-size="17" font-weight="800" fill="#fff">6174</text>`;
+    circlePts(6,160,75,62).forEach((p,i)=>{ const ex=160+(p[0]-160)*.6, ey=75+(p[1]-75)*.6; s+=`<line x1="${160+(p[0]-160)*.82}" y1="${75+(p[1]-75)*.82}" x2="${ex}" y2="${ey}" stroke="${C.vio}" stroke-width="2"/><text x="${p[0]+(p[0]-160)*.55}" y="${p[1]+(p[1]-75)*.1+5}" text-anchor="middle" font-size="13" font-weight="700" fill="${C.vdk}">${nums[i]}</text>`; });
+    return svgWrap(s); },
+  16: () => { let s=`<circle cx="160" cy="75" r="66" fill="${C.soft}" stroke="${C.vdk}" stroke-width="2"/>`;
+    for(let k=-2;k<=2;k++){ s+=`<ellipse cx="160" cy="75" rx="${Math.abs(66*Math.cos(k*.6))}" ry="66" fill="none" stroke="${C.vio}" stroke-width="1"/>`; const y=75+k*24; const hw=Math.sqrt(66*66-(y-75)**2); s+=`<line x1="${160-hw}" y1="${y}" x2="${160+hw}" y2="${y}" stroke="${C.vio}" stroke-width="1"/>`; }
+    s+=`<clipPath id="gl"><circle cx="160" cy="75" r="65"/></clipPath><g clip-path="url(#gl)">`+[14,28,42,58].map(r=>`<ellipse cx="140" cy="68" rx="${r}" ry="${r*.7}" fill="none" stroke="${C.red}" stroke-width="2"/>`).join("")+`</g>`;
+    return svgWrap(s+`<text x="140" y="74" text-anchor="middle" font-size="15" font-weight="800" fill="${C.red}">D</text>`); },
+  17: () => svgWrap(`<ellipse cx="80" cy="75" rx="30" ry="48" fill="${C.rdk}"/><rect x="80" y="27" width="170" height="96" fill="${C.red}"/><ellipse cx="250" cy="75" rx="30" ry="48" fill="#6b3a2a"/>
+    ${[22,34,44].map(r=>`<ellipse cx="250" cy="75" rx="${r*30/48}" ry="${r}" fill="none" stroke="#c9a27e" stroke-width="1.5"/>`).join("")}
+    <line x1="60" y1="75" x2="285" y2="75" stroke="#fff" stroke-width="2.5" stroke-dasharray="7 5"/><line x1="250" y1="20" x2="250" y2="130" stroke="#fff" stroke-width="2.5" stroke-dasharray="7 5"/>
+    <line x1="165" y1="14" x2="165" y2="136" stroke="${C.dark}" stroke-width="2.5" stroke-dasharray="7 5"/><text x="172" y="18" font-size="12" font-weight="700" fill="${C.dark}">3 coupes</text>`),
+  18: () => { let s=""; const g=Math.PI*(3-Math.sqrt(5)); for(let i=1;i<260;i++){ const r=4.2*Math.sqrt(i), a=i*g; s+=`<circle cx="${160+r*Math.cos(a)}" cy="${75+r*Math.sin(a)}" r="${1.4+i/140}" fill="${i%2?C.red:C.vdk}" opacity=".9"/>`; } return svgWrap(s); },
+  19: () => { const P=[[40,40],[90,25],[150,45],[210,22],[280,40],[290,105],[230,125],[160,100],[100,128],[35,105]]; let s=`<polygon points="${pts(P)}" fill="none" stroke="${C.red}" stroke-width="2.5" stroke-linejoin="round"/>`;
+    P.forEach((p,i)=>s+=`<circle cx="${p[0]}" cy="${p[1]}" r="${i?6:9}" fill="${i?C.vdk:C.red}" stroke="#fff" stroke-width="2"/>`); return svgWrap(s+`<text x="40" y="45" text-anchor="middle" font-size="10" fill="#fff">★</text>`); },
+  20: () => { const d="142857"; let s=`<circle cx="160" cy="75" r="56" fill="none" stroke="${C.vio}" stroke-width="2" stroke-dasharray="3 5"/>`;
+    circlePts(6,160,75,56).forEach((p,i)=>s+=`<circle cx="${p[0]}" cy="${p[1]}" r="15" fill="${i%2?C.vdk:C.red}"/><text x="${p[0]}" y="${p[1]+6}" text-anchor="middle" font-size="17" font-weight="800" fill="#fff">${d[i]}</text>`);
+    return svgWrap(s+`<text x="160" y="81" text-anchor="middle" font-size="17" font-weight="800" fill="${C.dark}">1/7</text>`); },
+  21: () => svgWrap(`<circle cx="160" cy="185" r="140" fill="${C.soft}" stroke="${C.vdk}" stroke-width="2"/>
+    <line x1="160" y1="45" x2="160" y2="185" stroke="${C.vdk}" stroke-width="1" stroke-dasharray="4 3"/><line x1="230" y1="64" x2="160" y2="185" stroke="${C.vdk}" stroke-width="1" stroke-dasharray="4 3"/>
+    <path d="M160 160 A25 25 0 0 1 172.5 163.3" fill="none" stroke="${C.red}" stroke-width="2"/><text x="176" y="150" font-size="12" font-weight="700" fill="${C.red}">7,2°</text>
+    ${[0,1,2,3].map(i=>`<line x1="${130+i*40}" y1="0" x2="${130+i*40}" y2="40" stroke="#e3a21a" stroke-width="2"/>`).join("")}
+    <line x1="160" y1="45" x2="160" y2="30" stroke="${C.dark}" stroke-width="3"/><line x1="230" y1="64" x2="236" y2="51" stroke="${C.dark}" stroke-width="3"/>
+    <text x="140" y="60" text-anchor="end" font-size="12" font-weight="700" fill="${C.dark}">Syène</text><text x="244" y="76" font-size="12" font-weight="700" fill="${C.dark}">Alexandrie</text>`),
+  22: () => svgWrap(`<circle cx="160" cy="75" r="56" fill="${C.soft}" stroke="${C.vdk}" stroke-width="2"/><circle cx="160" cy="75" r="66" fill="none" stroke="${C.red}" stroke-width="3"/>
+    <line x1="216" y1="75" x2="226" y2="75" stroke="${C.dark}" stroke-width="2"/><text x="234" y="80" font-size="14" font-weight="800" fill="${C.dark}">+ 1 m ?</text>
+    <text x="160" y="83" text-anchor="middle" font-size="22">🐈</text>`),
+  23: () => { let s=`<circle cx="160" cy="75" r="62" fill="${C.soft}" stroke="${C.dark}" stroke-width="2.5"/>`; const P=[]; for(let i=0;i<=11;i++) P.push(circlePts(11,160,75,62)[(i*4)%11]);
+    s+=`<polyline points="${pts(P)}" fill="none" stroke="${C.red}" stroke-width="1.8"/>`; return svgWrap(s+`<circle cx="${P[0][0]}" cy="${P[0][1]}" r="6" fill="${C.vdk}"/>`); },
+  24: () => svgWrap(`<rect x="100" y="52" width="120" height="86" rx="6" fill="${C.red}"/><rect x="92" y="38" width="136" height="22" rx="5" fill="${C.rdk}"/>
+    <rect x="152" y="38" width="16" height="100" fill="${C.vio}"/><path d="M160 38 q-34 -34 -40 -6 q4 10 40 6 q36 4 40 -6 q-6 -28 -40 6z" fill="${C.vio}"/>
+    <text x="160" y="110" text-anchor="middle" font-size="30" font-weight="800" fill="#fff">4!</text>
+    ${[[40,40],[270,30],[60,110],[285,115],[30,75]].map(([x,y])=>`<text x="${x}" y="${y}" font-size="18" fill="${C.vio}">✦</text>`).join("")}`)
+};
+
+/* ===================================================================== */
+const $ = s => document.querySelector(s);
+const params = new URLSearchParams(location.search);
+// MODE_APERCU = true : toutes les cases s'ouvrent (version de relecture).
+// Mettre à false pour la version publique : chaque case s'ouvre à sa date.
+const MODE_APERCU = true;
+const PREVIEW = MODE_APERCU || params.has("apercu") || location.hash === "#apercu";
+const store = {
+  get(){ try{ return JSON.parse(localStorage.getItem("avent-maths-"+YEAR)||"[]") }catch(e){ return [] } },
+  set(v){ try{ localStorage.setItem("avent-maths-"+YEAR, JSON.stringify(v)) }catch(e){} }
+};
+let opened = new Set(store.get());
+
+function parisToday(){
+  const p = new Intl.DateTimeFormat("fr-FR",{timeZone:"Europe/Paris",year:"numeric",month:"numeric",day:"numeric"})
+    .formatToParts(new Date()).reduce((o,x)=>(o[x.type]=+x.value,o),{});
+  return {y:p.year,m:p.month,d:p.day};
+}
+function unlockedUpTo(){
+  if (PREVIEW) return 24;
+  const t = parisToday();
+  if (t.y > YEAR) return 24;
+  if (t.y < YEAR || t.m < 12) return 0;
+  return Math.min(t.d, 24);
+}
+const LIMIT = unlockedUpTo();
+
+function renderStatus(){
+  const t = parisToday();
+  let msg;
+  if (PREVIEW) msg = `<span class="pill">Mode aperçu</span> Toutes les cases sont ouvertes pour la relecture.`;
+  else if (LIMIT === 0){
+    const days = Math.round((Date.UTC(YEAR,11,1) - Date.UTC(t.y,t.m-1,t.d)) / 864e5);
+    msg = `<span class="pill">J−${days}</span> La première case s'ouvre le 1ᵉʳ décembre. Revenez vite !`;
+  } else if (LIMIT < 24 && t.y === YEAR) msg = `<span class="pill">${t.d} décembre</span> La case du jour vous attend (elle brille).`;
+  else msg = `<span class="pill">Joyeuses fêtes</span> Toutes les cases sont ouvertes.`;
+  $("#status").innerHTML = msg + `<span class="prog">${opened.size} / 24 cases ouvertes</span>`;
+}
+
+function build(){
+  const g = $("#grid");
+  ORDER.forEach((n,i)=>{
+    const slot = document.createElement("div");
+    slot.className = "slot" + (n===24?" big":"");
+    slot.dataset.day = n;
+    const info = DAYS[n];
+    slot.innerHTML = `
+      <div class="inside">${n===24?"🎁":"✦"}<small>${TAGS[info.type]}</small></div>
+      <button class="door c${(i*7+n)%5}${n===24?" ribbon":""}" aria-label="Case du ${n} décembre">
+        <span class="sym">${n===24?"★":SYMS[(n*5)%SYMS.length]}</span>
+        <span class="num">${n}</span>
+        ${n>LIMIT?'<span class="lock">🔒 '+n+' déc.</span>':'<span class="seen">✓ déjà ouverte</span>'}
+      </button>`;
+    if (n > LIMIT) slot.classList.add("locked");
+    else if (opened.has(n)) slot.classList.add("seen");
+    if (!PREVIEW && n === LIMIT && LIMIT>0 && !opened.has(n) && parisToday().m===12 && parisToday().y===YEAR) slot.classList.add("today");
+    slot.querySelector(".door").addEventListener("click", ()=>tryOpen(n, slot));
+    g.appendChild(slot);
+  });
+  const f = document.createElement("div");
+  f.className = "filler"; f.setAttribute("aria-hidden","true");
+  f.innerHTML = `<div>∑ ∞ π<small>Une case par jour, 24 jours de maths</small></div>`;
+  g.appendChild(f);
+}
+
+function tryOpen(n, slot){
+  if (n > LIMIT){
+    slot.classList.remove("shake"); void slot.offsetWidth; slot.classList.add("shake");
+    toast(n===24 ? "Patience, la dernière case s'ouvre le 24 décembre 🎁" : `Patience ! Cette case s'ouvre le ${n} décembre.`);
+    return;
+  }
+  current = slot;
+  slot.classList.add("open"); slot.classList.remove("today");
+  if (!opened.has(n)){ opened.add(n); store.set([...opened]); renderStatus(); }
+  setTimeout(()=>show(n), 450);
+}
+
+function show(n){
+  const d = DAYS[n];
+  $("#m-day").textContent = `${n === 1 ? "1ᵉʳ" : n} décembre`;
+  $("#m-title").textContent = d.title;
+  $("#m-tag").textContent = TAGS[d.type];
+  const pic = IMAGES[n] ? `<img src="${IMAGES[n]}" alt="">` : (ILLUS[n] ? ILLUS[n]() : "");
+  let html = (pic ? `<div class="pic">${pic}</div>` : "") + d.body;
+  if (d.links) html += `<div class="actions">${d.links.map((l,i)=>`<a class="btn${i===0?" primary":""}" href="${l.url}" target="_blank" rel="noopener">${l.label} ↗</a>`).join("")}</div>`;
+  if (d.sol) html += `<div class="actions"><button class="btn primary" id="sol-btn">Voir la solution</button></div><div class="sol" id="sol">${d.sol}</div>`;
+  $("#m-body").innerHTML = html;
+  const b = $("#sol-btn");
+  if (b) b.onclick = ()=>{ $("#sol").classList.toggle("show"); b.textContent = $("#sol").classList.contains("show") ? "Cacher la solution" : "Voir la solution"; };
+  $("#modal").classList.add("show");
+  $("#m-close").focus();
+}
+let current = null;
+function closeModal(){
+  if (!$("#modal").classList.contains("show")) return;
+  $("#modal").classList.remove("show");
+  // La porte se referme, avec une coche « déjà ouverte »
+  if (current){ const sl = current; current = null; setTimeout(()=>{ sl.classList.remove("open"); sl.classList.add("seen"); sl.querySelector(".door").focus({preventScroll:true}); }, 150); }
+}
+$("#m-close").onclick = closeModal;
+$("#modal").addEventListener("click", e=>{ if (e.target.id==="modal") closeModal() });
+document.addEventListener("keydown", e=>{ if (e.key==="Escape") closeModal() });
+
+let tt;
+function toast(m){ const t=$("#toast"); t.textContent=m; t.classList.add("show"); clearTimeout(tt); tt=setTimeout(()=>t.classList.remove("show"),2400) }
+
+function snow(){
+  const s = $("#snow");
+  for (let i=0;i<26;i++){
+    const e = document.createElement("span");
+    e.textContent = SYMS[i % SYMS.length];
+    e.style.left = (Math.random()*100)+"vw";
+    e.style.fontSize = (14+Math.random()*22)+"px";
+    e.style.animationDuration = (14+Math.random()*16)+"s";
+    e.style.animationDelay = (-Math.random()*30)+"s";
+    s.appendChild(e);
+  }
+}
+
+renderStatus(); build(); snow();
+window.addEventListener("hashchange", ()=>location.reload());
+// Lien direct vers une case : ?jour=5 ou #jour-5 (utile pour un post LinkedIn). Aperçu complet : ?apercu ou #apercu
+const j = +(params.get("jour") || (location.hash.match(/^#jour-(\d+)$/)||[])[1]);
+if (j>=1 && j<=24){ const sl=document.querySelector(`.slot[data-day="${j}"]`); if (sl) tryOpen(j, sl); }
+</script>
+</body>
+</html>
