@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calendrier de l'Avent – Tangram : la promo EUR MINT</title>
+<style>
+  :root {
+    --bg: #0f2a3d;
+    --card: #ffffff;
+    --ink: #1c2733;
+    --muted: #5d6b78;
+    --accent: #c0392b;
+    --accent-dark: #962d22;
+    --gold: #e0a526;
+    --ok: #2e8b57;
+    --line: #e3e7eb;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    color: var(--ink);
+    background: radial-gradient(circle at 20% 10%, #1d4562 0%, var(--bg) 60%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 12px;
+  }
+  .card {
+    background: var(--card);
+    width: 100%;
+    max-width: 720px;
+    border-radius: 18px;
+    box-shadow: 0 20px 50px rgba(0,0,0,.35);
+    overflow: hidden;
+  }
+  header {
+    background: var(--accent);
+    color: #fff;
+    padding: 22px 28px 18px;
+    position: relative;
+  }
+  header .day {
+    position: absolute;
+    right: 22px; top: 18px;
+    width: 54px; height: 54px;
+    border-radius: 50%;
+    background: var(--gold);
+    color: #fff;
+    font-weight: 800;
+    font-size: 26px;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: inset 0 -3px 0 rgba(0,0,0,.15);
+  }
+  header small { display: block; padding-right: 70px; text-transform: uppercase; letter-spacing: .12em; opacity: .85; font-size: 12px; }
+  header h1 { margin: 6px 0 0; font-size: 24px; line-height: 1.25; padding-right: 70px; }
+  .progress { height: 6px; background: var(--line); }
+  .progress > div { height: 100%; width: 0; background: var(--gold); transition: width .35s ease; }
+  main { padding: 18px 20px 22px; }
+  .intro { margin: 0 0 12px; color: var(--muted); font-size: 15px; line-height: 1.5; }
+  .bar {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 10px; flex-wrap: wrap; margin-bottom: 10px;
+  }
+  .stats { font-size: 14px; color: var(--muted); }
+  .stats b { color: var(--ink); }
+  .btns { display: flex; gap: 8px; flex-wrap: wrap; }
+  .btn {
+    font: inherit; font-size: 14px; font-weight: 600;
+    padding: 9px 16px; border-radius: 999px; cursor: pointer;
+    border: 2px solid var(--accent); background: #fff; color: var(--accent);
+  }
+  .btn:hover { background: #fff7f6; }
+  .btn.primary { background: var(--accent); color: #fff; }
+  .btn.primary:hover { background: var(--accent-dark); border-color: var(--accent-dark); }
+  .btn[aria-pressed="true"] { background: var(--accent); color: #fff; }
+  .board-wrap {
+    background: #f3f5f7;
+    border-radius: 14px;
+    border: 1px solid var(--line);
+    overflow: hidden;
+  }
+  svg { display: block; width: 100%; height: auto; touch-action: none; user-select: none; -webkit-user-select: none; }
+  .target { fill: #fff; stroke: #b7c0c8; stroke-width: 2; stroke-dasharray: 10 8; vector-effect: non-scaling-stroke; }
+  .ghost { opacity: 0; transition: opacity .25s; pointer-events: none; }
+  .ghost.show { opacity: .3; }
+  .piece { cursor: grab; }
+  .piece.dragging { cursor: grabbing; }
+  .piece.anim { transition: transform .22s ease; }
+  .piece .edge { fill: none; stroke: #fff; stroke-width: 2.5; vector-effect: non-scaling-stroke; stroke-linejoin: round; }
+  .piece.loose { filter: drop-shadow(0 4px 6px rgba(0,0,0,.28)); }
+  .piece.placed { cursor: default; }
+  .piece.placed .edge { stroke: rgba(255,255,255,.55); stroke-width: 1.2; }
+  .done .piece.placed .edge { stroke: transparent; }
+  .final { opacity: 0; pointer-events: none; transition: opacity .6s ease .25s; }
+  .done .final { opacity: 1; }
+  .win {
+    display: none;
+    margin-top: 14px;
+    padding: 16px 18px;
+    border-radius: 12px;
+    background: #e8f5ee;
+    line-height: 1.5;
+    font-size: 15px;
+  }
+  .win.show { display: block; }
+  .win strong { display: block; color: var(--ok); font-size: 18px; margin-bottom: 4px; }
+  .win .btns { margin-top: 12px; }
+  footer { padding: 0 24px 18px; font-size: 12px; color: var(--muted); }
+  footer a { color: var(--muted); }
+  @media (max-width: 480px) {
+    header { padding: 18px 20px 14px; }
+    header h1 { font-size: 20px; }
+    main { padding: 14px 12px 18px; }
+  }
+</style>
+</head>
+<body>
+<div class="card">
+  <header>
+    <small>Calendrier de l'Avent des Maths à Toulouse</small>
+    <h1>Tangram : la promo EUR MINT</h1>
+    <div class="day" style="font-size:22px" aria-hidden="true">🧩</div>
+  </header>
+  <div class="progress"><div id="progress"></div></div>
+  <main>
+    <p class="intro">La photo de la promotion 2025-2026 de l'EUR MINT a été découpée en 7 pièces de tangram. <b>Faites glisser</b> les pièces dans le carré et <b>touchez-les</b> pour les faire tourner d'un huitième de tour. Une pièce bien placée s'aimante toute seule.</p>
+    <div class="bar">
+      <div class="stats">Pièces placées : <b id="placed">0</b> / 7 · Coups : <b id="moves">0</b></div>
+      <div class="btns">
+        <button class="btn" id="hint" aria-pressed="false">Voir le modèle</button>
+        <button class="btn" id="shuffle">Mélanger</button>
+      </div>
+    </div>
+    <div class="board-wrap">
+      <svg id="board" viewBox="0 0 1000 1000" aria-label="Plateau du tangram">
+        <defs id="defs"></defs>
+        <rect class="target" x="240" y="240" width="520" height="520" rx="2"></rect>
+        <image class="ghost" id="ghost" href="mint-2025-2026.jpg" x="240" y="240" width="520" height="520" preserveAspectRatio="none"></image>
+        <g id="placedLayer"></g>
+        <g id="looseLayer"></g>
+        <image class="final" id="final" href="mint-2025-2026.jpg" x="240" y="240" width="520" height="520" preserveAspectRatio="none"></image>
+      </svg>
+    </div>
+    <div class="win" id="win" role="status">
+      <strong>Bravo, la promo est au complet !</strong>
+      <span id="winText"></span>
+      <div class="btns">
+        <button class="btn primary" id="again">Rejouer</button>
+        <a class="btn" href="https://mint.math.univ-toulouse.fr/fr/" target="_blank" rel="noopener" style="text-decoration:none">Découvrir l'EUR MINT</a>
+      </div>
+    </div>
+  </main>
+  <footer>Photo : promotion 2025-2026 de l'<a href="https://mint.math.univ-toulouse.fr/fr/" target="_blank" rel="noopener">EUR MINT</a>, Institut de Mathématiques de Toulouse.</footer>
+</div>
+
+<script>
+const IMG = "mint-2025-2026.jpg";
+const OX = 240, OY = 240, L = 520;     // carré cible
+const TOL = 40;                         // tolérance d'aimantation (unités du plateau)
+const NS = "http://www.w3.org/2000/svg";
+
+// Découpage classique du carré unité en 7 pièces
+const SHAPES = [
+  [[0,0],[1,0],[.5,.5]],                    // grand triangle
+  [[0,0],[.5,.5],[0,1]],                    // grand triangle
+  [[1,.5],[1,1],[.5,1]],                    // triangle moyen
+  [[.5,.5],[.75,.25],[1,.5],[.75,.75]],     // carré
+  [[.75,.25],[1,0],[1,.5]],                 // petit triangle
+  [[.5,.5],[.75,.75],[.25,.75]],            // petit triangle
+  [[0,1],[.25,.75],[.75,.75],[.5,1]]        // parallélogramme
+];
+
+const svg = document.getElementById("board");
+const defs = document.getElementById("defs");
+const placedLayer = document.getElementById("placedLayer");
+const looseLayer = document.getElementById("looseLayer");
+let pieces = [], moves = 0;
+
+function build() {
+  defs.innerHTML = ""; placedLayer.innerHTML = ""; looseLayer.innerHTML = "";
+  svg.classList.remove("done");
+  pieces = SHAPES.map((shape, i) => {
+    const cx = OX + L * shape.reduce((s, p) => s + p[0], 0) / shape.length;
+    const cy = OY + L * shape.reduce((s, p) => s + p[1], 0) / shape.length;
+    const local = shape.map(([x, y]) => `${OX + L*x - cx},${OY + L*y - cy}`).join(" ");
+    const clip = document.createElementNS(NS, "clipPath");
+    clip.id = "clip" + i;
+    clip.innerHTML = `<polygon points="${local}"/>`;
+    defs.appendChild(clip);
+    const g = document.createElementNS(NS, "g");
+    g.classList.add("piece", "loose");
+    g.innerHTML = `<image href="${IMG}" x="${OX - cx}" y="${OY - cy}" width="${L}" height="${L}" preserveAspectRatio="none" clip-path="url(#clip${i})"/>
+                   <polygon class="edge" points="${local}"/>`;
+    looseLayer.appendChild(g);
+    const rad = Math.max(...shape.map(([x, y]) => Math.hypot(OX + L*x - cx, OY + L*y - cy)));
+    const p = { i, g, cx, cy, rad, x: 0, y: 0, r: 0, placed: false };
+    attach(p);
+    return p;
+  });
+}
+
+function setPos(p, anim) {
+  p.g.classList.toggle("anim", !!anim);
+  p.g.style.transform = `translate(${p.x}px, ${p.y}px) rotate(${p.r}deg)`;
+}
+
+function shuffle() {
+  moves = 0;
+  build();
+  // positions de départ réparties autour et sur le plateau, sans chevauchement complet
+  const spots = [[170,170],[830,170],[500,140],[160,520],[840,520],[260,860],[740,860],[500,520],[500,860]];
+  spots.sort(() => Math.random() - .5);
+  pieces.forEach((p, k) => {
+    const [sx, sy] = spots[k];
+    const lo = p.rad + 8, hi = 1000 - p.rad - 8;   // la pièce reste entière sur le plateau
+    p.x = Math.min(hi, Math.max(lo, sx + (Math.random() - .5) * 40));
+    p.y = Math.min(hi, Math.max(lo, sy + (Math.random() - .5) * 40));
+    p.r = 45 * (1 + Math.floor(Math.random() * 7));   // jamais déjà dans le bon sens
+    setPos(p, false);
+  });
+  document.getElementById("win").classList.remove("show");
+  update();
+}
+
+function svgPoint(evt) {
+  const pt = svg.createSVGPoint();
+  pt.x = evt.clientX; pt.y = evt.clientY;
+  return pt.matrixTransform(svg.getScreenCTM().inverse());
+}
+
+function attach(p) {
+  let start = null;
+  p.g.addEventListener("pointerdown", e => {
+    if (p.placed) return;
+    e.preventDefault();
+    p.g.setPointerCapture(e.pointerId);
+    const s = svgPoint(e);
+    start = { sx: s.x, sy: s.y, px: p.x, py: p.y, t: Date.now(), moved: 0 };
+    looseLayer.appendChild(p.g);          // au premier plan
+    p.g.classList.add("dragging");
+    setPos(p, false);
+  });
+  p.g.addEventListener("pointermove", e => {
+    if (!start) return;
+    const s = svgPoint(e);
+    const dx = s.x - start.sx, dy = s.y - start.sy;
+    start.moved = Math.max(start.moved, Math.hypot(dx, dy));
+    p.x = start.px + dx; p.y = start.py + dy;
+    setPos(p, false);
+  });
+  const end = () => {
+    if (!start) return;
+    p.g.classList.remove("dragging");
+    const tap = start.moved < 8 && Date.now() - start.t < 400;
+    start = null;
+    if (tap) p.r += 45;
+    p.x = Math.min(960, Math.max(40, p.x));
+    p.y = Math.min(960, Math.max(40, p.y));
+    moves++;
+    setPos(p, true);
+    trySnap(p);
+    update();
+  };
+  p.g.addEventListener("pointerup", end);
+  p.g.addEventListener("pointercancel", end);
+}
+
+function trySnap(p) {
+  const upright = ((p.r % 360) + 360) % 360 === 0;
+  if (upright && Math.hypot(p.x - p.cx, p.y - p.cy) < TOL) {
+    p.x = p.cx; p.y = p.cy; p.r = 0;
+    p.placed = true;
+    p.g.classList.remove("loose");
+    p.g.classList.add("placed");
+    placedLayer.appendChild(p.g);
+    setPos(p, true);
+  }
+}
+
+function update() {
+  const n = pieces.filter(p => p.placed).length;
+  document.getElementById("placed").textContent = n;
+  document.getElementById("moves").textContent = moves;
+  document.getElementById("progress").style.width = (n / 7 * 100) + "%";
+  if (n === 7) {
+    svg.classList.add("done");
+    document.getElementById("winText").textContent =
+      `Vous avez reconstitué la photo de la promotion 2025-2026 de l'EUR MINT en ${moves} coups.`;
+    document.getElementById("win").classList.add("show");
+    document.getElementById("hint").setAttribute("aria-pressed", "false");
+    document.getElementById("ghost").classList.remove("show");
+  }
+}
+
+document.getElementById("hint").addEventListener("click", e => {
+  const on = e.currentTarget.getAttribute("aria-pressed") !== "true";
+  e.currentTarget.setAttribute("aria-pressed", on);
+  document.getElementById("ghost").classList.toggle("show", on);
+});
+document.getElementById("shuffle").addEventListener("click", shuffle);
+document.getElementById("again").addEventListener("click", shuffle);
+
+shuffle();
+</script>
+</body>
+</html>
