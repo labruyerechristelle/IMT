@@ -208,9 +208,11 @@ const DAYS = {
            <p>Laboratoires, semestres thématiques, langue des signes… 5 questions pour tester vos connaissances.</p>
 `,
      links:[{label:"Jouer au quiz", url:"https://labruyerechristelle.github.io/IMT/calendrier-avent/quiz/quiz-02-cimi.html"}]},
-  8:{type:"toulouse", title:"Stieltjes, de Delft à Toulouse",
-     body:`<p>Né aux Pays-Bas en 1856, <b>Thomas Joannes Stieltjes</b> devient professeur à la faculté des sciences de Toulouse en 1886, et y reste jusqu'à sa mort en 1894.</p>
-           <p>C'est à Toulouse qu'il écrit son grand mémoire sur les <b>fractions continues</b>, où apparaît l'<b>intégrale de Stieltjes</b>, encore enseignée aujourd'hui en analyse et en probabilités.</p>`},
+  8:{type:"jeu", title:"Tangram : les lauréats des prix Fermat",
+     body:`<p>La photo des lauréats 2025 du <b>prix Fermat</b> et du <b>prix Fermat Junior</b> a été découpée en 7 pièces de tangram.</p>
+           <p>Faites glisser, tournez… et reconstituez la photo en un minimum de coups !</p>
+`,
+     links:[{label:"Jouer au tangram", url:"https://labruyerechristelle.github.io/IMT/calendrier-avent/tangram/"}]},
   9:{type:"savoir", title:"0,999… = 1",
      body:`<p>Ça choque souvent, et pourtant c'est vrai : <span class="math">0,999… = 1</span> (avec une infinité de 9).</p>
            <p>Une preuve express : <span class="math">1/3 = 0,333…</span> Multiplions par 3 : <span class="math">3/3 = 0,999…</span> Or 3/3 = 1.</p>
@@ -301,7 +303,7 @@ const ORDER = [7,18,3,24,12,21,1,15,9,22,5,14,10,2,19,6,23,11,16,13,4,20,8,17];
    ILLUSTRATIONS (une par case) — dessins SVG générés, 320 × 150.
    Pour utiliser une image à la place : IMAGES[n] = "images/mon-image.jpg"
    ===================================================================== */
-const IMAGES = {1:"logos/eur-mint.png", 7:"logos/cimi.png", 10:"logos/imt.png", 15:"logos/imt.png"};
+const IMAGES = {1:"logos/eur-mint.png", 7:"logos/cimi.png", 8:"tangram/fermat-2025-v2.jpg", 10:"logos/imt.png", 15:"logos/imt.png"};
 const C = {red:"#cd1919", vio:"#9384BB", vdk:"#6c5e98", dark:"#2c2840", rdk:"#a51212", soft:"#ece8f4"};
 const W = 320, H = 150;
 const svgWrap = inner => `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" font-family="Inter,Helvetica,Arial,sans-serif">${inner}</svg>`;
