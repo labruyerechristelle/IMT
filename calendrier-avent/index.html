@@ -269,10 +269,11 @@ const DAYS = {
            <p>Multipliez-le par 2, 3, 4, 5 ou 6 : on retrouve <b>les mêmes chiffres, dans le même ordre circulaire</b>.</p>
            <p><span class="math">× 2 = 285714</span> <span class="math">× 3 = 428571</span> <span class="math">× 4 = 571428</span> <span class="math">× 5 = 714285</span> <span class="math">× 6 = 857142</span></p>
            <p>Et × 7 ? <span class="math">999999</span>. Le secret : <span class="math">1/7 = 0,142857142857…</span></p>`},
-  21:{type:"savoir", title:"Solstice : mesurer la Terre avec une ombre",
-     body:`<p>Aujourd'hui, c'est le jour le plus court de l'année.</p>
-           <p>Il y a plus de 2 200 ans, Ératosthène savait qu'au solstice d'été, à Syène (Assouan), le soleil de midi tombait à la verticale. Au même moment, à Alexandrie, plus au nord, un bâton faisait une ombre : les rayons y arrivaient avec un angle de <b>7,2°</b>, soit <b>1/50ᵉ de tour</b>.</p>
-           <p>Conclusion : la circonférence de la Terre vaut <b>50 fois la distance</b> entre les deux villes. Un résultat remarquablement proche de la réalité, avec un bâton et de la géométrie.</p>`},
+  21:{type:"enigme", title:"Le paradoxe des anniversaires",
+     body:`<p>À une fête, on cherche deux personnes nées le même jour de l'année.</p>
+           <p><b>Combien faut-il d'invité·es pour avoir plus d'une chance sur deux d'y arriver ?</b></p>`,
+     sol:`<p><b>Seulement 23 !</b> Avec 23 personnes, la probabilité dépasse 50 %. Avec 57, elle dépasse 99 %.</p>
+          <p>L'intuition se trompe car on ne compare pas une personne aux autres : on compare <b>toutes les paires</b>. Et avec 23 personnes, il y a déjà 253 paires.</p>`},
   22:{type:"enigme", title:"Le ruban autour de la Terre",
      body:`<p>On entoure la Terre, à l'équateur, d'un ruban bien serré (environ 40 000 km). Puis on rallonge ce ruban de <b>1 mètre</b> seulement, et on le soulève uniformément tout autour.</p>
            <p><b>Un chat pourrait-il passer dessous ?</b></p>`,
@@ -346,7 +347,7 @@ const ILLUS = {
   9: () => { let s=`<line x1="20" y1="80" x2="300" y2="80" stroke="${C.dark}" stroke-width="2"/><text x="20" y="108" font-size="14" fill="${C.dark}">0</text><text x="280" y="108" font-size="14" font-weight="800" fill="${C.red}">1</text><line x1="284" y1="70" x2="284" y2="90" stroke="${C.red}" stroke-width="3"/>`;
     let x=20; for(let k=1;k<=6;k++){ const nx=20+264*(1-Math.pow(.1,k)); s+=`<path d="M${x} 74 Q${(x+nx)/2} ${74-40/k} ${nx} 74" fill="none" stroke="${C.vio}" stroke-width="2"/><circle cx="${nx}" cy="80" r="3.5" fill="${C.vdk}"/>`; x=nx; }
     return svgWrap(s+`<text x="160" y="140" text-anchor="middle" font-size="16" font-weight="800" fill="${C.dark}">0,9 · 0,99 · 0,999 · …</text>`); },
-  10: () => svgWrap(complete(23, 64, C.vio, .6)),
+  21: () => svgWrap(complete(23, 64, C.vio, .6)),
   11: () => { let s=""; const proj=(u,v)=>{ const x=(1+v/2*Math.cos(u/2))*Math.cos(u), y=(1+v/2*Math.cos(u/2))*Math.sin(u), z=v/2*Math.sin(u/2); return [160+95*x, 78+38*y-55*z]; };
     for (let i=0;i<48;i++){ const u=2*Math.PI*i/48; const a=proj(u,-1), b=proj(u,1); s+=`<line x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}" stroke="${i%2?C.vio:C.red}" stroke-width="1.6" opacity=".8"/>`; }
     const edge=[...Array(193)].map((_,i)=>proj(4*Math.PI*i/192,1)); s+=`<polyline points="${pts(edge)}" fill="none" stroke="${C.dark}" stroke-width="2"/>`; return svgWrap(s); },
@@ -375,12 +376,6 @@ const ILLUS = {
   20: () => { const d="142857"; let s=`<circle cx="160" cy="75" r="56" fill="none" stroke="${C.vio}" stroke-width="2" stroke-dasharray="3 5"/>`;
     circlePts(6,160,75,56).forEach((p,i)=>s+=`<circle cx="${p[0]}" cy="${p[1]}" r="15" fill="${i%2?C.vdk:C.red}"/><text x="${p[0]}" y="${p[1]+6}" text-anchor="middle" font-size="17" font-weight="800" fill="#fff">${d[i]}</text>`);
     return svgWrap(s+`<text x="160" y="81" text-anchor="middle" font-size="17" font-weight="800" fill="${C.dark}">1/7</text>`); },
-  21: () => svgWrap(`<circle cx="160" cy="185" r="140" fill="${C.soft}" stroke="${C.vdk}" stroke-width="2"/>
-    <line x1="160" y1="45" x2="160" y2="185" stroke="${C.vdk}" stroke-width="1" stroke-dasharray="4 3"/><line x1="230" y1="64" x2="160" y2="185" stroke="${C.vdk}" stroke-width="1" stroke-dasharray="4 3"/>
-    <path d="M160 160 A25 25 0 0 1 172.5 163.3" fill="none" stroke="${C.red}" stroke-width="2"/><text x="176" y="150" font-size="12" font-weight="700" fill="${C.red}">7,2°</text>
-    ${[0,1,2,3].map(i=>`<line x1="${130+i*40}" y1="0" x2="${130+i*40}" y2="40" stroke="#e3a21a" stroke-width="2"/>`).join("")}
-    <line x1="160" y1="45" x2="160" y2="30" stroke="${C.dark}" stroke-width="3"/><line x1="230" y1="64" x2="236" y2="51" stroke="${C.dark}" stroke-width="3"/>
-    <text x="140" y="60" text-anchor="end" font-size="12" font-weight="700" fill="${C.dark}">Syène</text><text x="244" y="76" font-size="12" font-weight="700" fill="${C.dark}">Alexandrie</text>`),
   22: () => svgWrap(`<circle cx="160" cy="75" r="56" fill="${C.soft}" stroke="${C.vdk}" stroke-width="2"/><circle cx="160" cy="75" r="66" fill="none" stroke="${C.red}" stroke-width="3"/>
     <line x1="216" y1="75" x2="226" y2="75" stroke="${C.dark}" stroke-width="2"/><text x="234" y="80" font-size="14" font-weight="800" fill="${C.dark}">+ 1 m ?</text>
     <text x="160" y="83" text-anchor="middle" font-size="22">🐈</text>`),
