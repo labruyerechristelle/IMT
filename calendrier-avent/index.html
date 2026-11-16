@@ -175,10 +175,11 @@
    ===================================================================== */
 const YEAR = 2026;
 const DAYS = {
-  1:{type:"savoir", title:"Le flocon infini",
-     body:`<p>Prenez un triangle équilatéral. Sur chaque côté, ajoutez un petit triangle au milieu. Recommencez sur chaque nouveau côté… à l'infini.</p>
-           <p>Vous obtenez le <b>flocon de Koch</b> (1904) : son <b>périmètre est infini</b>, mais son <b>aire reste finie</b>, exactement <span class="math">8/5</span> de celle du triangle de départ.</p>
-           <p>Une fractale qui tient dans une boîte, mais qu'on ne pourrait jamais entourer d'un ruban.</p>`},
+  1:{type:"jeu", title:"Quiz : l'EUR MINT",
+     body:`<p>Pour ouvrir le calendrier, un petit quiz de 5 questions sur l'<b>EUR MINT</b>, la graduate school de mathématiques de Toulouse.</p>
+           <p>Masterclasses, bourses, école d'été… la connaissez-vous vraiment ?</p>
+`,
+     links:[{label:"Jouer au quiz", url:"https://labruyerechristelle.github.io/IMT/calendrier-avent/quiz/quiz-01-eur-mint.html"}]},
   2:{type:"enigme", title:"Les chaussettes de Noël",
      body:`<p>Dans un tiroir plongé dans le noir, il y a des chaussettes rouges et des chaussettes vertes, bien mélangées.</p>
            <p><b>Combien de chaussettes faut-il prendre, au minimum, pour être sûr·e d'avoir une paire de la même couleur ?</b></p>`,
@@ -298,7 +299,7 @@ const ORDER = [7,18,3,24,12,21,1,15,9,22,5,14,10,2,19,6,23,11,16,13,4,20,8,17];
    ILLUSTRATIONS (une par case) — dessins SVG générés, 320 × 150.
    Pour utiliser une image à la place : IMAGES[n] = "images/mon-image.jpg"
    ===================================================================== */
-const IMAGES = {};
+const IMAGES = {1:"logos/eur-mint.png"};
 const C = {red:"#cd1919", vio:"#9384BB", vdk:"#6c5e98", dark:"#2c2840", rdk:"#a51212", soft:"#ece8f4"};
 const W = 320, H = 150;
 const svgWrap = inner => `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" font-family="Inter,Helvetica,Arial,sans-serif">${inner}</svg>`;
