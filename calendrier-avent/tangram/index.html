@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Calendrier de l'Avent – Tangram : la promo EUR MINT</title>
+<title>Calendrier de l'Avent – Tangram : les lauréats du prix Fermat 2025</title>
 <style>
   :root {
     --bg: #0f2a3d;
@@ -50,7 +50,7 @@
     background: var(--gold);
     color: #fff;
     font-weight: 800;
-    font-size: 26px;
+    font-size: 22px;
     display: flex; align-items: center; justify-content: center;
     box-shadow: inset 0 -3px 0 rgba(0,0,0,.15);
   }
@@ -71,6 +71,7 @@
     font: inherit; font-size: 14px; font-weight: 600;
     padding: 9px 16px; border-radius: 999px; cursor: pointer;
     border: 2px solid var(--accent); background: #fff; color: var(--accent);
+    text-decoration: none; display: inline-block;
   }
   .btn:hover { background: #fff7f6; }
   .btn.primary { background: var(--accent); color: #fff; }
@@ -82,18 +83,16 @@
     border: 1px solid var(--line);
     overflow: hidden;
   }
-  svg { display: block; width: 100%; height: auto; touch-action: none; user-select: none; -webkit-user-select: none; }
+  svg { display: block; width: 100%; height: auto; touch-action: none; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }
   .target { fill: #fff; stroke: #b7c0c8; stroke-width: 2; stroke-dasharray: 10 8; vector-effect: non-scaling-stroke; }
   .ghost { opacity: 0; transition: opacity .25s; pointer-events: none; }
   .ghost.show { opacity: .3; }
   .piece { cursor: grab; }
   .piece.dragging { cursor: grabbing; }
-  .piece.anim { transition: transform .22s ease; }
   .piece .edge { fill: none; stroke: #fff; stroke-width: 2.5; vector-effect: non-scaling-stroke; stroke-linejoin: round; }
-  .piece.loose { filter: drop-shadow(0 4px 6px rgba(0,0,0,.28)); }
-  .piece.placed { cursor: default; }
+  .piece.placed { cursor: default; pointer-events: none; }
+  .piece.placed .shadow { display: none; }
   .piece.placed .edge { stroke: rgba(255,255,255,.55); stroke-width: 1.2; }
-  .done .piece.placed .edge { stroke: transparent; }
   .final { opacity: 0; pointer-events: none; transition: opacity .6s ease .25s; }
   .done .final { opacity: 1; }
   .win {
@@ -108,7 +107,7 @@
   .win.show { display: block; }
   .win strong { display: block; color: var(--ok); font-size: 18px; margin-bottom: 4px; }
   .win .btns { margin-top: 12px; }
-  footer { padding: 0 24px 18px; font-size: 12px; color: var(--muted); }
+  footer { padding: 0 24px 18px; font-size: 12px; color: var(--muted); line-height: 1.5; }
   footer a { color: var(--muted); }
   @media (max-width: 480px) {
     header { padding: 18px 20px 14px; }
@@ -121,16 +120,17 @@
 <div class="card">
   <header>
     <small>Calendrier de l'Avent des Maths à Toulouse</small>
-    <h1>Tangram : la promo EUR MINT</h1>
-    <div class="day" style="font-size:22px" aria-hidden="true">🧩</div>
+    <h1>Tangram : les lauréats du prix Fermat 2025</h1>
+    <div class="day" aria-hidden="true">🧩</div>
   </header>
   <div class="progress"><div id="progress"></div></div>
   <main>
-    <p class="intro">La photo de la promotion 2025-2026 de l'EUR MINT a été découpée en 7 pièces de tangram. <b>Faites glisser</b> les pièces dans le carré et <b>touchez-les</b> pour les faire tourner d'un huitième de tour. Une pièce bien placée s'aimante toute seule.</p>
+    <p class="intro">La photo des lauréats du prix Fermat 2025, prise à l'Institut de Mathématiques de Toulouse, a été découpée en 7 pièces de tangram. <b>Faites glisser</b> les pièces dans le carré et <b>touchez-les</b> pour les faire tourner d'un huitième de tour. Une pièce bien placée, dans le bon sens, s'aimante toute seule.</p>
     <div class="bar">
       <div class="stats">Pièces placées : <b id="placed">0</b> / 7 · Coups : <b id="moves">0</b></div>
       <div class="btns">
         <button class="btn" id="hint" aria-pressed="false">Voir le modèle</button>
+        <button class="btn" id="tidy">Ranger</button>
         <button class="btn" id="shuffle">Mélanger</button>
       </div>
     </div>
@@ -138,28 +138,29 @@
       <svg id="board" viewBox="0 0 1000 1000" aria-label="Plateau du tangram">
         <defs id="defs"></defs>
         <rect class="target" x="240" y="240" width="520" height="520" rx="2"></rect>
-        <image class="ghost" id="ghost" href="mint-2025-2026.jpg" x="240" y="240" width="520" height="520" preserveAspectRatio="none"></image>
+        <image class="ghost" id="ghost" href="fermat-2025.jpg" x="240" y="240" width="520" height="520" preserveAspectRatio="none"></image>
         <g id="placedLayer"></g>
         <g id="looseLayer"></g>
-        <image class="final" id="final" href="mint-2025-2026.jpg" x="240" y="240" width="520" height="520" preserveAspectRatio="none"></image>
+        <image class="final" id="final" href="fermat-2025.jpg" x="240" y="240" width="520" height="520" preserveAspectRatio="none"></image>
       </svg>
     </div>
     <div class="win" id="win" role="status">
-      <strong>Bravo, la promo est au complet !</strong>
+      <strong>Bravo, la photo est complète !</strong>
       <span id="winText"></span>
       <div class="btns">
         <button class="btn primary" id="again">Rejouer</button>
-        <a class="btn" href="https://mint.math.univ-toulouse.fr/fr/" target="_blank" rel="noopener" style="text-decoration:none">Découvrir l'EUR MINT</a>
+        <a class="btn" href="https://www.math.univ-toulouse.fr/fr/activites/prix-fermat/" target="_blank" rel="noopener">Découvrir le prix Fermat</a>
       </div>
     </div>
   </main>
-  <footer>Photo : promotion 2025-2026 de l'<a href="https://mint.math.univ-toulouse.fr/fr/" target="_blank" rel="noopener">EUR MINT</a>, Institut de Mathématiques de Toulouse.</footer>
+  <footer>Photo : lauréats du <a href="https://www.math.univ-toulouse.fr/fr/activites/prix-fermat/" target="_blank" rel="noopener">prix Fermat 2025</a>, Institut de Mathématiques de Toulouse. Le prix Fermat est décerné tous les deux ans à Toulouse par l'IMT.</footer>
 </div>
 
 <script>
-const IMG = "mint-2025-2026.jpg";
-const OX = 240, OY = 240, L = 520;     // carré cible
-const TOL = 40;                         // tolérance d'aimantation (unités du plateau)
+const IMG = "fermat-2025.jpg";
+const SIZE = 1000;                      // plateau : 1000 × 1000 unités
+const OX = 240, OY = 240, L = 520;      // carré cible
+const TOL = 40;                         // tolérance d'aimantation
 const NS = "http://www.w3.org/2000/svg";
 
 // Découpage classique du carré unité en 7 pièces
@@ -177,109 +178,129 @@ const svg = document.getElementById("board");
 const defs = document.getElementById("defs");
 const placedLayer = document.getElementById("placedLayer");
 const looseLayer = document.getElementById("looseLayer");
-let pieces = [], moves = 0;
+let pieces = [], moves = 0, drag = null;
 
+/* ---------- Construction des pièces ---------- */
 function build() {
   defs.innerHTML = ""; placedLayer.innerHTML = ""; looseLayer.innerHTML = "";
   svg.classList.remove("done");
+  drag = null;
   pieces = SHAPES.map((shape, i) => {
     const cx = OX + L * shape.reduce((s, p) => s + p[0], 0) / shape.length;
     const cy = OY + L * shape.reduce((s, p) => s + p[1], 0) / shape.length;
-    const local = shape.map(([x, y]) => `${OX + L*x - cx},${OY + L*y - cy}`).join(" ");
+    const pts = shape.map(([x, y]) => [OX + L*x - cx, OY + L*y - cy]);
+    const local = pts.map(p => p.join(",")).join(" ");
+    const rad = Math.max(...pts.map(([x, y]) => Math.hypot(x, y)));   // rayon du cercle qui contient la pièce
     const clip = document.createElementNS(NS, "clipPath");
     clip.id = "clip" + i;
     clip.innerHTML = `<polygon points="${local}"/>`;
     defs.appendChild(clip);
     const g = document.createElementNS(NS, "g");
-    g.classList.add("piece", "loose");
-    g.innerHTML = `<image href="${IMG}" x="${OX - cx}" y="${OY - cy}" width="${L}" height="${L}" preserveAspectRatio="none" clip-path="url(#clip${i})"/>
+    g.setAttribute("class", "piece");
+    g.innerHTML = `<polygon class="shadow" points="${local}" fill="#000" opacity=".16" transform="translate(5 7)"/>
+                   <image href="${IMG}" x="${OX - cx}" y="${OY - cy}" width="${L}" height="${L}" preserveAspectRatio="none" clip-path="url(#clip${i})"/>
                    <polygon class="edge" points="${local}"/>`;
     looseLayer.appendChild(g);
-    const rad = Math.max(...shape.map(([x, y]) => Math.hypot(OX + L*x - cx, OY + L*y - cy)));
-    const p = { i, g, cx, cy, rad, x: 0, y: 0, r: 0, placed: false };
-    attach(p);
+    const p = { i, g, cx, cy, rad, x: cx, y: cy, r: 0, placed: false, shown: null, anim: null };
+    g.addEventListener("pointerdown", e => startDrag(e, p));
     return p;
   });
 }
 
-function setPos(p, anim) {
-  p.g.classList.toggle("anim", !!anim);
-  p.g.style.transform = `translate(${p.x}px, ${p.y}px) rotate(${p.r}deg)`;
+/* ---------- Affichage : attribut SVG "transform", en unités du plateau ---------- */
+function draw(p, x, y, r) {
+  p.g.setAttribute("transform", `translate(${x.toFixed(2)} ${y.toFixed(2)}) rotate(${r.toFixed(2)})`);
+  p.shown = { x, y, r };
+}
+function setPos(p, animate) {
+  if (p.anim) { cancelAnimationFrame(p.anim); p.anim = null; }
+  if (!animate || !p.shown) { draw(p, p.x, p.y, p.r); return; }
+  const a = { ...p.shown }, t0 = performance.now();
+  const step = t => {
+    const k = Math.min(1, (t - t0) / 220), e = 1 - Math.pow(1 - k, 3);
+    draw(p, a.x + (p.x - a.x) * e, a.y + (p.y - a.y) * e, a.r + (p.r - a.r) * e);
+    p.anim = k < 1 ? requestAnimationFrame(step) : null;
+  };
+  p.anim = requestAnimationFrame(step);
+}
+// La pièce reste toujours entière sur le plateau, quelle que soit sa rotation
+function clamp(p) {
+  const lo = p.rad + 6, hi = SIZE - p.rad - 6;
+  p.x = Math.min(hi, Math.max(lo, p.x));
+  p.y = Math.min(hi, Math.max(lo, p.y));
 }
 
+/* ---------- Mélange ---------- */
+const SPOTS = [[170,170],[830,170],[500,140],[160,520],[840,520],[260,860],[740,860],[500,520],[500,860]];
 function shuffle() {
   moves = 0;
   build();
-  // positions de départ réparties autour et sur le plateau, sans chevauchement complet
-  const spots = [[170,170],[830,170],[500,140],[160,520],[840,520],[260,860],[740,860],[500,520],[500,860]];
-  spots.sort(() => Math.random() - .5);
+  const spots = SPOTS.slice().sort(() => Math.random() - .5);
   pieces.forEach((p, k) => {
-    const [sx, sy] = spots[k];
-    const lo = p.rad + 8, hi = 1000 - p.rad - 8;   // la pièce reste entière sur le plateau
-    p.x = Math.min(hi, Math.max(lo, sx + (Math.random() - .5) * 40));
-    p.y = Math.min(hi, Math.max(lo, sy + (Math.random() - .5) * 40));
+    p.x = spots[k][0] + (Math.random() - .5) * 40;
+    p.y = spots[k][1] + (Math.random() - .5) * 40;
     p.r = 45 * (1 + Math.floor(Math.random() * 7));   // jamais déjà dans le bon sens
+    clamp(p);
     setPos(p, false);
   });
   document.getElementById("win").classList.remove("show");
   update();
 }
 
+/* ---------- Glisser / toucher ---------- */
 function svgPoint(evt) {
   const pt = svg.createSVGPoint();
   pt.x = evt.clientX; pt.y = evt.clientY;
   return pt.matrixTransform(svg.getScreenCTM().inverse());
 }
-
-function attach(p) {
-  let start = null;
-  p.g.addEventListener("pointerdown", e => {
-    if (p.placed) return;
-    e.preventDefault();
-    p.g.setPointerCapture(e.pointerId);
-    const s = svgPoint(e);
-    start = { sx: s.x, sy: s.y, px: p.x, py: p.y, t: Date.now(), moved: 0 };
-    looseLayer.appendChild(p.g);          // au premier plan
-    p.g.classList.add("dragging");
-    setPos(p, false);
-  });
-  p.g.addEventListener("pointermove", e => {
-    if (!start) return;
-    const s = svgPoint(e);
-    const dx = s.x - start.sx, dy = s.y - start.sy;
-    start.moved = Math.max(start.moved, Math.hypot(dx, dy));
-    p.x = start.px + dx; p.y = start.py + dy;
-    setPos(p, false);
-  });
-  const end = () => {
-    if (!start) return;
-    p.g.classList.remove("dragging");
-    const tap = start.moved < 8 && Date.now() - start.t < 400;
-    start = null;
-    if (tap) p.r += 45;
-    p.x = Math.min(960, Math.max(40, p.x));
-    p.y = Math.min(960, Math.max(40, p.y));
-    moves++;
-    setPos(p, true);
-    trySnap(p);
-    update();
-  };
-  p.g.addEventListener("pointerup", end);
-  p.g.addEventListener("pointercancel", end);
+function startDrag(e, p) {
+  if (p.placed || drag) return;
+  e.preventDefault();
+  const s = svgPoint(e);
+  if (p.anim) { cancelAnimationFrame(p.anim); p.anim = null; draw(p, p.x, p.y, p.r); }
+  drag = { p, id: e.pointerId, sx: s.x, sy: s.y, px: p.x, py: p.y, t: Date.now(), moved: 0 };
+  looseLayer.appendChild(p.g);             // au premier plan
+  p.g.classList.add("dragging");
 }
+function moveDrag(e) {
+  if (!drag || e.pointerId !== drag.id) return;
+  e.preventDefault();
+  const s = svgPoint(e), p = drag.p;
+  const dx = s.x - drag.sx, dy = s.y - drag.sy;
+  drag.moved = Math.max(drag.moved, Math.hypot(dx, dy));
+  p.x = drag.px + dx; p.y = drag.py + dy;
+  clamp(p);
+  draw(p, p.x, p.y, p.r);
+}
+function endDrag(e) {
+  if (!drag || e.pointerId !== drag.id) return;
+  const p = drag.p;
+  const tap = drag.moved < 10 && Date.now() - drag.t < 450;
+  drag = null;
+  p.g.classList.remove("dragging");
+  if (tap) p.r += 45;
+  moves++;
+  clamp(p);
+  trySnap(p);
+  setPos(p, true);
+  update();
+}
+// Les mouvements sont suivis sur toute la fenêtre : on ne « perd » jamais une pièce
+window.addEventListener("pointermove", moveDrag, { passive: false });
+window.addEventListener("pointerup", endDrag);
+window.addEventListener("pointercancel", endDrag);
 
 function trySnap(p) {
   const upright = ((p.r % 360) + 360) % 360 === 0;
   if (upright && Math.hypot(p.x - p.cx, p.y - p.cy) < TOL) {
-    p.x = p.cx; p.y = p.cy; p.r = 0;
+    p.x = p.cx; p.y = p.cy;              // r reste un multiple de 360 : pas de tour complet à l'animation
     p.placed = true;
-    p.g.classList.remove("loose");
     p.g.classList.add("placed");
     placedLayer.appendChild(p.g);
-    setPos(p, true);
   }
 }
 
+/* ---------- Score ---------- */
 function update() {
   const n = pieces.filter(p => p.placed).length;
   document.getElementById("placed").textContent = n;
@@ -288,7 +309,7 @@ function update() {
   if (n === 7) {
     svg.classList.add("done");
     document.getElementById("winText").textContent =
-      `Vous avez reconstitué la photo de la promotion 2025-2026 de l'EUR MINT en ${moves} coups.`;
+      `Vous avez reconstitué la photo des lauréats du prix Fermat 2025 en ${moves} coups.`;
     document.getElementById("win").classList.add("show");
     document.getElementById("hint").setAttribute("aria-pressed", "false");
     document.getElementById("ghost").classList.remove("show");
@@ -300,6 +321,16 @@ document.getElementById("hint").addEventListener("click", e => {
   e.currentTarget.setAttribute("aria-pressed", on);
   document.getElementById("ghost").classList.toggle("show", on);
 });
+// « Ranger » : répartit les pièces non placées autour du carré, sans changer leur rotation
+function tidy() {
+  const ring = [[170,170],[830,170],[160,520],[840,520],[170,840],[830,840],[500,150],[500,860]];
+  pieces.filter(p => !p.placed).forEach((p, k) => {
+    [p.x, p.y] = ring[k % ring.length];
+    clamp(p);
+    setPos(p, true);
+  });
+}
+document.getElementById("tidy").addEventListener("click", tidy);
 document.getElementById("shuffle").addEventListener("click", shuffle);
 document.getElementById("again").addEventListener("click", shuffle);
 

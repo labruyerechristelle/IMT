@@ -8,4 +8,4 @@ Contenus de médiation de l'Institut de Mathématiques de Toulouse (IMT), du Lab
 - [Quiz n°2 : le Labex CIMI](calendrier-avent/quiz/quiz-02-cimi.html) : quiz interactif en 5 questions (case 7 du calendrier).
 - [Quiz n°3 : les événements de l'IMT](calendrier-avent/quiz/quiz-03-imt-evenements.html) : quiz interactif en 5 questions (case 10 du calendrier).
 - [Quiz n°4 : l'IMT, ses équipes et sa recherche](calendrier-avent/quiz/quiz-04-imt-recherche.html) : quiz interactif en 5 questions (case 15 du calendrier).
-- [Tangram : la promo EUR MINT](calendrier-avent/tangram/) : la photo de la promotion 2025-2026 à reconstituer en 7 pièces.
+- [Tangram : les lauréats du prix Fermat 2025](calendrier-avent/tangram/) : la photo des lauréats à reconstituer en 7 pièces.
