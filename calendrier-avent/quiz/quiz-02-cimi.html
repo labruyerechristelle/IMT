@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calendrier de l'Avent – Quiz n°2 : le Labex CIMI</title>
+<style>
+  :root {
+    --bg: #0f2a3d;
+    --card: #ffffff;
+    --ink: #1c2733;
+    --muted: #5d6b78;
+    --accent: #c0392b;
+    --accent-dark: #962d22;
+    --gold: #e0a526;
+    --ok: #2e8b57;
+    --ok-bg: #e8f5ee;
+    --ko: #c0392b;
+    --ko-bg: #fbeceb;
+    --line: #e3e7eb;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    color: var(--ink);
+    background: radial-gradient(circle at 20% 10%, #1d4562 0%, var(--bg) 60%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 16px;
+  }
+  .card {
+    background: var(--card);
+    width: 100%;
+    max-width: 640px;
+    border-radius: 18px;
+    box-shadow: 0 20px 50px rgba(0,0,0,.35);
+    overflow: hidden;
+  }
+  header {
+    background: var(--accent);
+    color: #fff;
+    padding: 22px 28px 18px;
+    position: relative;
+  }
+  header .day {
+    position: absolute;
+    right: 22px; top: 18px;
+    width: 54px; height: 54px;
+    border-radius: 50%;
+    background: var(--gold);
+    color: #fff;
+    font-weight: 800;
+    font-size: 26px;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: inset 0 -3px 0 rgba(0,0,0,.15);
+  }
+  header small { text-transform: uppercase; letter-spacing: .12em; opacity: .85; font-size: 12px; }
+  header h1 { margin: 6px 0 0; font-size: 24px; line-height: 1.25; padding-right: 70px; }
+  .progress { height: 6px; background: var(--line); }
+  .progress > div { height: 100%; width: 0; background: var(--gold); transition: width .35s ease; }
+  main { padding: 26px 28px 28px; }
+  .count { color: var(--muted); font-size: 14px; margin-bottom: 8px; }
+  h2 { font-size: 20px; margin: 0 0 18px; line-height: 1.35; }
+  .options { display: grid; gap: 10px; }
+  .opt {
+    text-align: left;
+    font: inherit;
+    font-size: 16px;
+    padding: 14px 16px;
+    border: 2px solid var(--line);
+    border-radius: 12px;
+    background: #fff;
+    cursor: pointer;
+    transition: border-color .15s, background .15s, transform .05s;
+  }
+  .opt:hover:not(:disabled) { border-color: var(--accent); background: #fff7f6; }
+  .opt:active:not(:disabled) { transform: scale(.99); }
+  .opt:disabled { cursor: default; }
+  .opt.correct { border-color: var(--ok); background: var(--ok-bg); }
+  .opt.wrong { border-color: var(--ko); background: var(--ko-bg); }
+  .feedback {
+    margin-top: 18px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    background: #f5f7f9;
+    font-size: 15px;
+    line-height: 1.5;
+    display: none;
+  }
+  .feedback.show { display: block; }
+  .feedback strong { display: block; margin-bottom: 4px; }
+  .feedback.good strong { color: var(--ok); }
+  .feedback.bad strong { color: var(--ko); }
+  .feedback a { color: var(--accent-dark); }
+  .actions { margin-top: 20px; display: flex; justify-content: flex-end; }
+  .btn {
+    font: inherit;
+    font-weight: 600;
+    padding: 12px 22px;
+    border: none;
+    border-radius: 999px;
+    background: var(--accent);
+    color: #fff;
+    cursor: pointer;
+  }
+  .btn:hover { background: var(--accent-dark); }
+  .btn[hidden] { display: none; }
+  .result { text-align: center; }
+  .result .score { font-size: 56px; font-weight: 800; color: var(--accent); margin: 8px 0; }
+  .result p { color: var(--muted); line-height: 1.5; }
+  .result .actions { justify-content: center; gap: 10px; flex-wrap: wrap; }
+  .btn.secondary { background: #fff; color: var(--accent); border: 2px solid var(--accent); }
+  .btn.secondary:hover { background: #fff7f6; }
+  footer { padding: 0 28px 18px; font-size: 12px; color: var(--muted); }
+  footer a { color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="card">
+  <header>
+    <small>Calendrier de l'Avent des Maths à Toulouse</small>
+    <h1>Quiz : que savez-vous du Labex CIMI ?</h1>
+    <div class="day" aria-label="Case numéro 7">7</div>
+  </header>
+  <div class="progress"><div id="bar"></div></div>
+  <main id="app"></main>
+  <footer>Sources : <a href="https://www.cimi.univ-toulouse.fr/" target="_blank" rel="noopener">site du Labex CIMI</a> (novembre 2026)</footer>
+</div>
+
+<script>
+const QUESTIONS = [
+  {
+    q: "Que signifie l'acronyme CIMI ?",
+    options: [
+      "Calcul, Informatique et Mathématiques Industrielles",
+      "Centre International de Mathématiques et Informatique de Toulouse",
+      "Centre d'Innovation en Modélisation et Ingénierie",
+      "Collège International des Mathématiques et de l'Informatique"
+    ],
+    answer: 1,
+    explain: "CIMI, c'est le « Centre International de Mathématiques et Informatique de Toulouse ». Son ambition : devenir un centre international de référence en mathématiques, en informatique et dans leurs interactions.",
+    link: "https://www.cimi.univ-toulouse.fr/en/a-propos/presentation"
+  },
+  {
+    q: "Quels laboratoires toulousains le Labex CIMI réunit-il ?",
+    options: [
+      "IMT, ONERA et CERFACS",
+      "IRIT, LAAS et ISAE-SUPAERO",
+      "IMT, IRIT et LAAS",
+      "IMT, IRIT et ENAC"
+    ],
+    answer: 2,
+    explain: "Le Labex CIMI rassemble l'Institut de Mathématiques de Toulouse (IMT), l'Institut de Recherche en Informatique de Toulouse (IRIT) et des équipes du LAAS-CNRS.",
+    link: "https://www.cimi.univ-toulouse.fr/en/a-propos/presentation"
+  },
+  {
+    q: "En quelle année le Labex CIMI a-t-il démarré ?",
+    options: ["2008", "2012", "2016", "2020"],
+    answer: 1,
+    explain: "CIMI est un laboratoire d'excellence (LabEx) retenu par l'Agence nationale de la recherche à partir de 2012.",
+    link: "https://www.cimi.univ-toulouse.fr/en/a-propos/presentation"
+  },
+  {
+    q: "Sur quel thème portait le semestre thématique CIMI 2026 ?",
+    options: [
+      "Low-Resource Settings in AI",
+      "Quantum computing and machine learning",
+      "Interacting particles, PDEs and applications",
+      "Control meets AI"
+    ],
+    answer: 2,
+    explain: "Le semestre thématique 2026 était consacré aux systèmes de nombreux agents en interaction décrits par des EDP non linéaires, avec des applications en physique, biologie et sciences sociales. Un thème proche de celui de l'école d'été MINT 2026 (« Particle systems and PDEs ») ! Attention au piège : « Low-Resource Settings in AI » est le thème d'un trimestre thématique CIMI.",
+    link: "https://www.cimi.univ-toulouse.fr/en/all-news"
+  },
+  {
+    q: "Soutenu par le Labex CIMI, le projet Sign'Maths traduit les notions mathématiques…",
+    options: [
+      "en occitan",
+      "en braille",
+      "en langue des signes française (LSF)",
+      "en langage informatique Python"
+    ],
+    answer: 2,
+    explain: "Sign'Maths construit un glossaire mathématique en langue des signes française, accessible en ligne, pour faciliter l'accès des élèves et étudiants sourds aux mathématiques. Le projet, soutenu par CIMI depuis 2016, a reçu le prix Jacqueline Ferrand de la Société Mathématique de France en 2022.",
+    link: "https://cimi.univ-toulouse.fr/en/actions-marquantes/impacts-societaux"
+  }
+];
+
+const app = document.getElementById("app");
+const bar = document.getElementById("bar");
+let current = 0;
+let score = 0;
+
+function render() {
+  const item = QUESTIONS[current];
+  bar.style.width = (current / QUESTIONS.length * 100) + "%";
+  app.innerHTML = `
+    <div class="count">Question ${current + 1} / ${QUESTIONS.length}</div>
+    <h2>${item.q}</h2>
+    <div class="options">
+      ${item.options.map((o, i) => `<button class="opt" data-i="${i}">${o}</button>`).join("")}
+    </div>
+    <div class="feedback" id="fb"></div>
+    <div class="actions"><button class="btn" id="next" hidden>${current === QUESTIONS.length - 1 ? "Voir mon score" : "Question suivante →"}</button></div>
+  `;
+  app.querySelectorAll(".opt").forEach(btn => btn.addEventListener("click", () => choose(+btn.dataset.i)));
+  document.getElementById("next").addEventListener("click", () => {
+    current++;
+    current < QUESTIONS.length ? render() : showResult();
+  });
+}
+
+function choose(i) {
+  const item = QUESTIONS[current];
+  const buttons = app.querySelectorAll(".opt");
+  buttons.forEach(b => b.disabled = true);
+  buttons[item.answer].classList.add("correct");
+  const good = i === item.answer;
+  if (good) score++; else buttons[i].classList.add("wrong");
+  const fb = document.getElementById("fb");
+  fb.className = "feedback show " + (good ? "good" : "bad");
+  fb.innerHTML = `<strong>${good ? "Bonne réponse !" : "Pas tout à fait…"}</strong>${item.explain} <a href="${item.link}" target="_blank" rel="noopener">En savoir plus</a>`;
+  const next = document.getElementById("next");
+  next.hidden = false;
+  next.focus();
+}
+
+function showResult() {
+  bar.style.width = "100%";
+  const msgs = [
+    "Il est temps d'aller faire un tour sur le site du Labex CIMI !",
+    "Un bon début : le site du Labex CIMI vous en apprendra plus.",
+    "Pas mal du tout !",
+    "Très bien, vous connaissez le Labex CIMI.",
+    "Excellent, presque un sans-faute !",
+    "Sans-faute ! Vous êtes incollable sur le Labex CIMI."
+  ];
+  app.innerHTML = `
+    <div class="result">
+      <div class="count">Votre score</div>
+      <div class="score">${score} / ${QUESTIONS.length}</div>
+      <p>${msgs[score]}</p>
+      <div class="actions">
+        <button class="btn secondary" id="again">Recommencer</button>
+        <a class="btn" href="https://www.cimi.univ-toulouse.fr/" target="_blank" rel="noopener" style="text-decoration:none">Découvrir le Labex CIMI</a>
+      </div>
+    </div>
+  `;
+  document.getElementById("again").addEventListener("click", () => { current = 0; score = 0; render(); });
+}
+
+render();
+</script>
+</body>
+</html>
