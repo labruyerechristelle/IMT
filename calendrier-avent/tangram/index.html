@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Calendrier de l'Avent – Tangram : les lauréats du prix Fermat 2025</title>
+<title>Calendrier de l'Avent – Tangram : les lauréats des prix Fermat 2025</title>
 <style>
   :root {
     --bg: #0f2a3d;
@@ -120,12 +120,12 @@
 <div class="card">
   <header>
     <small>Calendrier de l'Avent des Maths à Toulouse</small>
-    <h1>Tangram : les lauréats du prix Fermat 2025</h1>
+    <h1>Tangram : les lauréats des prix Fermat 2025</h1>
     <div class="day" aria-hidden="true">🧩</div>
   </header>
   <div class="progress"><div id="progress"></div></div>
   <main>
-    <p class="intro">La photo des lauréats du prix Fermat 2025, prise à l'Institut de Mathématiques de Toulouse, a été découpée en 7 pièces de tangram. <b>Faites glisser</b> les pièces dans le carré et <b>touchez-les</b> pour les faire tourner d'un huitième de tour. Une pièce bien placée, dans le bon sens, s'aimante toute seule.</p>
+    <p class="intro">La photo des lauréats 2025 du prix Fermat et du prix Fermat Junior, prise à l'Institut de Mathématiques de Toulouse, a été découpée en 7 pièces de tangram. <b>Faites glisser</b> les pièces dans le carré et <b>touchez-les</b> pour les faire tourner d'un huitième de tour. Une pièce bien placée, dans le bon sens, s'aimante toute seule.</p>
     <div class="bar">
       <div class="stats">Pièces placées : <b id="placed">0</b> / 7 · Coups : <b id="moves">0</b></div>
       <div class="btns">
@@ -149,11 +149,12 @@
       <span id="winText"></span>
       <div class="btns">
         <button class="btn primary" id="again">Rejouer</button>
-        <a class="btn" href="https://www.math.univ-toulouse.fr/fr/activites/prix-fermat/" target="_blank" rel="noopener">Découvrir le prix Fermat</a>
+        <a class="btn" href="https://www.math.univ-toulouse.fr/fr/activites/prix-fermat/" target="_blank" rel="noopener">Le prix Fermat</a>
+        <a class="btn" href="https://www.math.univ-toulouse.fr/fr/activites/prix-fermat-junior/" target="_blank" rel="noopener">Le prix Fermat Junior</a>
       </div>
     </div>
   </main>
-  <footer>Photo : lauréats du <a href="https://www.math.univ-toulouse.fr/fr/activites/prix-fermat/" target="_blank" rel="noopener">prix Fermat 2025</a>, Institut de Mathématiques de Toulouse. Le prix Fermat est décerné tous les deux ans à Toulouse par l'IMT.</footer>
+  <footer>Photo : lauréats 2025 du <a href="https://www.math.univ-toulouse.fr/fr/activites/prix-fermat/" target="_blank" rel="noopener">prix Fermat</a> et du <a href="https://www.math.univ-toulouse.fr/fr/activites/prix-fermat-junior/" target="_blank" rel="noopener">prix Fermat Junior</a>, Institut de Mathématiques de Toulouse. Le prix Fermat récompense des travaux de recherche du plus haut niveau international ; le prix Fermat Junior récompense des étudiantes et étudiants des trois premières années d'études supérieures.</footer>
 </div>
 
 <script>
@@ -309,7 +310,7 @@ function update() {
   if (n === 7) {
     svg.classList.add("done");
     document.getElementById("winText").textContent =
-      `Vous avez reconstitué la photo des lauréats du prix Fermat 2025 en ${moves} coups.`;
+      `Vous avez reconstitué la photo des lauréats 2025 du prix Fermat et du prix Fermat Junior en ${moves} coups.`;
     document.getElementById("win").classList.add("show");
     document.getElementById("hint").setAttribute("aria-pressed", "false");
     document.getElementById("ghost").classList.remove("show");
