@@ -226,11 +226,11 @@ const DAYS = {
      body:`<p>À tester avec une chute de papier cadeau ! Prenez une bande, faites-lui faire un <b>demi-tour</b>, puis collez les deux bouts : c'est un <b>ruban de Möbius</b>.</p>
            <p>Suivez-le du doigt : vous passez « dessus » puis « dessous » sans jamais franchir le bord. Il n'a <b>qu'une seule face</b>.</p>
            <p>Bonus : coupez-le aux ciseaux le long de sa ligne médiane… vous n'obtiendrez pas deux rubans.</p>`},
-  12:{type:"enigme", title:"Les douze jours de Noël",
-     body:`<p>Dans un vieux chant anglais, on reçoit 1 cadeau le 1ᵉʳ jour ; 1 + 2 cadeaux le 2ᵉ jour ; 1 + 2 + 3 le 3ᵉ jour… et ainsi de suite jusqu'au 12ᵉ jour.</p>
-           <p><b>Combien de cadeaux en tout au bout des 12 jours ?</b></p>`,
-     sol:`<p><b>364 cadeaux</b>, presque un par jour de l'année !</p>
-          <p>Le k-ième jour on reçoit 1 + 2 + … + k (un nombre « triangulaire »). La somme des 12 premiers nombres triangulaires vaut <span class="math">12 × 13 × 14 ÷ 6 = 364</span>.</p>`},
+  12:{type:"jeu", title:"Tangram : la promo EUR MINT 2026-2027",
+     body:`<p>La photo de la nouvelle promotion de l'<b>EUR MINT</b> a été découpée en 7 pièces de tangram.</p>
+           <p>Faites glisser, tournez… et réunissez toute la promo en un minimum de coups !</p>
+`,
+     links:[{label:"Jouer au tangram", url:"https://labruyerechristelle.github.io/IMT/calendrier-avent/tangram-mint/"}]},
   13:{type:"jeu", title:"Pause mots fléchés",
      body:`<p>Mi-parcours ! Pour patienter jusqu'à demain, une grille de mots fléchés 100 % maths, à jouer en ligne.</p>
            <p>Fermat, Euler, fractales… saurez-vous tout trouver ?</p>
@@ -303,7 +303,7 @@ const ORDER = [7,18,3,24,12,21,1,15,9,22,5,14,10,2,19,6,23,11,16,13,4,20,8,17];
    ILLUSTRATIONS (une par case) — dessins SVG générés, 320 × 150.
    Pour utiliser une image à la place : IMAGES[n] = "images/mon-image.jpg"
    ===================================================================== */
-const IMAGES = {1:"logos/eur-mint.png", 7:"logos/cimi.png", 8:"tangram/fermat-2025-v2.jpg", 10:"logos/imt.png", 15:"logos/imt.png"};
+const IMAGES = {1:"logos/eur-mint.png", 7:"logos/cimi.png", 8:"tangram/fermat-2025-v2.jpg", 10:"logos/imt.png", 12:"tangram-mint/mint-2026-2027.jpg", 15:"logos/imt.png"};
 const C = {red:"#cd1919", vio:"#9384BB", vdk:"#6c5e98", dark:"#2c2840", rdk:"#a51212", soft:"#ece8f4"};
 const W = 320, H = 150;
 const svgWrap = inner => `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" font-family="Inter,Helvetica,Arial,sans-serif">${inner}</svg>`;
