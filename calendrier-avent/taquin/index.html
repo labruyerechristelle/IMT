@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Calendrier de l'Avent – Taquin : le bâtiment de l'IMT</title>
+<title>Calendrier de l'Avent – Taquin : le bâtiment de l'IMT</title>
 <style>
   :root {
     --bg: #0f2a3d;
@@ -173,14 +173,14 @@
 <div class="card">
   <header>
     <small>Calendrier de l'Avent des Maths à Toulouse</small>
-    <h1>Taquin : le bâtiment de l'IMT</h1>
+    <h1>Taquin : le bâtiment de l'IMT</h1>
     <div class="day" aria-label="Case numéro 20" style="font-size:26px">20</div>
   </header>
   <div class="progress"><div id="progress"></div></div>
   <main>
-    <p class="intro">La photo du bâtiment de l'<b>Institut de Mathématiques de Toulouse</b> a été découpée en morceaux et mélangée. <b>Touchez un morceau</b> voisin de la case vide pour le faire glisser. Vous pouvez aussi toucher un morceau plus loin sur la même ligne ou la même colonne : toute la rangée se décale. Au clavier, utilisez les flèches.</p>
+    <p class="intro">La photo du bâtiment de l'<b>Institut de Mathématiques de Toulouse</b> a été découpée en morceaux et mélangée. <b>Touchez un morceau</b> voisin de la case vide pour le faire glisser. Vous pouvez aussi toucher un morceau plus loin sur la même ligne ou la même colonne : toute la rangée se décale. Au clavier, utilisez les flèches.</p>
     <div class="bar">
-      <div class="stats">Morceaux bien placés : <b id="ok">0</b> / <b id="total">11</b> · Coups : <b id="moves">0</b></div>
+      <div class="stats">Morceaux bien placés : <b id="ok">0</b> / <b id="total">11</b> · Coups : <b id="moves">0</b></div>
       <div class="btns">
         <div class="level" role="group" aria-label="Niveau">
           <button id="easy" aria-pressed="true">Facile</button>
@@ -200,7 +200,7 @@
     </div>
     <div class="model" id="model"><img src="imt-batiment.jpg" alt="La photo complète du bâtiment de l'IMT"><small>Le modèle à reconstituer. La case vide est en bas à droite.</small></div>
     <div class="win" id="win" role="status">
-      <strong>Bravo, le bâtiment est reconstitué !</strong>
+      <strong>Bravo, le bâtiment est reconstitué !</strong>
       <span id="winText"></span>
       <div class="key" id="key"></div>
       <div class="btns">
@@ -209,12 +209,12 @@
       </div>
     </div>
   </main>
-  <footer>Photo : le bâtiment de l'<a href="https://www.math.univ-toulouse.fr/fr/" target="_blank" rel="noopener">Institut de Mathématiques de Toulouse</a>, sur le campus de l'Université de Toulouse.</footer>
+  <footer>Photo : le bâtiment de l'<a href="https://www.math.univ-toulouse.fr/fr/" target="_blank" rel="noopener">Institut de Mathématiques de Toulouse</a>, sur le campus de l'Université de Toulouse.</footer>
 </div>
 
 <script>
 // Énigme fil rouge du calendrier : lettre donnée à la fin du jeu
-const KEY_HTML = `🔑 <b>Énigme du 24 décembre</b> : votre lettre mystère est <b class="letter">R</b>. Notez-la bien ! Le 24 décembre, il faudra remettre dans l'ordre toutes les lettres récoltées dans le calendrier pour trouver le mot mystère.`;
+const KEY_HTML = `🔑 <b>Énigme du 24 décembre</b> : votre lettre mystère est <b class="letter">R</b>. Notez-la bien ! Le 24 décembre, il faudra remettre dans l'ordre toutes les lettres récoltées dans le calendrier pour trouver le mot mystère.`;
 
 const LEVELS = { easy: { cols: 4, rows: 3 }, hard: { cols: 5, rows: 4 } };
 const board = document.getElementById("board");
@@ -316,7 +316,7 @@ function update() {
   document.getElementById("moves").textContent = moves;
   document.getElementById("progress").style.width = (ok / (n - 1) * 100) + "%";
   if (ok === n - 1 && !solvedOnce) {
-    stat("fin-taquin", "Fin : taquin IMT (case 20)");
+    stat("fin-taquin", "Fin : taquin IMT (case 20)");
     solvedOnce = true;
     tiles.forEach(t => t.classList.add("fixed"));
     board.classList.add("done");

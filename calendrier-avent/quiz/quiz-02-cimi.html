@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Calendrier de l'Avent – Quiz n°2 : le Labex CIMI</title>
+<title>Calendrier de l'Avent – Quiz n° 2 : le Labex CIMI</title>
 <style>
   :root {
     --bg: #0f2a3d;
@@ -147,18 +147,18 @@
 <div class="card">
   <header>
     <small>Calendrier de l'Avent des Maths à Toulouse</small>
-    <h1>Quiz : que savez-vous du Labex CIMI ?</h1>
+    <h1>Quiz : que savez-vous du Labex CIMI ?</h1>
     <div class="day" aria-label="Case numéro 7">7</div>
   </header>
   <div class="progress"><div id="bar"></div></div>
   <main id="app"></main>
-  <footer>Sources : <a href="https://www.cimi.univ-toulouse.fr/" target="_blank" rel="noopener">site du Labex CIMI</a> (novembre 2026)</footer>
+  <footer>Sources : <a href="https://www.cimi.univ-toulouse.fr/" target="_blank" rel="noopener">site du Labex CIMI</a> (novembre 2026)</footer>
 </div>
 
 <script>
 const QUESTIONS = [
   {
-    q: "Que signifie l'acronyme CIMI ?",
+    q: "Que signifie l'acronyme CIMI ?",
     options: [
       "Calcul, Informatique et Mathématiques Industrielles",
       "Centre International de Mathématiques et Informatique de Toulouse",
@@ -166,11 +166,11 @@ const QUESTIONS = [
       "Collège International des Mathématiques et de l'Informatique"
     ],
     answer: 1,
-    explain: "CIMI, c'est le « Centre International de Mathématiques et Informatique de Toulouse ». Son ambition : devenir un centre international de référence en mathématiques, en informatique et dans leurs interactions.",
+    explain: "CIMI, c'est le « Centre International de Mathématiques et Informatique de Toulouse ». Son ambition : devenir un centre international de référence en mathématiques, en informatique et dans leurs interactions.",
     link: "https://www.cimi.univ-toulouse.fr/en/a-propos/presentation"
   },
   {
-    q: "Quels laboratoires toulousains le Labex CIMI réunit-il ?",
+    q: "Quels laboratoires toulousains le Labex CIMI réunit-il ?",
     options: [
       "IMT, ONERA et CERFACS",
       "IRIT, LAAS et ISAE-SUPAERO",
@@ -182,14 +182,14 @@ const QUESTIONS = [
     link: "https://www.cimi.univ-toulouse.fr/en/a-propos/presentation"
   },
   {
-    q: "En quelle année le Labex CIMI a-t-il démarré ?",
+    q: "En quelle année le Labex CIMI a-t-il démarré ?",
     options: ["2008", "2012", "2016", "2020"],
     answer: 1,
     explain: "CIMI est un laboratoire d'excellence (LabEx) retenu par l'Agence nationale de la recherche à partir de 2012.",
     link: "https://www.cimi.univ-toulouse.fr/en/a-propos/presentation"
   },
   {
-    q: "Sur quel thème portait le semestre thématique CIMI 2026 ?",
+    q: "Sur quel thème portait le semestre thématique CIMI 2026 ?",
     options: [
       "Low-Resource Settings in AI",
       "Quantum computing and machine learning",
@@ -197,7 +197,7 @@ const QUESTIONS = [
       "Control meets AI"
     ],
     answer: 2,
-    explain: "Le semestre thématique 2026 était consacré aux systèmes de nombreux agents en interaction décrits par des EDP non linéaires, avec des applications en physique, biologie et sciences sociales. Un thème proche de celui de l'école d'été MINT 2026 (« Particle systems and PDEs ») ! Attention au piège : « Low-Resource Settings in AI » est le thème d'un trimestre thématique CIMI.",
+    explain: "Le semestre thématique 2026 était consacré aux systèmes de nombreux agents en interaction décrits par des EDP non linéaires, avec des applications en physique, biologie et sciences sociales. Un thème proche de celui de l'école d'été MINT 2026 (« Particle systems and PDEs ») ! Attention au piège : « Low-Resource Settings in AI » est le thème d'un trimestre thématique CIMI.",
     link: "https://www.cimi.univ-toulouse.fr/en/all-news"
   },
   {
@@ -247,29 +247,29 @@ function choose(i) {
   if (good) score++; else buttons[i].classList.add("wrong");
   const fb = document.getElementById("fb");
   fb.className = "feedback show " + (good ? "good" : "bad");
-  fb.innerHTML = `<strong>${good ? "Bonne réponse !" : "Pas tout à fait…"}</strong>${item.explain} <a href="${item.link}" target="_blank" rel="noopener">En savoir plus</a>`;
+  fb.innerHTML = `<strong>${good ? "Bonne réponse !" : "Pas tout à fait…"}</strong>${item.explain} <a href="${item.link}" target="_blank" rel="noopener">En savoir plus</a>`;
   const next = document.getElementById("next");
   next.hidden = false;
   next.focus();
 }
 
 function showResult() {
-  stat("fin-quiz-02", "Fin : quiz CIMI (case 7)");
+  stat("fin-quiz-02", "Fin : quiz CIMI (case 7)");
   bar.style.width = "100%";
   const msgs = [
-    "Il est temps d'aller faire un tour sur le site du Labex CIMI !",
-    "Un bon début : le site du Labex CIMI vous en apprendra plus.",
-    "Pas mal du tout !",
+    "Il est temps d'aller faire un tour sur le site du Labex CIMI !",
+    "Un bon début : le site du Labex CIMI vous en apprendra plus.",
+    "Pas mal du tout !",
     "Très bien, vous connaissez le Labex CIMI.",
-    "Excellent, presque un sans-faute !",
-    "Sans-faute ! Vous êtes incollable sur le Labex CIMI."
+    "Excellent, presque un sans-faute !",
+    "Sans-faute ! Vous êtes incollable sur le Labex CIMI."
   ];
   app.innerHTML = `
     <div class="result">
       <div class="count">Votre score</div>
       <div class="score">${score} / ${QUESTIONS.length}</div>
       <p>${msgs[score]}</p>
-      <div class="key">🔑 <b>Énigme du 24 décembre</b> : votre lettre mystère est <b class="letter">W</b>. Notez-la bien ! Le 24 décembre, il faudra remettre dans l'ordre toutes les lettres récoltées dans le calendrier pour trouver le mot mystère.</div>
+      <div class="key">🔑 <b>Énigme du 24 décembre</b> : votre lettre mystère est <b class="letter">W</b>. Notez-la bien ! Le 24 décembre, il faudra remettre dans l'ordre toutes les lettres récoltées dans le calendrier pour trouver le mot mystère.</div>
       <div class="actions">
         <button class="btn secondary" id="again">Recommencer</button>
         <a class="btn" href="https://www.cimi.univ-toulouse.fr/" target="_blank" rel="noopener" style="text-decoration:none">Découvrir le Labex CIMI</a>

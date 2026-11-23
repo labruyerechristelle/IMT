@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Calendrier de l'avent mathématique · Les maths à Toulouse</title>
+<title>Calendrier de l'Avent mathématique · Les maths à Toulouse</title>
 <meta name="description" content="24 cases, 24 énigmes et curiosités mathématiques, une par jour jusqu'à Noël. Par l'Institut de Mathématiques de Toulouse, le Labex CIMI et l'EUR MINT.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -165,8 +165,8 @@
 <div class="wrap">
   <header>
     <div>
-      <h1>Calendrier de l'avent <span>mathématique</span></h1>
-      <p>Une case par jour jusqu'à Noël : énigmes, curiosités et clins d'œil toulousains. Les solutions sont cachées sous chaque énigme, ne trichez pas&nbsp;!</p>
+      <h1>Calendrier de l'Avent <span>mathématique</span></h1>
+      <p>Une case par jour jusqu'à Noël : énigmes, curiosités et clins d'œil toulousains. Les solutions sont cachées sous chaque énigme, ne trichez pas&nbsp;!</p>
     </div>
     <div class="logos">
       <a target="_blank" rel="noopener" href="https://www.math.univ-toulouse.fr" title="Institut de Mathématiques de Toulouse"><img src="logos/imt.png" alt="Institut de Mathématiques de Toulouse"></a>
@@ -204,122 +204,122 @@
    ===================================================================== */
 const YEAR = 2026;
 const DAYS = {
-  1:{type:"jeu", title:"Quiz : l'EUR MINT",
+  1:{type:"jeu", title:"Quiz : l'EUR MINT",
      body:`<p>Pour ouvrir le calendrier, un petit quiz de 5 questions sur l'<b>EUR MINT</b>, la graduate school de mathématiques de Toulouse.</p>
-           <p>Masterclasses, bourses, école d'été… la connaissez-vous vraiment ?</p>
+           <p>Masterclasses, bourses, école d'été… la connaissez-vous vraiment ?</p>
 `,
      links:[{label:"Jouer au quiz", url:"https://labruyerechristelle.github.io/IMT/calendrier-avent/quiz/quiz-01-eur-mint.html"}]},
   2:{type:"enigme", title:"Les chaussettes de Noël",
      body:`<p>Dans un tiroir plongé dans le noir, il y a des chaussettes rouges et des chaussettes vertes, bien mélangées.</p>
-           <p><b>Combien de chaussettes faut-il prendre, au minimum, pour être sûr·e d'avoir une paire de la même couleur ?</b></p>`,
-     sol:`<p><b>3 chaussettes.</b> Avec 2 couleurs, les 3 chaussettes ne peuvent pas être toutes de couleurs différentes : deux d'entre elles sont forcément assorties.</p>
-          <p>C'est le <b>principe des tiroirs</b> : si on range n+1 objets dans n tiroirs, un tiroir en contient au moins deux. Simple, mais redoutable en combinatoire !</p>`},
+           <p><b>Combien de chaussettes faut-il prendre, au minimum, pour être sûr·e d'avoir une paire de la même couleur ?</b></p>`,
+     sol:`<p><b>3 chaussettes.</b> Avec 2 couleurs, les 3 chaussettes ne peuvent pas être toutes de couleurs différentes : deux d'entre elles sont forcément assorties.</p>
+          <p>C'est le <b>principe des tiroirs</b> : si on range n+1 objets dans n tiroirs, un tiroir en contient au moins deux. Simple, mais redoutable en combinatoire !</p>`},
   3:{type:"toulouse", title:"Fermat, le magistrat toulousain",
-     body:`<p>Au XVIIᵉ siècle, <b>Pierre de Fermat</b> est conseiller au parlement de Toulouse. Les maths sont son loisir… et quel loisir !</p>
-           <p>Dans la marge de son exemplaire de l'<i>Arithmétique</i> de Diophante, il affirme que l'équation <span class="math">xⁿ + yⁿ = zⁿ</span> n'a aucune solution en nombres entiers positifs dès que n&nbsp;≥&nbsp;3, et qu'il a une démonstration « merveilleuse » que la marge est trop étroite pour contenir.</p>
-           <p>Il a fallu attendre <b>plus de 350 ans</b> : Andrew Wiles en publie la preuve en 1995.</p>`},
-  4:{type:"enigme", title:"On trinque !",
+     body:`<p>Au XVII<sup>e</sup> siècle, <b>Pierre de Fermat</b> est conseiller au parlement de Toulouse. Les maths sont son loisir… et quel loisir !</p>
+           <p>Dans la marge de son exemplaire de l'<i>Arithmétique</i> de Diophante, il affirme que l'équation <span class="math">xⁿ + yⁿ = zⁿ</span> n'a aucune solution en nombres entiers positifs dès que n&nbsp;≥&nbsp;3, et qu'il a une démonstration « merveilleuse » que la marge est trop étroite pour contenir.</p>
+           <p>Il a fallu attendre <b>plus de 350 ans</b> : le théorème est démontré par Andrew Wiles en 1994, et publié en 1995.</p>`},
+  4:{type:"enigme", title:"On trinque !",
      body:`<p>Au réveillon, 10 ami·es lèvent leur verre. Chacun·e trinque <b>une seule fois</b> avec chacun·e des autres.</p>
-           <p><b>Combien de « tchin » entend-on en tout ?</b></p>`,
-     sol:`<p><b>45.</b> Chaque personne trinque avec 9 autres, soit 10 × 9 = 90… mais chaque « tchin » est alors compté deux fois (une fois par verre).</p>
+           <p><b>Combien de « tchin » entend-on en tout ?</b></p>`,
+     sol:`<p><b>45.</b> Chaque personne trinque avec 9 autres, soit 10 × 9 = 90… mais chaque « tchin » est alors compté deux fois (une fois par verre).</p>
           <p>Donc 90 ÷ 2 = <b>45</b>. C'est le nombre de paires qu'on peut former dans un groupe de 10.</p>`},
   5:{type:"nombre", title:"1729, le nombre du taxi",
      body:`<p class="big-num">1729</p>
            <p>Le mathématicien G. H. Hardy rend visite à Srinivasa Ramanujan, malade, et lui dit que le numéro de son taxi, 1729, est bien banal.</p>
-           <p>Ramanujan répond aussitôt que non : c'est <b>le plus petit nombre qui s'écrit de deux façons comme somme de deux cubes</b>.</p>
+           <p>Ramanujan répond aussitôt que non : c'est <b>le plus petit nombre qui s'écrit de deux façons comme somme de deux cubes positifs</b>.</p>
            <p><span class="math">1729 = 1³ + 12³ = 9³ + 10³</span></p>`},
-  6:{type:"savoir", title:"Les abeilles sont-elles géomètres ?",
-     body:`<p>Pourquoi les alvéoles des ruches sont-elles des hexagones ?</p>
-           <p>Parmi toutes les façons de découper un plan en cases de même aire, le pavage hexagonal est celle qui <b>utilise le moins de « murs »</b>, donc le moins de cire.</p>
-           <p>On le soupçonnait depuis l'Antiquité, mais cette « conjecture du nid d'abeille » n'a été démontrée qu'en <b>1999</b>, par Thomas Hales.</p>`},
-  7:{type:"jeu", title:"Quiz : le Labex CIMI",
-     body:`<p>Une semaine déjà ! Place au quiz n°2, consacré au <b>Labex CIMI</b>, le Centre International de Mathématiques et Informatique de Toulouse.</p>
+  6:{type:"savoir", title:"Les abeilles sont-elles géomètres ?",
+     body:`<p>Pourquoi les alvéoles des ruches sont-elles des hexagones ?</p>
+           <p>Parmi toutes les façons de découper un plan en cases de même aire, le pavage hexagonal est celle qui <b>utilise le moins de « murs »</b>, donc le moins de cire.</p>
+           <p>On le soupçonnait depuis l'Antiquité, mais cette « conjecture du nid d'abeille » n'a été démontrée qu'en <b>1999</b>, par Thomas Hales.</p>`},
+  7:{type:"jeu", title:"Quiz : le Labex CIMI",
+     body:`<p>Une semaine déjà ! Place au quiz n° 2, consacré au <b>Labex CIMI</b>, le Centre International de Mathématiques et Informatique de Toulouse.</p>
            <p>Laboratoires, semestres thématiques, langue des signes… 5 questions pour tester vos connaissances.</p>
 `,
      links:[{label:"Jouer au quiz", url:"https://labruyerechristelle.github.io/IMT/calendrier-avent/quiz/quiz-02-cimi.html"}]},
-  8:{type:"jeu", title:"Tangram : les lauréats des prix Fermat",
+  8:{type:"jeu", title:"Tangram : les lauréats des prix Fermat",
      body:`<p>La photo des lauréats 2025 du <b>prix Fermat</b> et du <b>prix Fermat Junior</b> a été découpée en 7 pièces de tangram.</p>
-           <p>Faites glisser, tournez… et reconstituez la photo en un minimum de coups !</p>
+           <p>Faites glisser, tournez… et reconstituez la photo en un minimum de coups !</p>
 `,
      links:[{label:"Jouer au tangram", url:"https://labruyerechristelle.github.io/IMT/calendrier-avent/tangram/"}]},
   9:{type:"savoir", title:"0,999… = 1",
-     body:`<p>Ça choque souvent, et pourtant c'est vrai : <span class="math">0,999… = 1</span> (avec une infinité de 9).</p>
-           <p>Une preuve express : <span class="math">1/3 = 0,333…</span> Multiplions par 3 : <span class="math">3/3 = 0,999…</span> Or 3/3 = 1.</p>
-           <p>Ce ne sont pas deux nombres très proches : ce sont <b>deux écritures du même nombre</b>.</p>`},
-  10:{type:"jeu", title:"Quiz : les événements de l'IMT",
-     body:`<p>Prix Fermat, workshops à l'autre bout du monde, expositions… l'<b>Institut de Mathématiques de Toulouse</b> ne fait pas que des équations !</p>
+     body:`<p>Ça choque souvent, et pourtant c'est vrai : <span class="math">0,999… = 1</span> (avec une infinité de 9).</p>
+           <p>Une preuve express : <span class="math">1/3 = 0,333…</span> Multiplions par 3 : <span class="math">3/3 = 0,999…</span> Or 3/3 = 1.</p>
+           <p>Ce ne sont pas deux nombres très proches : ce sont <b>deux écritures du même nombre</b>.</p>`},
+  10:{type:"jeu", title:"Quiz : les événements de l'IMT",
+     body:`<p>Prix Fermat, workshops à l'autre bout du monde, expositions… l'<b>Institut de Mathématiques de Toulouse</b> ne fait pas que des équations !</p>
            <p>5 questions pour tester vos connaissances sur ses événements.</p>
 `,
      links:[{label:"Jouer au quiz", url:"https://labruyerechristelle.github.io/IMT/calendrier-avent/quiz/quiz-03-imt-evenements.html"}]},
   11:{type:"savoir", title:"Le ruban qui n'a qu'une face",
-     body:`<p>À tester avec une chute de papier cadeau ! Prenez une bande, faites-lui faire un <b>demi-tour</b>, puis collez les deux bouts : c'est un <b>ruban de Möbius</b>.</p>
-           <p>Suivez-le du doigt : vous passez « dessus » puis « dessous » sans jamais franchir le bord. Il n'a <b>qu'une seule face</b>.</p>
-           <p>Bonus : coupez-le aux ciseaux le long de sa ligne médiane… vous n'obtiendrez pas deux rubans.</p>`},
-  12:{type:"jeu", title:"Tangram : la promo EUR MINT 2026-2027",
+     body:`<p>À tester avec une chute de papier cadeau ! Prenez une bande, faites-lui faire un <b>demi-tour</b>, puis collez les deux bouts : c'est un <b>ruban de Möbius</b>.</p>
+           <p>Suivez-le du doigt : vous passez « dessus » puis « dessous » sans jamais franchir le bord. Il n'a <b>qu'une seule face</b>.</p>
+           <p>Bonus : coupez-le aux ciseaux le long de sa ligne médiane… vous n'obtiendrez pas deux rubans.</p>`},
+  12:{type:"jeu", title:"Tangram : la promo EUR MINT 2026-2027",
      body:`<p>La photo de la nouvelle promotion de l'<b>EUR MINT</b> a été découpée en 7 pièces de tangram.</p>
-           <p>Faites glisser, tournez… et réunissez toute la promo en un minimum de coups !</p>
+           <p>Faites glisser, tournez… et réunissez toute la promo en un minimum de coups !</p>
 `,
      links:[{label:"Jouer au tangram", url:"https://labruyerechristelle.github.io/IMT/calendrier-avent/tangram-mint/"}]},
   13:{type:"jeu", title:"Pause mots fléchés",
-     body:`<p>Mi-parcours ! Pour patienter jusqu'à demain, une grille de mots fléchés 100 % maths, à jouer en ligne.</p>
-           <p>Fermat, Euler, fractales… saurez-vous tout trouver ?</p>
+     body:`<p>Mi-parcours ! Pour patienter jusqu'à demain, une grille de mots fléchés 100 % maths, à jouer en ligne.</p>
+           <p>Fermat, Euler, fractales… saurez-vous tout trouver ?</p>
 `,
      links:[{label:"Jouer aux mots fléchés", url:"https://labruyerechristelle.github.io/IMT/mots-fleches/"}]},
   14:{type:"enigme", title:"Le loup, la chèvre et le chou",
      body:`<p>Un passeur doit faire traverser une rivière à un loup, une chèvre et un chou. Sa barque ne porte qu'un passager à la fois. Laissés seuls, le loup mange la chèvre, et la chèvre mange le chou.</p>
-           <p><b>Comment faire, et en combien de traversées ?</b></p>
-           <p style="color:var(--muted);font-size:14px">Cette énigme a plus de 1 200 ans : on la trouve dans un recueil attribué à Alcuin, conseiller de Charlemagne.</p>`,
-     sol:`<p><b>7 traversées :</b></p>
-          <ul><li>aller avec la chèvre, retour à vide ;</li><li>aller avec le loup, retour avec la chèvre ;</li><li>aller avec le chou, retour à vide ;</li><li>aller avec la chèvre.</li></ul>
-          <p>L'astuce : on a le droit de <b>ramener</b> la chèvre !</p>`},
-  15:{type:"jeu", title:"Quiz : l'IMT et sa recherche",
-     body:`<p>Combien sont-ils, sur quoi travaillent-ils ? Plongez dans les équipes et les sujets de recherche de l'<b>Institut de Mathématiques de Toulouse</b>.</p>
+           <p><b>Comment faire, et en combien de traversées ?</b></p>
+           <p style="color:var(--muted);font-size:14px">Cette énigme a plus de 1 200 ans : on la trouve dans un recueil attribué à Alcuin, conseiller de Charlemagne.</p>`,
+     sol:`<p><b>7 traversées :</b></p>
+          <ul><li>aller avec la chèvre, retour à vide ;</li><li>aller avec le loup, retour avec la chèvre ;</li><li>aller avec le chou, retour à vide ;</li><li>aller avec la chèvre.</li></ul>
+          <p>L'astuce : on a le droit de <b>ramener</b> la chèvre !</p>`},
+  15:{type:"jeu", title:"Quiz : l'IMT et sa recherche",
+     body:`<p>Combien sont-ils, sur quoi travaillent-ils ? Plongez dans les équipes et les sujets de recherche de l'<b>Institut de Mathématiques de Toulouse</b>.</p>
            <p>5 questions, de la cryptographie (ou pas) au deep learning.</p>
 `,
      links:[{label:"Jouer au quiz", url:"https://labruyerechristelle.github.io/IMT/calendrier-avent/quiz/quiz-04-imt-recherche.html"}]},
   16:{type:"toulouse", title:"Il y a des maths dans la météo",
      body:`<p>Le Centre national de recherches météorologiques (CNRM) de Météo-France est installé à <b>Toulouse</b>.</p>
            <p>Prévoir s'il neigera à Noël, c'est résoudre des <b>équations de la mécanique des fluides</b> sur une grille couvrant toute la planète, avec des millions d'inconnues.</p>
-           <p>Et comme l'atmosphère est chaotique, on lance des dizaines de simulations légèrement différentes : c'est la <b>prévision d'ensemble</b>, qui donne des probabilités plutôt qu'une certitude.</p>`},
+           <p>Et comme l'atmosphère est chaotique, on lance des dizaines de simulations légèrement différentes : c'est la <b>prévision d'ensemble</b>, qui donne des probabilités plutôt qu'une certitude.</p>`},
   17:{type:"enigme", title:"La bûche en 8",
      body:`<p>Vous devez partager une bûche (bien cylindrique) en <b>8 parts identiques</b>…</p>
-           <p><b>…avec seulement 3 coups de couteau. Comment faire ?</b></p>`,
-     sol:`<p>Pensez en 3D ! Deux coupes verticales en croix, dans le sens de la longueur, donnent 4 parts. Puis <b>une coupe horizontale</b> à mi-hauteur coupe chacune en deux : <b>8 parts</b>.</p>
+           <p><b>…avec seulement 3 coups de couteau. Comment faire ?</b></p>`,
+     sol:`<p>Pensez en 3D ! Deux coupes <b>en croix dans la longueur</b> donnent 4 longues parts. Puis <b>une coupe en travers</b>, au milieu de la bûche, coupe chacune en deux : <b>8 parts</b>.</p>
           <p>(Les gourmand·es feront plutôt 7 coupes en tranches, on ne juge pas.)</p>`},
-  18:{type:"savoir", title:"Fibonacci dans le sapin",
-     body:`<p>Regardez une pomme de pin par en dessous : ses écailles forment des spirales dans les deux sens. Comptez-les.</p>
-           <p>Vous trouverez très souvent <b>8 spirales dans un sens et 13 dans l'autre</b> : deux nombres consécutifs de la suite de Fibonacci <span class="math">1, 1, 2, 3, 5, 8, 13, 21…</span> où chaque terme est la somme des deux précédents.</p>
-           <p>Même chose pour les ananas ou les cœurs de tournesol : une manière très efficace de ranger des graines.</p>`},
+  18:{type:"savoir", title:"Fibonacci dans la pomme de pin",
+     body:`<p>Regardez une pomme de pin par en dessous : ses écailles forment des spirales dans les deux sens. Comptez-les.</p>
+           <p>Vous trouverez très souvent <b>8 spirales dans un sens et 13 dans l'autre</b> : deux nombres consécutifs de la suite de Fibonacci <span class="math">1, 1, 2, 3, 5, 8, 13, 21…</span> où chaque terme est la somme des deux précédents.</p>
+           <p>Même chose pour les ananas ou les cœurs de tournesol : une manière très efficace de ranger des graines.</p>`},
   19:{type:"enigme", title:"La tournée du Père Noël",
-     body:`<p>Le Père Noël doit livrer <b>10 villes</b> et revenir à son point de départ. Il veut comparer tous les itinéraires possibles pour choisir le plus court.</p>
-           <p><b>Combien de tournées différentes doit-il examiner ?</b> (une tournée et la même dans l'autre sens comptent pour une)</p>`,
-     sol:`<p><b>181 440 tournées</b> : <span class="math">9! ÷ 2</span>. Pour 30 villes, on dépasse déjà 10³⁰ possibilités.</p>
-          <p>C'est le célèbre <b>problème du voyageur de commerce</b>, au cœur de la recherche en optimisation : logistique, tournées de livraison, perçage de circuits imprimés…</p>`},
-  20:{type:"jeu", title:"Taquin : le bâtiment de l'IMT",
+     body:`<p>Le Père Noël doit passer par <b>10 villes, point de départ compris</b>, puis revenir à son point de départ. Il veut comparer tous les itinéraires possibles pour choisir le plus court.</p>
+           <p><b>Combien de tournées différentes doit-il examiner ?</b> (une tournée et la même dans l'autre sens comptent pour une)</p>`,
+     sol:`<p><b>181 440 tournées</b> : <span class="math">9! ÷ 2</span>. Pour 30 villes, on dépasse déjà 10³⁰ possibilités.</p>
+          <p>C'est le célèbre <b>problème du voyageur de commerce</b>, au cœur de la recherche en optimisation : logistique, tournées de livraison, perçage de circuits imprimés…</p>`},
+  20:{type:"jeu", title:"Taquin : le bâtiment de l'IMT",
      body:`<p>La photo du bâtiment de l'<b>Institut de Mathématiques de Toulouse</b> a été découpée en morceaux et mélangée.</p>
-           <p>Faites glisser les morceaux pour reconstituer la photo. Deux niveaux au choix : facile ou difficile !</p>
+           <p>Faites glisser les morceaux pour reconstituer la photo. Deux niveaux au choix : facile ou difficile !</p>
 `,
      links:[{label:"Jouer au taquin", url:"https://labruyerechristelle.github.io/IMT/calendrier-avent/taquin/"}]},
   21:{type:"enigme", title:"Le paradoxe des anniversaires",
      body:`<p>À une fête, on cherche deux personnes nées le même jour de l'année.</p>
-           <p><b>Combien faut-il d'invité·es pour avoir plus d'une chance sur deux d'y arriver ?</b></p>`,
-     sol:`<p><b>Seulement 23 !</b> Avec 23 personnes, la probabilité dépasse 50 %. Avec 57, elle dépasse 99 %.</p>
-          <p>L'intuition se trompe car on ne compare pas une personne aux autres : on compare <b>toutes les paires</b>. Et avec 23 personnes, il y a déjà 253 paires.</p>`},
-  22:{type:"jeu", title:"Qui suis-je ? Des savants à Toulouse",
-     body:`<p>Magistrat, astronome, prix Nobel… Quatre savants ont marqué l'histoire scientifique de <b>Toulouse</b>. Saurez-vous les reconnaître ?</p>
-           <p>Les indices arrivent un par un : moins vous en utilisez, plus vous marquez de points. Et c'est la <b>dernière lettre</b> de l'énigme fil rouge !</p>
+           <p><b>Combien faut-il d'invité·es pour avoir plus d'une chance sur deux d'y arriver ?</b></p>`,
+     sol:`<p><b>Seulement 23 !</b> Avec 23 personnes, la probabilité dépasse 50 %. Avec 57, elle dépasse 99 %.</p>
+          <p>L'intuition se trompe car on ne compare pas une personne aux autres : on compare <b>toutes les paires</b>. Et avec 23 personnes, il y a déjà 253 paires.</p>`},
+  22:{type:"jeu", title:"Qui suis-je ? Des savants à Toulouse",
+     body:`<p>Magistrat, astronome, prix Nobel… Quatre savants ont marqué l'histoire scientifique de <b>Toulouse</b>. Saurez-vous les reconnaître ?</p>
+           <p>Les indices arrivent un par un : moins vous en utilisez, plus vous marquez de points. Et c'est la <b>dernière lettre</b> de l'énigme fil rouge !</p>
 `,
-     links:[{label:"Jouer au Qui suis-je ?", url:"https://labruyerechristelle.github.io/IMT/calendrier-avent/qui-suis-je/"}]},
+     links:[{label:"Jouer au Qui suis-je ?", url:"https://labruyerechristelle.github.io/IMT/calendrier-avent/qui-suis-je/"}]},
   23:{type:"savoir", title:"Maryam Mirzakhani",
      body:`<p>En 2014, la mathématicienne iranienne <b>Maryam Mirzakhani</b> devient la <b>première femme</b> à recevoir la médaille Fields, la plus haute distinction en mathématiques.</p>
            <p>Elle étudiait la géométrie des surfaces courbes et les trajectoires qu'on peut y tracer, un peu comme une bille sur un billard aux formes étranges.</p>
            <p>Depuis 2019, le <b>12 mai</b>, jour de sa naissance, est la Journée internationale des femmes en mathématiques.</p>`},
-  24:{type:"noel", title:"Joyeux Noël !", mystere:true,
-     body:`<p>Merci d'avoir ouvert ce calendrier avec nous ! Toute l'équipe de l'<b>Institut de Mathématiques de Toulouse</b>, du <b>Labex CIMI</b> et de l'<b>EUR MINT</b> vous souhaite de très belles fêtes.</p>
+  24:{type:"noel", title:"Joyeux Noël !", mystere:true,
+     body:`<p>Merci d'avoir ouvert ce calendrier avec nous ! Toute l'équipe de l'<b>Institut de Mathématiques de Toulouse</b>, du <b>Labex CIMI</b> et de l'<b>EUR MINT</b> vous souhaite de très belles fêtes.</p>
            <p>On se retrouve en 2027 pour de nouvelles énigmes.</p>`,
      links:[{label:"IMT", url:"https://www.math.univ-toulouse.fr"},{label:"Labex CIMI", url:"https://www.cimi.univ-toulouse.fr/"},{label:"EUR MINT", url:"https://mint.math.univ-toulouse.fr"}]}
 };
-const TAGS = {enigme:"Énigme", savoir:"Le saviez-vous ?", nombre:"Le nombre du jour", toulouse:"Maths à Toulouse", jeu:"Jeu", noel:"Joyeux Noël"};
+const TAGS = {enigme:"Énigme", savoir:"Le saviez-vous ?", nombre:"Le nombre du jour", toulouse:"Maths à Toulouse", jeu:"Jeu", noel:"Joyeux Noël"};
 const SYMS = ["π","∑","∞","√","∫","e","φ","∂","≈","∀","∃","ℝ","ℕ","Δ","λ","θ"];
 // Ordre des cases dans la grille (mélangé comme un vrai calendrier) ; le 24 est la grande case.
 const ORDER = [7,18,3,24,12,21,1,15,9,22,5,14,10,2,19,6,23,11,16,13,4,20,8,17];
@@ -343,17 +343,9 @@ function complete(n, r, col, w){
   return s;
 }
 const ILLUS = {
-  1: () => { // flocon de Koch
-    let P = circlePts(3, 160, 82, 62, -Math.PI/2);
-    P = [P[0], P[1], P[2], P[0]];
-    for (let k=0;k<4;k++){ const Q=[]; for (let i=0;i<P.length-1;i++){ const [a,b]=[P[i],P[i+1]]; const dx=(b[0]-a[0])/3, dy=(b[1]-a[1])/3;
-      const p1=[a[0]+dx,a[1]+dy], p3=[a[0]+2*dx,a[1]+2*dy]; const ang=Math.atan2(dy,dx)-Math.PI/3, L=Math.hypot(dx,dy);
-      const p2=[p1[0]+L*Math.cos(ang), p1[1]+L*Math.sin(ang)]; Q.push(a,p1,p2,p3);} Q.push(P[P.length-1]); P=Q; }
-    return svgWrap(`<polygon points="${pts(P)}" fill="${C.soft}" stroke="${C.red}" stroke-width="1.6"/>`);
-  },
   2: () => { // chaussettes
     const sock = (x, col, r) => `<g transform="translate(${x},18) rotate(${r},30,60)"><path d="M10 0 h40 v62 q0 10 -8 16 l-28 22 q-14 10 -24 -2 q-8 -12 6 -22 l14 -12 z" fill="${col}"/><rect x="10" y="0" width="40" height="14" fill="#fff" opacity=".35"/></g>`;
-    return svgWrap(sock(70,C.red,-8)+sock(130,C.vio,4)+sock(190,C.red,10)+`<text x="160" y="146" text-anchor="middle" font-size="13" fill="${C.vdk}" font-weight="700">Combien en tirer ?</text>`);
+    return svgWrap(sock(70,C.red,-8)+sock(130,C.vio,4)+sock(190,C.red,10)+`<text x="160" y="146" text-anchor="middle" font-size="13" fill="${C.vdk}" font-weight="700">Combien en tirer ?</text>`);
   },
   3: () => svgWrap(`<path d="M50 30 q55 -12 110 6 v96 q-55 -18 -110 -6z" fill="${C.soft}" stroke="${C.vdk}" stroke-width="2"/><path d="M270 30 q-55 -12 -110 6 v96 q55 -18 110 -6z" fill="#fff" stroke="${C.vdk}" stroke-width="2"/>
     <text x="215" y="76" text-anchor="middle" font-size="17" font-weight="800" fill="${C.red}">xⁿ + yⁿ ≠ zⁿ</text><text x="215" y="96" text-anchor="middle" font-size="11" fill="${C.vdk}" font-style="italic">n ≥ 3</text>
@@ -364,15 +356,6 @@ const ILLUS = {
     return svgWrap(cube(30,62,22,C.red,"1³")+cube(64,22,62,C.red,"12³")+`<text x="152" y="80" font-size="26" font-weight="800" fill="${C.dark}">=</text>`+cube(180,26,54,C.vdk,"9³")+cube(240,20,60,C.vdk,"10³")); },
   6: () => { let s=""; const r=17, w=Math.sqrt(3)*r; for (let row=-1;row<6;row++) for (let col=-1;col<12;col++){ const cx=col*w+(row%2?w/2:0)+8, cy=row*1.5*r+12;
       const hex=circlePts(6,cx,cy,r-1.5,-Math.PI/2); const k=(row*7+col*3)%9; s+=`<polygon points="${pts(hex)}" fill="${k===0?C.red:k<3?C.vio:C.soft}" stroke="#fff" stroke-width="2"/>`; } return svgWrap(s); },
-  7: () => { let s=`<rect x="120" y="10" width="80" height="140" fill="${C.soft}"/><line x1="120" y1="10" x2="120" y2="150" stroke="${C.dark}" stroke-width="4"/><line x1="200" y1="10" x2="200" y2="150" stroke="${C.dark}" stroke-width="4"/>`;
-    let h=0, P=[[160,140]]; for(let d=1;d<=8;d++){ h+=3; P.push([d%2?170:150,140-12*Math.min(h,10.4)]); if(d<8){ h-=2; P.push([d%2?168:152,140-12*h]); } } let y=140-12*10.4;
-    s+=`<polyline points="${pts(P)}" fill="none" stroke="${C.red}" stroke-width="2" stroke-dasharray="4 3"/>`;
-    s+=`<g transform="translate(150,${y-14})"><path d="M0 14 h22 q6 0 6 -6" fill="none" stroke="${C.vdk}" stroke-width="3"/><circle cx="12" cy="6" r="8" fill="none" stroke="${C.vdk}" stroke-width="3"/><circle cx="12" cy="6" r="3" fill="${C.vdk}"/></g>`;
-    s+=`<text x="230" y="40" font-size="13" font-weight="700" fill="${C.red}">+3 m le jour</text><text x="230" y="60" font-size="13" font-weight="700" fill="${C.vdk}">−2 m la nuit</text>`;
-    return svgWrap(s); },
-  8: () => { let s=`<line x1="40" y1="130" x2="290" y2="130" stroke="${C.dark}" stroke-width="2"/><line x1="40" y1="130" x2="40" y2="12" stroke="${C.dark}" stroke-width="2"/>`;
-    const xs=[40,80,115,160,200,250,290], ys=[118,98,86,62,50,30]; for(let i=0;i<6;i++){ s+=`<line x1="${xs[i]}" y1="${ys[i]}" x2="${xs[i+1]}" y2="${ys[i]}" stroke="${C.red}" stroke-width="3"/>`; if(i>0) s+=`<circle cx="${xs[i]}" cy="${ys[i]}" r="4" fill="${C.red}"/><circle cx="${xs[i]}" cy="${ys[i-1]}" r="4" fill="#fff" stroke="${C.red}" stroke-width="2"/>`; }
-    return svgWrap(s+`<text x="60" y="30" font-size="20" font-style="italic" fill="${C.vdk}">∫ f dα</text>`); },
   9: () => { let s=`<line x1="20" y1="80" x2="300" y2="80" stroke="${C.dark}" stroke-width="2"/><text x="20" y="108" font-size="14" fill="${C.dark}">0</text><text x="280" y="108" font-size="14" font-weight="800" fill="${C.red}">1</text><line x1="284" y1="70" x2="284" y2="90" stroke="${C.red}" stroke-width="3"/>`;
     let x=20; for(let k=1;k<=6;k++){ const nx=20+264*(1-Math.pow(.1,k)); s+=`<path d="M${x} 74 Q${(x+nx)/2} ${74-40/k} ${nx} 74" fill="none" stroke="${C.vio}" stroke-width="2"/><circle cx="${nx}" cy="80" r="3.5" fill="${C.vdk}"/>`; x=nx; }
     return svgWrap(s+`<text x="160" y="140" text-anchor="middle" font-size="16" font-weight="800" fill="${C.dark}">0,9 · 0,99 · 0,999 · …</text>`); },
@@ -380,17 +363,12 @@ const ILLUS = {
   11: () => { let s=""; const proj=(u,v)=>{ const x=(1+v/2*Math.cos(u/2))*Math.cos(u), y=(1+v/2*Math.cos(u/2))*Math.sin(u), z=v/2*Math.sin(u/2); return [160+95*x, 78+38*y-55*z]; };
     for (let i=0;i<48;i++){ const u=2*Math.PI*i/48; const a=proj(u,-1), b=proj(u,1); s+=`<line x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}" stroke="${i%2?C.vio:C.red}" stroke-width="1.6" opacity=".8"/>`; }
     const edge=[...Array(193)].map((_,i)=>proj(4*Math.PI*i/192,1)); s+=`<polyline points="${pts(edge)}" fill="none" stroke="${C.dark}" stroke-width="2"/>`; return svgWrap(s); },
-  12: () => { let s=""; [1,2,3,4].forEach((n,k)=>{ const cx=55+k*70; for(let r=0;r<n;r++) for(let c=0;c<=r;c++) s+=`<rect x="${cx-(r+1)*7+c*14+1.5}" y="${120-(n-r)*16}" width="11" height="11" rx="2" fill="${(r+c)%2?C.red:C.vio}"/>`; s+=`<text x="${cx}" y="142" text-anchor="middle" font-size="13" font-weight="700" fill="${C.dark}">${n*(n+1)/2}</text>`; });
-    return svgWrap(s); },
   13: () => { let s=""; const L="FERMAT"; for(let r=0;r<5;r++) for(let c=0;c<9;c++){ const x=88+c*16, y=24+r*20; const on=(r===2)||(c===4); s+=`<rect x="${x}" y="${y}" width="15" height="19" fill="${on?"#fff":C.soft}" stroke="${C.dark}" stroke-width="1"/>`; if(r===2&&c>=1&&c<7) s+=`<text x="${x+7.5}" y="${y+14}" text-anchor="middle" font-size="12" font-weight="800" fill="${C.red}">${L[c-1]}</text>`; }
     return svgWrap(s+`<polygon points="70,64 82,70 70,76" fill="${C.red}"/>`); },
   14: () => svgWrap(`<rect x="0" y="0" width="320" height="150" fill="#fff"/><path d="M110 0 q20 40 0 75 q-20 40 0 75 h100 q20 -40 0 -75 q-20 -40 0 -75z" fill="${C.soft}"/>
     <path d="M128 92 h64 l-10 16 h-44z" fill="${C.vdk}"/><text x="160" y="88" text-anchor="middle" font-size="22">🐐</text>
     <text x="50" y="70" text-anchor="middle" font-size="30">🐺</text><text x="50" y="112" text-anchor="middle" font-size="30">🥬</text>
     <path d="M200 120 q40 20 70 -10" fill="none" stroke="${C.red}" stroke-width="2" stroke-dasharray="4 3"/><text x="272" y="66" text-anchor="middle" font-size="26" font-weight="800" fill="${C.red}">?</text>`),
-  15: () => { const nums=["2026","5994","5355","1998","8082","8532"]; let s=`<circle cx="160" cy="75" r="30" fill="${C.red}"/><text x="160" y="81" text-anchor="middle" font-size="17" font-weight="800" fill="#fff">6174</text>`;
-    circlePts(6,160,75,62).forEach((p,i)=>{ const ex=160+(p[0]-160)*.6, ey=75+(p[1]-75)*.6; s+=`<line x1="${160+(p[0]-160)*.82}" y1="${75+(p[1]-75)*.82}" x2="${ex}" y2="${ey}" stroke="${C.vio}" stroke-width="2"/><text x="${p[0]+(p[0]-160)*.55}" y="${p[1]+(p[1]-75)*.1+5}" text-anchor="middle" font-size="13" font-weight="700" fill="${C.vdk}">${nums[i]}</text>`; });
-    return svgWrap(s); },
   16: () => { let s=`<circle cx="160" cy="75" r="66" fill="${C.soft}" stroke="${C.vdk}" stroke-width="2"/>`;
     for(let k=-2;k<=2;k++){ s+=`<ellipse cx="160" cy="75" rx="${Math.abs(66*Math.cos(k*.6))}" ry="66" fill="none" stroke="${C.vio}" stroke-width="1"/>`; const y=75+k*24; const hw=Math.sqrt(66*66-(y-75)**2); s+=`<line x1="${160-hw}" y1="${y}" x2="${160+hw}" y2="${y}" stroke="${C.vio}" stroke-width="1"/>`; }
     s+=`<clipPath id="gl"><circle cx="160" cy="75" r="65"/></clipPath><g clip-path="url(#gl)">`+[14,28,42,58].map(r=>`<ellipse cx="140" cy="68" rx="${r}" ry="${r*.7}" fill="none" stroke="${C.red}" stroke-width="2"/>`).join("")+`</g>`;
@@ -402,9 +380,6 @@ const ILLUS = {
   18: () => { let s=""; const g=Math.PI*(3-Math.sqrt(5)); for(let i=1;i<260;i++){ const r=4.2*Math.sqrt(i), a=i*g; s+=`<circle cx="${160+r*Math.cos(a)}" cy="${75+r*Math.sin(a)}" r="${1.4+i/140}" fill="${i%2?C.red:C.vdk}" opacity=".9"/>`; } return svgWrap(s); },
   19: () => { const P=[[40,40],[90,25],[150,45],[210,22],[280,40],[290,105],[230,125],[160,100],[100,128],[35,105]]; let s=`<polygon points="${pts(P)}" fill="none" stroke="${C.red}" stroke-width="2.5" stroke-linejoin="round"/>`;
     P.forEach((p,i)=>s+=`<circle cx="${p[0]}" cy="${p[1]}" r="${i?6:9}" fill="${i?C.vdk:C.red}" stroke="#fff" stroke-width="2"/>`); return svgWrap(s+`<text x="40" y="45" text-anchor="middle" font-size="10" fill="#fff">★</text>`); },
-  20: () => { const d="142857"; let s=`<circle cx="160" cy="75" r="56" fill="none" stroke="${C.vio}" stroke-width="2" stroke-dasharray="3 5"/>`;
-    circlePts(6,160,75,56).forEach((p,i)=>s+=`<circle cx="${p[0]}" cy="${p[1]}" r="15" fill="${i%2?C.vdk:C.red}"/><text x="${p[0]}" y="${p[1]+6}" text-anchor="middle" font-size="17" font-weight="800" fill="#fff">${d[i]}</text>`);
-    return svgWrap(s+`<text x="160" y="81" text-anchor="middle" font-size="17" font-weight="800" fill="${C.dark}">1/7</text>`); },
   22: () => svgWrap(`<circle cx="148" cy="68" r="46" fill="${C.soft}" stroke="${C.vdk}" stroke-width="7"/>
     <line x1="182" y1="102" x2="222" y2="140" stroke="${C.dark}" stroke-width="14" stroke-linecap="round"/>
     <text x="148" y="88" text-anchor="middle" font-size="58" font-weight="800" fill="${C.red}">?</text>
@@ -450,7 +425,7 @@ function renderStatus(){
   if (PREVIEW) msg = `<span class="pill">Mode aperçu</span> Toutes les cases sont ouvertes pour la relecture.`;
   else if (LIMIT === 0){
     const days = Math.round((Date.UTC(YEAR,11,1) - Date.UTC(t.y,t.m-1,t.d)) / 864e5);
-    msg = `<span class="pill">J−${days}</span> La première case s'ouvre le 1ᵉʳ décembre. Revenez vite !`;
+    msg = `<span class="pill">J−${days}</span> La première case s'ouvre le 1<sup>er</sup> décembre. Revenez vite !`;
   } else if (LIMIT < 24 && t.y === YEAR) msg = `<span class="pill">${t.d} décembre</span> La case du jour vous attend (elle brille).`;
   else msg = `<span class="pill">Joyeuses fêtes</span> Toutes les cases sont ouvertes.`;
   $("#status").innerHTML = msg + `<span class="prog">${opened.size} / 24 cases ouvertes</span>`;
@@ -485,7 +460,7 @@ function build(){
 function tryOpen(n, slot){
   if (n > LIMIT){
     slot.classList.remove("shake"); void slot.offsetWidth; slot.classList.add("shake");
-    toast(n===24 ? "Patience, la dernière case s'ouvre le 24 décembre 🎁" : `Patience ! Cette case s'ouvre le ${n} décembre.`);
+    toast(n===24 ? "Patience, la dernière case s'ouvre le 24 décembre 🎁" : `Patience ! Cette case s'ouvre le ${n} décembre.`);
     return;
   }
   current = slot;
@@ -497,8 +472,8 @@ function tryOpen(n, slot){
 // ---------- Énigme fil rouge (case 24) ----------
 const MYSTERE_HTML = `<div class="mystere">
   <h3>🔑 L'énigme fil rouge</h3>
-  <p>Tout au long du calendrier, les jeux vous ont donné <b>8 lettres</b>. Remettez-les dans l'ordre pour trouver qui parle :</p>
-  <p class="q">« Je suis un lieu très fréquenté de l'Institut de Mathématiques de Toulouse : on y suit des cours et des conférences, on y soutient des thèses, on y remet même le prix Fermat. Je suis l'amphithéâtre Laurent… »</p>
+  <p>Tout au long du calendrier, les jeux vous ont donné <b>8 lettres</b>. Remettez-les dans l'ordre pour trouver qui parle :</p>
+  <p class="q">« Je suis un lieu très fréquenté de l'Institut de Mathématiques de Toulouse : on y suit des cours et des conférences, on y soutient des thèses, on y remet même le prix Fermat. Je suis l'amphithéâtre Laurent… »</p>
   <form id="mystere-form" autocomplete="off">
     <input id="mystere-input" aria-label="Votre réponse" placeholder="Votre réponse" maxlength="40">
     <button class="btn primary" type="submit">Valider</button>
@@ -515,19 +490,19 @@ function wireMystere(){
     if (v.endsWith("SCHWARTZ")) {
       stat("mystere-trouve", "Mot mystère trouvé (SCHWARTZ)");
       res.className = "mystere-res ok";
-      res.innerHTML = `<b>🎉 Bravo, c'est bien l'amphithéâtre Laurent SCHWARTZ !</b><br>Laurent Schwartz (1915-2002) a reçu la médaille Fields en 1950 pour sa <b>théorie des distributions</b>, qui donne un sens mathématique précis à des objets que les physiciens utilisaient déjà, comme la « fonction » de Dirac. L'amphithéâtre de l'IMT où l'on remet le prix Fermat porte son nom.`;
+      res.innerHTML = `<b>🎉 Bravo, c'est bien l'amphithéâtre Laurent SCHWARTZ !</b><br>Laurent Schwartz (1915-2002) a reçu la médaille Fields en 1950 pour sa <b>théorie des distributions</b>, qui donne un sens mathématique précis à des objets que les physiciens utilisaient déjà, comme la « fonction » de Dirac. L'amphithéâtre de l'IMT où l'on remet le prix Fermat porte son nom.`;
     } else {
       res.className = "mystere-res ko";
-      stat("mystere-erreur", "Mot mystère : mauvaise réponse");
-      res.textContent = "Ce n'est pas ça… Vérifiez vos lettres : le mot mystère en compte 8.";
+      stat("mystere-erreur", "Mot mystère : mauvaise réponse");
+      res.textContent = "Ce n'est pas ça… Vérifiez vos lettres : le mot mystère en compte 8.";
     }
   };
 }
 
 function show(n){
   const d = DAYS[n];
-  stat(`case-${String(n).padStart(2, "0")}`, `Case ${n} : ${d.title}`);
-  $("#m-day").textContent = `${n === 1 ? "1ᵉʳ" : n} décembre`;
+  stat(`case-${String(n).padStart(2, "0")}`, `Case ${n} : ${d.title}`);
+  $("#m-day").innerHTML = `${n === 1 ? "1<sup>er</sup>" : n} décembre`;
   $("#m-title").textContent = d.title;
   $("#m-tag").textContent = TAGS[d.type];
   const pic = IMAGES[n] ? `<img src="${IMAGES[n]}" alt="">` : (ILLUS[n] ? ILLUS[n]() : "");
@@ -570,7 +545,7 @@ function snow(){
 }
 
 renderStatus(); build(); snow();
-stat("calendrier", "Calendrier : visite", false);
+stat("calendrier", "Calendrier : visite", false);
 window.addEventListener("hashchange", ()=>location.reload());
 // Lien direct vers une case : ?jour=5 ou #jour-5 (utile pour un post LinkedIn). Aperçu complet : ?apercu ou #apercu
 const j = +(params.get("jour") || (location.hash.match(/^#jour-(\d+)$/)||[])[1]);

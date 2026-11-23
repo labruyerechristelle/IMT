@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Calendrier de l'Avent – Quiz n°4 : l'IMT, ses équipes et sa recherche</title>
+<title>Calendrier de l'Avent – Quiz n° 4 : l'IMT, ses équipes et sa recherche</title>
 <style>
   :root {
     --bg: #0f2a3d;
@@ -147,18 +147,18 @@
 <div class="card">
   <header>
     <small>Calendrier de l'Avent des Maths à Toulouse</small>
-    <h1>Quiz : l'IMT, ses équipes et sa recherche</h1>
+    <h1>Quiz : l'IMT, ses équipes et sa recherche</h1>
     <div class="day" aria-label="Case numéro 15">15</div>
   </header>
   <div class="progress"><div id="bar"></div></div>
   <main id="app"></main>
-  <footer>Sources : <a href="https://www.math.univ-toulouse.fr/fr/" target="_blank" rel="noopener">site de l'Institut de Mathématiques de Toulouse</a> (novembre 2026)</footer>
+  <footer>Sources : <a href="https://www.math.univ-toulouse.fr/fr/" target="_blank" rel="noopener">site de l'Institut de Mathématiques de Toulouse</a> (novembre 2026)</footer>
 </div>
 
 <script>
 const QUESTIONS = [
   {
-    "q": "Combien de personnels permanents compte l'Institut de Mathématiques de Toulouse, environ ?",
+    "q": "Combien de personnels permanents compte l'Institut de Mathématiques de Toulouse, environ ?",
     "options": [
       "Environ 80",
       "Environ 150",
@@ -170,7 +170,7 @@ const QUESTIONS = [
     "link": "https://www.math.univ-toulouse.fr/fr/institut/presentation/"
   },
   {
-    "q": "L'IMT compte 6 équipes de recherche. Laquelle de ces équipes n'existe pas ?",
+    "q": "L'IMT compte 6 équipes de recherche. Laquelle de ces équipes n'existe pas ?",
     "options": [
       "Probabilités",
       "Cryptographie",
@@ -178,11 +178,11 @@ const QUESTIONS = [
       "Dynamique et Géométrie Complexe"
     ],
     "answer": 1,
-    "explain": "Les 6 équipes de l'IMT sont : Analyse, Dynamique et Géométrie Complexe, Équations aux Dérivées Partielles, Géométrie Topologie Algèbre, Probabilités, et Statistique et Optimisation.",
+    "explain": "Les 6 équipes de l'IMT sont : Analyse, Dynamique et Géométrie Complexe, Équations aux Dérivées Partielles, Géométrie Topologie Algèbre, Probabilités, et Statistique et Optimisation.",
     "link": "https://www.math.univ-toulouse.fr/fr/recherche/teams/"
   },
   {
-    "q": "Lequel de ces domaines ne fait pas partie des 8 thèmes transversaux de l'IMT ?",
+    "q": "Lequel de ces domaines ne fait pas partie des 8 thèmes transversaux de l'IMT ?",
     "options": [
       "Biologie et santé",
       "Finance et assurance",
@@ -190,7 +190,7 @@ const QUESTIONS = [
       "Astronomie"
     ],
     "answer": 3,
-    "explain": "Les 8 thèmes transversaux sont : Biologie et santé, Finance et assurance, Industrie, Informatique, Modélisation et calcul scientifique, Physique, Sciences des données et traitement du signal, et Sciences humaines.",
+    "explain": "Les 8 thèmes transversaux sont : Biologie et santé, Finance et assurance, Industrie, Informatique, Modélisation et calcul scientifique, Physique, Sciences des données et traitement du signal, et Sciences humaines.",
     "link": "https://www.math.univ-toulouse.fr/fr/recherche/themes/"
   },
   {
@@ -206,7 +206,7 @@ const QUESTIONS = [
     "link": "https://www.math.univ-toulouse.fr/en/institut/actualites/b79a96e0-b563-44a2-9d80-17ac15cd0123/"
   },
   {
-    "q": "Au séminaire Maths-Info de l'IMT, Erik Martin-Dorel a présenté une méthode pour prouver automatiquement qu'un polynôme est positif. Avec quel outil ?",
+    "q": "Au séminaire Maths-Info de l'IMT, Erik Martin-Dorel a présenté une méthode pour prouver automatiquement qu'un polynôme est positif. Avec quel outil ?",
     "options": [
       "Excel",
       "Rocq, un assistant de preuve",
@@ -214,7 +214,7 @@ const QUESTIONS = [
       "Scratch"
     ],
     "answer": 1,
-    "explain": "Rocq (anciennement Coq) est un assistant de preuve : un logiciel qui vérifie, étape par étape, qu'une démonstration mathématique est correcte. L'exposé a eu lieu le 12 novembre 2026.",
+    "explain": "Rocq (anciennement Coq) est un assistant de preuve : un logiciel qui vérifie, étape par étape, qu'une démonstration mathématique est correcte. L'exposé a eu lieu le 12 novembre 2026.",
     "link": "https://www.math.univ-toulouse.fr/fr/activites/evenements/seminaires/"
   }
 ];
@@ -252,29 +252,29 @@ function choose(i) {
   if (good) score++; else buttons[i].classList.add("wrong");
   const fb = document.getElementById("fb");
   fb.className = "feedback show " + (good ? "good" : "bad");
-  fb.innerHTML = `<strong>${good ? "Bonne réponse !" : "Pas tout à fait…"}</strong>${item.explain} <a href="${item.link}" target="_blank" rel="noopener">En savoir plus</a>`;
+  fb.innerHTML = `<strong>${good ? "Bonne réponse !" : "Pas tout à fait…"}</strong>${item.explain} <a href="${item.link}" target="_blank" rel="noopener">En savoir plus</a>`;
   const next = document.getElementById("next");
   next.hidden = false;
   next.focus();
 }
 
 function showResult() {
-  stat("fin-quiz-04", "Fin : quiz recherche IMT (case 15)");
+  stat("fin-quiz-04", "Fin : quiz recherche IMT (case 15)");
   bar.style.width = "100%";
   const msgs = [
-    "Il est temps d'aller faire un tour sur le site de l'IMT !",
-    "Un bon début : le site de l'IMT vous en apprendra plus.",
-    "Pas mal du tout !",
+    "Il est temps d'aller faire un tour sur le site de l'IMT !",
+    "Un bon début : le site de l'IMT vous en apprendra plus.",
+    "Pas mal du tout !",
     "Très bien, vous connaissez bien l'IMT.",
-    "Excellent, presque un sans-faute !",
-    "Sans-faute ! Vous êtes incollable sur l'IMT."
+    "Excellent, presque un sans-faute !",
+    "Sans-faute ! Vous êtes incollable sur l'IMT."
   ];
   app.innerHTML = `
     <div class="result">
       <div class="count">Votre score</div>
       <div class="score">${score} / ${QUESTIONS.length}</div>
       <p>${msgs[score]}</p>
-      <div class="key">🔑 <b>Énigme du 24 décembre</b> : votre lettre mystère est <b class="letter">H</b>. Notez-la bien ! Le 24 décembre, il faudra remettre dans l'ordre toutes les lettres récoltées dans le calendrier pour trouver le mot mystère.</div>
+      <div class="key">🔑 <b>Énigme du 24 décembre</b> : votre lettre mystère est <b class="letter">H</b>. Notez-la bien ! Le 24 décembre, il faudra remettre dans l'ordre toutes les lettres récoltées dans le calendrier pour trouver le mot mystère.</div>
       <div class="actions">
         <button class="btn secondary" id="again">Recommencer</button>
         <a class="btn" href="https://www.math.univ-toulouse.fr/fr/" target="_blank" rel="noopener" style="text-decoration:none">Découvrir l'IMT</a>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Calendrier de l'Avent – Tangram : les lauréats des prix Fermat 2025</title>
+<title>Calendrier de l'Avent – Tangram : les lauréats des prix Fermat 2025</title>
 <style>
   :root {
     --bg: #0f2a3d;
@@ -145,14 +145,14 @@
 <div class="card">
   <header>
     <small>Calendrier de l'Avent des Maths à Toulouse</small>
-    <h1>Tangram : les lauréats des prix Fermat 2025</h1>
+    <h1>Tangram : les lauréats des prix Fermat 2025</h1>
     <div class="day" aria-label="Case numéro 8" style="font-size:26px">8</div>
   </header>
   <div class="progress"><div id="progress"></div></div>
   <main>
     <p class="intro">La photo des lauréats 2025 du prix Fermat et du prix Fermat Junior, prise à l'Institut de Mathématiques de Toulouse, a été découpée en 7 pièces de tangram. <b>Faites glisser</b> les pièces dans le carré et <b>touchez-les</b> pour les faire tourner d'un huitième de tour. Une pièce bien placée, dans le bon sens, s'aimante toute seule.</p>
     <div class="bar">
-      <div class="stats">Pièces placées : <b id="placed">0</b> / 7 · Coups : <b id="moves">0</b></div>
+      <div class="stats">Pièces placées : <b id="placed">0</b> / 7 · Coups : <b id="moves">0</b></div>
       <div class="btns">
         <button class="btn" id="hint" aria-pressed="false">Voir le modèle</button>
         <button class="btn" id="tidy">Ranger</button>
@@ -170,9 +170,9 @@
       </svg>
     </div>
     <div class="win" id="win" role="status">
-      <strong>Bravo, la photo est complète !</strong>
+      <strong>Bravo, la photo est complète !</strong>
       <span id="winText"></span>
-      <div class="key">🔑 <b>Énigme du 24 décembre</b> : votre lettre mystère est <b class="letter">A</b>. Notez-la bien ! Le 24 décembre, il faudra remettre dans l'ordre toutes les lettres récoltées dans le calendrier pour trouver le mot mystère.</div>
+      <div class="key">🔑 <b>Énigme du 24 décembre</b> : votre lettre mystère est <b class="letter">A</b>. Notez-la bien ! Le 24 décembre, il faudra remettre dans l'ordre toutes les lettres récoltées dans le calendrier pour trouver le mot mystère.</div>
       <div class="btns">
         <button class="btn primary" id="again">Rejouer</button>
         <a class="btn" href="https://www.math.univ-toulouse.fr/fr/activites/prix-fermat/" target="_blank" rel="noopener">Le prix Fermat</a>
@@ -180,7 +180,7 @@
       </div>
     </div>
   </main>
-  <footer>Photo : lauréats 2025 du <a href="https://www.math.univ-toulouse.fr/fr/activites/prix-fermat/" target="_blank" rel="noopener">prix Fermat</a> et du <a href="https://www.math.univ-toulouse.fr/fr/activites/prix-fermat-junior/" target="_blank" rel="noopener">prix Fermat Junior</a>, Institut de Mathématiques de Toulouse. Le prix Fermat récompense des travaux de recherche du plus haut niveau international ; le prix Fermat Junior récompense des étudiantes et étudiants des trois premières années d'études supérieures.</footer>
+  <footer>Photo : lauréats 2025 du <a href="https://www.math.univ-toulouse.fr/fr/activites/prix-fermat/" target="_blank" rel="noopener">prix Fermat</a> et du <a href="https://www.math.univ-toulouse.fr/fr/activites/prix-fermat-junior/" target="_blank" rel="noopener">prix Fermat Junior</a>, Institut de Mathématiques de Toulouse. Le prix Fermat récompense des travaux de recherche du plus haut niveau international ; le prix Fermat Junior récompense des étudiantes et étudiants des trois premières années d'études supérieures.</footer>
 </div>
 
 <script>
@@ -334,7 +334,7 @@ function update() {
   document.getElementById("moves").textContent = moves;
   document.getElementById("progress").style.width = (n / 7 * 100) + "%";
   if (n === 7) {
-    stat("fin-tangram-fermat", "Fin : tangram prix Fermat (case 8)");
+    stat("fin-tangram-fermat", "Fin : tangram prix Fermat (case 8)");
     svg.classList.add("done");
     document.getElementById("winText").textContent =
       `Vous avez reconstitué la photo des lauréats 2025 du prix Fermat et du prix Fermat Junior en ${moves} coups.`;

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Calendrier de l'Avent – Qui suis-je ? Des savants à Toulouse</title>
+<title>Calendrier de l'Avent – Qui suis-je ? Des savants à Toulouse</title>
 <style>
   :root {
     --bg: #0f2a3d;
@@ -140,36 +140,36 @@
 <div class="card">
   <header>
     <small>Calendrier de l'Avent des Maths à Toulouse</small>
-    <h1>Qui suis-je ? Des savants à Toulouse</h1>
+    <h1>Qui suis-je ? Des savants à Toulouse</h1>
     <div class="day" aria-label="Case numéro 22">22</div>
   </header>
   <div class="progress"><div id="bar"></div></div>
   <main id="app"></main>
-  <footer>Sources : biographies du <a href="https://mathshistory.st-andrews.ac.uk/" target="_blank" rel="noopener">MacTutor History of Mathematics</a>, de la <a href="https://www.nobelprize.org/prizes/chemistry/1912/sabatier/facts/" target="_blank" rel="noopener">Fondation Nobel</a> et des <a href="https://www.math.univ-toulouse.fr/en/activites/annales-de-toulouse/" target="_blank" rel="noopener">Annales de Toulouse</a>.</footer>
+  <footer>Sources : biographies du <a href="https://mathshistory.st-andrews.ac.uk/" target="_blank" rel="noopener">MacTutor History of Mathematics</a>, de la <a href="https://www.nobelprize.org/prizes/chemistry/1912/sabatier/facts/" target="_blank" rel="noopener">Fondation Nobel</a> et des <a href="https://www.math.univ-toulouse.fr/en/activites/annales-de-toulouse/" target="_blank" rel="noopener">Annales de Toulouse</a>.</footer>
 </div>
 
 <script>
-const KEY_HTML = `🔑 <b>Énigme du 24 décembre</b> : votre lettre mystère est <b class="letter">S</b>. Notez-la bien ! Le 24 décembre, il faudra remettre dans l'ordre toutes les lettres récoltées dans le calendrier pour trouver le mot mystère.`;
+const KEY_HTML = `🔑 <b>Énigme du 24 décembre</b> : votre lettre mystère est <b class="letter">S</b>. Notez-la bien ! Le 24 décembre, il faudra remettre dans l'ordre toutes les lettres récoltées dans le calendrier pour trouver le mot mystère.`;
 
 const PEOPLE = [
   {
     clues: [
-      "Je n'étais pas mathématicien de métier : j'étais magistrat, conseiller au parlement de Toulouse.",
+      "Je n'étais pas mathématicien de métier : j'étais magistrat, conseiller au parlement de Toulouse.",
       "Je suis né à Beaumont-de-Lomagne, dans l'actuel Tarn-et-Garonne, et je suis mort à Castres en 1665.",
       "J'ai noté dans la marge d'un livre que j'avais trouvé une démonstration merveilleuse… mais que la marge était trop étroite pour la contenir.",
-      "Mon « dernier théorème » n'a été démontré qu'en 1994, par Andrew Wiles. Un grand prix de mathématiques toulousain porte mon nom."
+      "Mon « dernier théorème » n'a été démontré qu'en 1994 par Andrew Wiles, et publié en 1995. Un grand prix de mathématiques toulousain porte mon nom."
     ],
     options: ["Blaise Pascal", "Pierre de Fermat", "René Descartes", "Marin Mersenne"],
     answer: 1,
-    about: "Pierre de Fermat (début du XVIIᵉ siècle – 1665), magistrat toulousain et immense mathématicien amateur : théorie des nombres, probabilités, géométrie analytique… Le lycée Pierre-de-Fermat et le prix Fermat, décerné par l'IMT, lui rendent hommage.",
+    about: "Pierre de Fermat (début du XVII<sup>e</sup> siècle – 1665), magistrat toulousain et immense mathématicien amateur : théorie des nombres, probabilités, géométrie analytique… Le lycée Pierre-de-Fermat et le prix Fermat, décerné par l'IMT, lui rendent hommage.",
     link: "https://www.math.univ-toulouse.fr/fr/activites/prix-fermat/"
   },
   {
     clues: [
       "Je suis né en 1856 à Zwolle, aux Pays-Bas.",
       "Arrivé à la faculté des sciences de Toulouse en 1886, j'ai cofondé dès 1887 une revue de mathématiques toulousaine qui paraît toujours.",
-      "Spécialiste des fractions continues, je suis considéré comme le « père de la théorie analytique des fractions continues ».",
-      "Une intégrale porte mon nom… et un canal aux Pays-Bas aussi ! Je suis mort à Toulouse le 31 décembre 1894."
+      "Spécialiste des fractions continues, je suis considéré comme le « père de la théorie analytique des fractions continues ».",
+      "Une intégrale porte mon nom… et un canal aux Pays-Bas porte celui de mon père ! Je suis mort à Toulouse le 31 décembre 1894."
     ],
     options: ["Christiaan Huygens", "Henri Lebesgue", "Thomas Stieltjes", "Henri Poincaré"],
     answer: 2,
@@ -181,7 +181,7 @@ const PEOPLE = [
       "Né à Amiens en 1866, je suis arrivé à Toulouse en 1886 comme astronome adjoint à l'observatoire.",
       "J'ai enseigné le calcul différentiel à la faculté des sciences, puis dirigé l'observatoire de Toulouse de 1908 jusqu'à ma mort, en 1931.",
       "Sous ma direction, l'observatoire de Toulouse a participé au grand projet international de la Carte du Ciel.",
-      "Avec mon frère François, j'ai bâti une théorie des corps déformables : les « milieux » qui portent notre nom de famille sont toujours étudiés."
+      "Avec mon frère François, j'ai bâti une théorie des corps déformables : les « milieux » qui portent notre nom de famille sont toujours étudiés."
     ],
     options: ["Urbain Le Verrier", "Camille Flammarion", "Eugène Cosserat", "Henri Poincaré"],
     answer: 2,
@@ -192,8 +192,8 @@ const PEOPLE = [
     clues: [
       "Né à Carcassonne en 1854, j'ai mené toute ma carrière de chercheur à la faculté des sciences de Toulouse.",
       "J'ai été l'un des cofondateurs, en 1887, des Annales de la Faculté des sciences de Toulouse… mais je n'étais pas mathématicien.",
-      "J'ai découvert qu'avec du nickel finement divisé, on peut faire absorber de l'hydrogène à des composés organiques : c'est l'hydrogénation catalytique.",
-      "En 1912, j'ai reçu le prix Nobel de chimie, partagé avec Victor Grignard. L'université toulousaine qui accueille l'IMT porte mon nom."
+      "J'ai découvert qu'avec du nickel finement divisé, on peut faire absorber de l'hydrogène à des composés organiques : c'est l'hydrogénation catalytique.",
+      "En 1912, j'ai reçu le prix Nobel de chimie, partagé avec Victor Grignard. L'université toulousaine qui accueille l'IMT a longtemps porté mon nom."
     ],
     options: ["Louis Pasteur", "Paul Sabatier", "Marcellin Berthelot", "Antoine Lavoisier"],
     answer: 1,
@@ -214,8 +214,8 @@ function render() {
   shown = 1; found = false;
   bar.style.width = (current / PEOPLE.length * 100) + "%";
   app.innerHTML = `
-    <div class="count"><span>Personnage <b>${current + 1}</b> / ${PEOPLE.length}</span><span>Score : <b id="score">${score}</b> / ${MAXP}</span></div>
-    ${current === 0 ? `<p class="rules">Lisez les indices et trouvez qui parle. Moins vous utilisez d'indices, plus vous gagnez de points : 4 points avec un seul indice, 1 point avec les quatre. Une mauvaise réponse dévoile l'indice suivant.</p>` : ""}
+    <div class="count"><span>Personnage <b>${current + 1}</b> / ${PEOPLE.length}</span><span>Score : <b id="score">${score}</b> / ${MAXP}</span></div>
+    ${current === 0 ? `<p class="rules">Lisez les indices et trouvez qui parle. Moins vous utilisez d'indices, plus vous gagnez de points : 4 points avec un seul indice, 1 point avec les quatre. Une mauvaise réponse dévoile l'indice suivant.</p>` : ""}
     <ol class="clues" id="clues"></ol>
     <div class="more"><button class="btn secondary" id="more">Indice suivant</button> <span class="points" id="points"></span></div>
     <div class="options">${p.options.map((o, i) => `<button class="opt" data-i="${i}">${o}</button>`).join("")}</div>
@@ -259,19 +259,19 @@ function choose(i, btn) {
   shown = 4; drawClues();
   const fb = document.getElementById("fb");
   fb.className = "feedback show";
-  fb.innerHTML = `<strong>Bravo ! +${gained} point${gained > 1 ? "s" : ""}</strong>${p.about} <a href="${p.link}" target="_blank" rel="noopener">En savoir plus</a>`;
+  fb.innerHTML = `<strong>Bravo ! +${gained} point${gained > 1 ? "s" : ""}</strong>${p.about} <a href="${p.link}" target="_blank" rel="noopener">En savoir plus</a>`;
   const next = document.getElementById("next");
   next.hidden = false; next.focus();
 }
 
 function result() {
-  stat("fin-qui-suis-je", "Fin : Qui suis-je ? (case 22)");
+  stat("fin-qui-suis-je", "Fin : Qui suis-je ? (case 22)");
   bar.style.width = "100%";
   const r = score / MAXP;
-  const msg = r === 1 ? "Sans-faute ! Vous connaissez les savants toulousains sur le bout des doigts."
-            : r >= .75 ? "Excellent, vous êtes un vrai détective de l'histoire des sciences !"
-            : r >= .5 ? "Joli score ! Toulouse a une belle histoire scientifique, n'est-ce pas ?"
-            : "Il fallait de bons indices… mais vous avez démasqué tout le monde !";
+  const msg = r === 1 ? "Sans-faute ! Vous connaissez les savants toulousains sur le bout des doigts."
+            : r >= .75 ? "Excellent, vous êtes un vrai détective de l'histoire des sciences !"
+            : r >= .5 ? "Joli score ! Toulouse a une belle histoire scientifique, n'est-ce pas ?"
+            : "Il fallait de bons indices… mais vous avez démasqué tout le monde !";
   app.innerHTML = `
     <div class="result">
       <div class="count" style="justify-content:center">Votre score</div>
