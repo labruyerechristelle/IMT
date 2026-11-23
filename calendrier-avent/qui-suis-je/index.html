@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calendrier de l'Avent – Qui suis-je ? Des savants à Toulouse</title>
+<style>
+  :root {
+    --bg: #0f2a3d;
+    --card: #ffffff;
+    --ink: #1c2733;
+    --muted: #5d6b78;
+    --accent: #c0392b;
+    --accent-dark: #962d22;
+    --gold: #e0a526;
+    --ok: #2e8b57;
+    --ok-bg: #e8f5ee;
+    --ko: #c0392b;
+    --ko-bg: #fbeceb;
+    --line: #e3e7eb;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    color: var(--ink);
+    background: radial-gradient(circle at 20% 10%, #1d4562 0%, var(--bg) 60%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 16px;
+  }
+  .card {
+    background: var(--card);
+    width: 100%;
+    max-width: 660px;
+    border-radius: 18px;
+    box-shadow: 0 20px 50px rgba(0,0,0,.35);
+    overflow: hidden;
+  }
+  header {
+    background: var(--accent);
+    color: #fff;
+    padding: 22px 28px 18px;
+    position: relative;
+  }
+  header .day {
+    position: absolute;
+    right: 22px; top: 18px;
+    width: 54px; height: 54px;
+    border-radius: 50%;
+    background: var(--gold);
+    color: #fff;
+    font-weight: 800;
+    font-size: 26px;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: inset 0 -3px 0 rgba(0,0,0,.15);
+  }
+  header small { display: block; padding-right: 70px; text-transform: uppercase; letter-spacing: .12em; opacity: .85; font-size: 12px; }
+  header h1 { margin: 6px 0 0; font-size: 24px; line-height: 1.25; padding-right: 70px; }
+  .progress { height: 6px; background: var(--line); }
+  .progress > div { height: 100%; width: 0; background: var(--gold); transition: width .35s ease; }
+  main { padding: 24px 26px 26px; }
+  .count { color: var(--muted); font-size: 14px; margin-bottom: 6px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  .count b { color: var(--ink); }
+  .rules { color: var(--muted); font-size: 15px; line-height: 1.5; margin: 0 0 16px; }
+  .clues { list-style: none; padding: 0; margin: 0 0 14px; display: grid; gap: 8px; }
+  .clue {
+    padding: 12px 14px 12px 48px; border-radius: 12px; background: #f5f7f9;
+    position: relative; line-height: 1.5; font-size: 16px;
+    animation: pop .3s ease;
+  }
+  .clue::before {
+    content: attr(data-n); position: absolute; left: 12px; top: 11px;
+    width: 26px; height: 26px; border-radius: 50%; background: var(--gold); color: #fff;
+    font-weight: 800; font-size: 14px; display: flex; align-items: center; justify-content: center;
+  }
+  @keyframes pop { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  .more { margin-bottom: 16px; }
+  .points { font-size: 14px; color: var(--muted); }
+  .options { display: grid; gap: 10px; grid-template-columns: 1fr 1fr; }
+  @media (max-width: 480px) { .options { grid-template-columns: 1fr; } }
+  .opt {
+    text-align: left; font: inherit; font-size: 16px;
+    padding: 13px 15px; border: 2px solid var(--line); border-radius: 12px;
+    background: #fff; cursor: pointer; transition: border-color .15s, background .15s;
+  }
+  .opt:hover:not(:disabled) { border-color: var(--accent); background: #fff7f6; }
+  .opt:disabled { cursor: default; color: var(--ink); opacity: 1; }
+  .opt.correct { border-color: var(--ok); background: var(--ok-bg); }
+  .opt.wrong, .opt.wrong:disabled { border-color: var(--ko); background: var(--ko-bg); color: var(--muted); text-decoration: line-through; }
+  .feedback { margin-top: 16px; padding: 14px 16px; border-radius: 12px; background: var(--ok-bg); line-height: 1.5; display: none; }
+  .feedback.show { display: block; }
+  .feedback strong { display: block; color: var(--ok); margin-bottom: 4px; }
+  .feedback a { color: var(--accent-dark); }
+  .actions { margin-top: 18px; display: flex; justify-content: flex-end; gap: 10px; flex-wrap: wrap; }
+  .btn {
+    font: inherit; font-weight: 600; padding: 11px 20px; border-radius: 999px; cursor: pointer;
+    border: 2px solid var(--accent); background: var(--accent); color: #fff; text-decoration: none; display: inline-block;
+  }
+  .btn:hover { background: var(--accent-dark); border-color: var(--accent-dark); }
+  .btn.secondary { background: #fff; color: var(--accent); }
+  .btn.secondary:hover { background: #fff7f6; }
+  .btn[hidden] { display: none; }
+  .result { text-align: center; }
+  .result .score { font-size: 56px; font-weight: 800; color: var(--accent); margin: 8px 0; }
+  .result p { color: var(--muted); line-height: 1.5; }
+  .result .actions { justify-content: center; }
+  .key {
+    margin-top: 12px; padding: 12px 14px; border-radius: 10px; text-align: left; line-height: 1.5;
+    background: #fff8e6; border: 2px dashed var(--gold); color: var(--ink); font-size: 15px;
+  }
+  .key b.letter { font-size: 22px; color: var(--accent); letter-spacing: .05em; }
+  footer { padding: 0 26px 18px; font-size: 12px; color: var(--muted); line-height: 1.5; }
+  footer a { color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="card">
+  <header>
+    <small>Calendrier de l'Avent des Maths à Toulouse</small>
+    <h1>Qui suis-je ? Des savants à Toulouse</h1>
+    <div class="day" aria-hidden="true">?</div>
+  </header>
+  <div class="progress"><div id="bar"></div></div>
+  <main id="app"></main>
+  <footer>Sources : biographies du <a href="https://mathshistory.st-andrews.ac.uk/" target="_blank" rel="noopener">MacTutor History of Mathematics</a>, de la <a href="https://www.nobelprize.org/prizes/chemistry/1912/sabatier/facts/" target="_blank" rel="noopener">Fondation Nobel</a> et des <a href="https://www.math.univ-toulouse.fr/en/activites/annales-de-toulouse/" target="_blank" rel="noopener">Annales de Toulouse</a>.</footer>
+</div>
+
+<script>
+const KEY_HTML = `🔑 <b>Énigme du 24 décembre</b> : votre lettre mystère est <b class="letter">S</b>. Notez-la bien ! Le 24 décembre, il faudra remettre dans l'ordre toutes les lettres récoltées dans le calendrier pour trouver le mot mystère.`;
+
+const PEOPLE = [
+  {
+    clues: [
+      "Je n'étais pas mathématicien de métier : j'étais magistrat, conseiller au parlement de Toulouse.",
+      "Je suis né à Beaumont-de-Lomagne, dans l'actuel Tarn-et-Garonne, et je suis mort à Castres en 1665.",
+      "J'ai noté dans la marge d'un livre que j'avais trouvé une démonstration merveilleuse… mais que la marge était trop étroite pour la contenir.",
+      "Mon « dernier théorème » n'a été démontré qu'en 1994, par Andrew Wiles. Un grand prix de mathématiques toulousain porte mon nom."
+    ],
+    options: ["Blaise Pascal", "Pierre de Fermat", "René Descartes", "Marin Mersenne"],
+    answer: 1,
+    about: "Pierre de Fermat (début du XVIIᵉ siècle – 1665), magistrat toulousain et immense mathématicien amateur : théorie des nombres, probabilités, géométrie analytique… Le lycée Pierre-de-Fermat et le prix Fermat, décerné par l'IMT, lui rendent hommage.",
+    link: "https://www.math.univ-toulouse.fr/fr/activites/prix-fermat/"
+  },
+  {
+    clues: [
+      "Je suis né en 1856 à Zwolle, aux Pays-Bas.",
+      "Arrivé à la faculté des sciences de Toulouse en 1886, j'ai cofondé dès 1887 une revue de mathématiques toulousaine qui paraît toujours.",
+      "Spécialiste des fractions continues, je suis considéré comme le « père de la théorie analytique des fractions continues ».",
+      "Une intégrale porte mon nom… et un canal aux Pays-Bas aussi ! Je suis mort à Toulouse le 31 décembre 1894."
+    ],
+    options: ["Christiaan Huygens", "Henri Lebesgue", "Thomas Stieltjes", "Henri Poincaré"],
+    answer: 2,
+    about: "Thomas Joannes Stieltjes (1856-1894) a passé à Toulouse la période la plus féconde de sa vie. L'intégrale de Stieltjes est encore enseignée en analyse et en probabilités, et les Annales de la Faculté des sciences de Toulouse, qu'il a cofondées, sont aujourd'hui publiées par l'IMT.",
+    link: "https://www.math.univ-toulouse.fr/en/activites/annales-de-toulouse/"
+  },
+  {
+    clues: [
+      "Né à Amiens en 1866, je suis arrivé à Toulouse en 1886 comme astronome adjoint à l'observatoire.",
+      "J'ai enseigné le calcul différentiel à la faculté des sciences, puis dirigé l'observatoire de Toulouse de 1908 jusqu'à ma mort, en 1931.",
+      "Sous ma direction, l'observatoire de Toulouse a participé au grand projet international de la Carte du Ciel.",
+      "Avec mon frère François, j'ai bâti une théorie des corps déformables : les « milieux » qui portent notre nom de famille sont toujours étudiés."
+    ],
+    options: ["Urbain Le Verrier", "Camille Flammarion", "Eugène Cosserat", "Henri Poincaré"],
+    answer: 2,
+    about: "Eugène Cosserat (1866-1931), mathématicien et astronome, a été l'un des piliers de la faculté des sciences de Toulouse pendant 35 ans. La théorie des milieux de Cosserat, développée avec son frère, inspire encore la recherche sur les matériaux.",
+    link: "https://mathshistory.st-andrews.ac.uk/Biographies/Cosserat/"
+  },
+  {
+    clues: [
+      "Né à Carcassonne en 1854, j'ai mené toute ma carrière de chercheur à la faculté des sciences de Toulouse.",
+      "J'ai été l'un des cofondateurs, en 1887, des Annales de la Faculté des sciences de Toulouse… mais je n'étais pas mathématicien.",
+      "J'ai découvert qu'avec du nickel finement divisé, on peut faire absorber de l'hydrogène à des composés organiques : c'est l'hydrogénation catalytique.",
+      "En 1912, j'ai reçu le prix Nobel de chimie, partagé avec Victor Grignard. L'université toulousaine qui accueille l'IMT porte mon nom."
+    ],
+    options: ["Louis Pasteur", "Paul Sabatier", "Marcellin Berthelot", "Antoine Lavoisier"],
+    answer: 1,
+    about: "Paul Sabatier (1854-1941), prix Nobel de chimie 1912, a choisi de rester à Toulouse toute sa vie. Son procédé d'hydrogénation catalytique est toujours utilisé dans l'industrie chimique et alimentaire.",
+    link: "https://www.nobelprize.org/prizes/chemistry/1912/sabatier/facts/"
+  }
+];
+const MAXP = PEOPLE.length * 4;
+
+const app = document.getElementById("app");
+const bar = document.getElementById("bar");
+let current, score, shown, found;
+
+function start() { current = 0; score = 0; render(); }
+
+function render() {
+  const p = PEOPLE[current];
+  shown = 1; found = false;
+  bar.style.width = (current / PEOPLE.length * 100) + "%";
+  app.innerHTML = `
+    <div class="count"><span>Personnage <b>${current + 1}</b> / ${PEOPLE.length}</span><span>Score : <b id="score">${score}</b> / ${MAXP}</span></div>
+    ${current === 0 ? `<p class="rules">Lisez les indices et trouvez qui parle. Moins vous utilisez d'indices, plus vous gagnez de points : 4 points avec un seul indice, 1 point avec les quatre. Une mauvaise réponse dévoile l'indice suivant.</p>` : ""}
+    <ol class="clues" id="clues"></ol>
+    <div class="more"><button class="btn secondary" id="more">Indice suivant</button> <span class="points" id="points"></span></div>
+    <div class="options">${p.options.map((o, i) => `<button class="opt" data-i="${i}">${o}</button>`).join("")}</div>
+    <div class="feedback" id="fb"></div>
+    <div class="actions"><button class="btn" id="next" hidden>${current === PEOPLE.length - 1 ? "Voir mon score" : "Personnage suivant →"}</button></div>`;
+  drawClues();
+  app.querySelectorAll(".opt").forEach(b => b.addEventListener("click", () => choose(+b.dataset.i, b)));
+  document.getElementById("more").addEventListener("click", () => { if (shown < 4) { shown++; drawClues(); } });
+  document.getElementById("next").addEventListener("click", () => { current++; current < PEOPLE.length ? render() : result(); });
+}
+
+function drawClues() {
+  const p = PEOPLE[current], ol = document.getElementById("clues");
+  while (ol.children.length < shown) {
+    const k = ol.children.length;
+    const li = document.createElement("li");
+    li.className = "clue"; li.dataset.n = k + 1; li.textContent = p.clues[k];
+    ol.appendChild(li);
+  }
+  const more = document.getElementById("more");
+  more.hidden = shown >= 4 || found;
+  document.getElementById("points").textContent = found ? "" : `Une bonne réponse maintenant rapporte ${5 - shown} point${5 - shown > 1 ? "s" : ""}.`;
+}
+
+function choose(i, btn) {
+  if (found) return;
+  const p = PEOPLE[current];
+  if (i !== p.answer) {
+    btn.classList.add("wrong"); btn.disabled = true;
+    if (shown < 4) shown++;
+    drawClues();
+    return;
+  }
+  found = true;
+  const gained = 5 - shown;
+  score += gained;
+  document.getElementById("score").textContent = score;
+  btn.classList.add("correct");
+  app.querySelectorAll(".opt").forEach(b => b.disabled = true);
+  // on dévoile tous les indices pour la culture
+  shown = 4; drawClues();
+  const fb = document.getElementById("fb");
+  fb.className = "feedback show";
+  fb.innerHTML = `<strong>Bravo ! +${gained} point${gained > 1 ? "s" : ""}</strong>${p.about} <a href="${p.link}" target="_blank" rel="noopener">En savoir plus</a>`;
+  const next = document.getElementById("next");
+  next.hidden = false; next.focus();
+}
+
+function result() {
+  bar.style.width = "100%";
+  const r = score / MAXP;
+  const msg = r === 1 ? "Sans-faute ! Vous connaissez les savants toulousains sur le bout des doigts."
+            : r >= .75 ? "Excellent, vous êtes un vrai détective de l'histoire des sciences !"
+            : r >= .5 ? "Joli score ! Toulouse a une belle histoire scientifique, n'est-ce pas ?"
+            : "Il fallait de bons indices… mais vous avez démasqué tout le monde !";
+  app.innerHTML = `
+    <div class="result">
+      <div class="count" style="justify-content:center">Votre score</div>
+      <div class="score">${score} / ${MAXP}</div>
+      <p>${msg}</p>
+      <div class="key">${KEY_HTML}</div>
+      <div class="actions">
+        <button class="btn secondary" id="again">Recommencer</button>
+        <a class="btn" href="https://www.math.univ-toulouse.fr/fr/" target="_blank" rel="noopener">Découvrir l'IMT</a>
+      </div>
+    </div>`;
+  document.getElementById("again").addEventListener("click", start);
+}
+
+start();
+</script>
+</body>
+</html>
