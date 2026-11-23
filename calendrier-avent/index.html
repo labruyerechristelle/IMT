@@ -16,10 +16,6 @@
   *{box-sizing:border-box}
   html,body{margin:0}
   body{font-family:Inter,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg);-webkit-tap-highlight-color:transparent;overflow-x:hidden}
-  #snow{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
-  #snow span{position:absolute;top:-40px;color:var(--violet);opacity:.28;font-weight:700;animation:fall linear infinite;will-change:transform}
-  @keyframes fall{to{transform:translateY(calc(100vh + 80px)) rotate(200deg)}}
-  @media (prefers-reduced-motion:reduce){#snow{display:none}}
 
   .wrap{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding:28px 18px 40px}
   header{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
@@ -161,7 +157,6 @@
 <script data-goatcounter="https://chrislab.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
 <body>
-<div id="snow" aria-hidden="true"></div>
 <div class="wrap">
   <header>
     <div>
@@ -531,20 +526,8 @@ document.addEventListener("keydown", e=>{ if (e.key==="Escape") closeModal() });
 let tt;
 function toast(m){ const t=$("#toast"); t.textContent=m; t.classList.add("show"); clearTimeout(tt); tt=setTimeout(()=>t.classList.remove("show"),2400) }
 
-function snow(){
-  const s = $("#snow");
-  for (let i=0;i<26;i++){
-    const e = document.createElement("span");
-    e.textContent = SYMS[i % SYMS.length];
-    e.style.left = (Math.random()*100)+"vw";
-    e.style.fontSize = (14+Math.random()*22)+"px";
-    e.style.animationDuration = (14+Math.random()*16)+"s";
-    e.style.animationDelay = (-Math.random()*30)+"s";
-    s.appendChild(e);
-  }
-}
 
-renderStatus(); build(); snow();
+renderStatus(); build();
 stat("calendrier", "Calendrier : visite", false);
 window.addEventListener("hashchange", ()=>location.reload());
 // Lien direct vers une case : ?jour=5 ou #jour-5 (utile pour un post LinkedIn). Aperçu complet : ?apercu ou #apercu
