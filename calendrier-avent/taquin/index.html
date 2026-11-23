@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calendrier de l'Avent – Taquin : le bâtiment de l'IMT</title>
+<style>
+  :root {
+    --bg: #0f2a3d;
+    --card: #ffffff;
+    --ink: #1c2733;
+    --muted: #5d6b78;
+    --accent: #c0392b;
+    --accent-dark: #962d22;
+    --gold: #e0a526;
+    --ok: #2e8b57;
+    --line: #e3e7eb;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    color: var(--ink);
+    background: radial-gradient(circle at 20% 10%, #1d4562 0%, var(--bg) 60%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 12px;
+  }
+  .card {
+    background: var(--card);
+    width: 100%;
+    max-width: 760px;
+    border-radius: 18px;
+    box-shadow: 0 20px 50px rgba(0,0,0,.35);
+    overflow: hidden;
+  }
+  header {
+    background: var(--accent);
+    color: #fff;
+    padding: 22px 28px 18px;
+    position: relative;
+  }
+  header .day {
+    position: absolute;
+    right: 22px; top: 18px;
+    width: 54px; height: 54px;
+    border-radius: 50%;
+    background: var(--gold);
+    color: #fff;
+    font-weight: 800;
+    font-size: 22px;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: inset 0 -3px 0 rgba(0,0,0,.15);
+  }
+  header small { display: block; padding-right: 70px; text-transform: uppercase; letter-spacing: .12em; opacity: .85; font-size: 12px; }
+  header h1 { margin: 6px 0 0; font-size: 24px; line-height: 1.25; padding-right: 70px; }
+  .progress { height: 6px; background: var(--line); }
+  .progress > div { height: 100%; width: 0; background: var(--gold); transition: width .35s ease; }
+  main { padding: 18px 20px 22px; }
+  .intro { margin: 0 0 12px; color: var(--muted); font-size: 15px; line-height: 1.5; }
+  .bar {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 10px; flex-wrap: wrap; margin-bottom: 10px;
+  }
+  .stats { font-size: 14px; color: var(--muted); }
+  .stats b { color: var(--ink); }
+  .btns { display: flex; gap: 8px; flex-wrap: wrap; }
+  .btn {
+    font: inherit; font-size: 14px; font-weight: 600;
+    padding: 9px 16px; border-radius: 999px; cursor: pointer;
+    border: 2px solid var(--accent); background: #fff; color: var(--accent);
+    text-decoration: none; display: inline-block;
+  }
+  .btn:hover { background: #fff7f6; }
+  .btn.primary { background: var(--accent); color: #fff; }
+  .btn.primary:hover { background: var(--accent-dark); border-color: var(--accent-dark); }
+  .btn[aria-pressed="true"] { background: var(--accent); color: #fff; }
+  .level { display: inline-flex; border: 2px solid var(--accent); border-radius: 999px; overflow: hidden; }
+  .level button {
+    font: inherit; font-size: 14px; font-weight: 600; border: 0; padding: 7px 14px;
+    background: #fff; color: var(--accent); cursor: pointer;
+  }
+  .level button[aria-pressed="true"] { background: var(--accent); color: #fff; }
+  .board {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1200 / 665;
+    background: #1c2733;
+    border-radius: 12px;
+    overflow: hidden;
+    touch-action: manipulation;
+    user-select: none; -webkit-user-select: none;
+  }
+  .tile {
+    position: absolute;
+    background-image: url("imt-batiment.jpg");
+    background-repeat: no-repeat;
+    border: 1.5px solid rgba(255,255,255,.85);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: left .16s ease, top .16s ease, border-color .4s;
+  }
+  .tile.fixed { cursor: default; }
+  .tile .num {
+    position: absolute; left: 6px; top: 5px;
+    min-width: 24px; height: 24px; padding: 0 6px;
+    border-radius: 12px; background: rgba(15,42,61,.78); color: #fff;
+    font-size: 13px; font-weight: 700; display: none; align-items: center; justify-content: center;
+  }
+  .shownum .tile .num { display: flex; }
+  .done .tile { border-color: transparent; border-radius: 0; }
+  .done .tile .num { display: none; }
+  .final {
+    position: absolute; inset: 0;
+    background: url("imt-batiment.jpg") center / 100% 100% no-repeat;
+    opacity: 0; pointer-events: none; transition: opacity .6s ease .2s;
+  }
+  .done .final { opacity: 1; }
+  .model { display: none; margin-top: 10px; }
+  .model.show { display: block; }
+  .model img { width: 100%; max-width: 260px; border-radius: 8px; display: block; }
+  .model small { color: var(--muted); }
+  .win {
+    display: none;
+    margin-top: 14px;
+    padding: 16px 18px;
+    border-radius: 12px;
+    background: #e8f5ee;
+    line-height: 1.5;
+    font-size: 15px;
+  }
+  .win.show { display: block; }
+  .win strong { display: block; color: var(--ok); font-size: 18px; margin-bottom: 4px; }
+  .win .btns { margin-top: 12px; }
+  .key {
+    margin-top: 12px; padding: 12px 14px; border-radius: 10px;
+    background: #fff8e6; border: 2px dashed var(--gold); color: var(--ink);
+  }
+  .key b.letter { font-size: 22px; color: var(--accent); letter-spacing: .05em; }
+  footer { padding: 0 24px 18px; font-size: 12px; color: var(--muted); line-height: 1.5; }
+  footer a { color: var(--muted); }
+  @media (max-width: 480px) {
+    header { padding: 18px 20px 14px; }
+    header h1 { font-size: 20px; }
+    main { padding: 14px 12px 18px; }
+    .tile .num { min-width: 20px; height: 20px; font-size: 11px; left: 3px; top: 3px; }
+  }
+</style>
+</head>
+<body>
+<div class="card">
+  <header>
+    <small>Calendrier de l'Avent des Maths à Toulouse</small>
+    <h1>Taquin : le bâtiment de l'IMT</h1>
+    <div class="day" aria-hidden="true">🧩</div>
+  </header>
+  <div class="progress"><div id="progress"></div></div>
+  <main>
+    <p class="intro">La photo du bâtiment de l'<b>Institut de Mathématiques de Toulouse</b> a été découpée en morceaux et mélangée. <b>Touchez un morceau</b> voisin de la case vide pour le faire glisser. Vous pouvez aussi toucher un morceau plus loin sur la même ligne ou la même colonne : toute la rangée se décale. Au clavier, utilisez les flèches.</p>
+    <div class="bar">
+      <div class="stats">Morceaux bien placés : <b id="ok">0</b> / <b id="total">11</b> · Coups : <b id="moves">0</b></div>
+      <div class="btns">
+        <div class="level" role="group" aria-label="Niveau">
+          <button id="easy" aria-pressed="true">Facile</button>
+          <button id="hard" aria-pressed="false">Difficile</button>
+        </div>
+      </div>
+    </div>
+    <div class="board" id="board" aria-label="Plateau du taquin" tabindex="0">
+      <div class="final"></div>
+    </div>
+    <div class="bar" style="margin-top:10px">
+      <div class="btns">
+        <button class="btn" id="nums" aria-pressed="false">Afficher les numéros</button>
+        <button class="btn" id="hint" aria-pressed="false">Voir le modèle</button>
+      </div>
+      <button class="btn" id="shuffle">Mélanger</button>
+    </div>
+    <div class="model" id="model"><img src="imt-batiment.jpg" alt="La photo complète du bâtiment de l'IMT"><small>Le modèle à reconstituer. La case vide est en bas à droite.</small></div>
+    <div class="win" id="win" role="status">
+      <strong>Bravo, le bâtiment est reconstitué !</strong>
+      <span id="winText"></span>
+      <div class="key" id="key"></div>
+      <div class="btns">
+        <button class="btn primary" id="again">Rejouer</button>
+        <a class="btn" href="https://www.math.univ-toulouse.fr/fr/" target="_blank" rel="noopener">Découvrir l'IMT</a>
+      </div>
+    </div>
+  </main>
+  <footer>Photo : le bâtiment de l'<a href="https://www.math.univ-toulouse.fr/fr/" target="_blank" rel="noopener">Institut de Mathématiques de Toulouse</a>, sur le campus de l'Université de Toulouse.</footer>
+</div>
+
+<script>
+// Énigme fil rouge du calendrier : lettre donnée à la fin du jeu
+const KEY_HTML = `🔑 <b>Énigme du 24 décembre</b> : votre lettre mystère est <b class="letter">R</b>. Notez-la bien ! Le 24 décembre, il faudra remettre dans l'ordre toutes les lettres récoltées dans le calendrier pour trouver le mot mystère.`;
+
+const LEVELS = { easy: { cols: 4, rows: 3 }, hard: { cols: 5, rows: 4 } };
+const board = document.getElementById("board");
+let cols, rows, n, tiles, pos, empty, moves, solvedOnce;
+// pos[i] = case occupée par le morceau i ; empty = case vide ; la case vide finale est la dernière
+
+function setup(level) {
+  ({ cols, rows } = LEVELS[level]);
+  n = cols * rows;
+  board.querySelectorAll(".tile").forEach(t => t.remove());
+  board.classList.remove("done");
+  document.getElementById("total").textContent = n - 1;
+  tiles = [];
+  for (let i = 0; i < n - 1; i++) {
+    const t = document.createElement("div");
+    t.className = "tile";
+    t.style.width = (100 / cols) + "%";
+    t.style.height = (100 / rows) + "%";
+    t.style.backgroundSize = `${cols * 100}% ${rows * 100}%`;
+    t.style.backgroundPosition = `${(i % cols) / (cols - 1) * 100}% ${Math.floor(i / cols) / (rows - 1) * 100}%`;
+    t.innerHTML = `<span class="num">${i + 1}</span>`;
+    t.addEventListener("click", () => tap(i));
+    board.appendChild(t);
+    tiles.push(t);
+  }
+  shuffle();
+}
+
+function place(i) {
+  const c = pos[i] % cols, r = Math.floor(pos[i] / cols);
+  tiles[i].style.left = (c * 100 / cols) + "%";
+  tiles[i].style.top = (r * 100 / rows) + "%";
+}
+
+function neighbours(cell) {
+  const c = cell % cols, r = Math.floor(cell / cols), out = [];
+  if (c > 0) out.push(cell - 1);
+  if (c < cols - 1) out.push(cell + 1);
+  if (r > 0) out.push(cell - cols);
+  if (r < rows - 1) out.push(cell + cols);
+  return out;
+}
+
+// Mélange par des coups légaux à partir de la position résolue : le taquin a toujours une solution
+function shuffle() {
+  pos = Array.from({ length: n - 1 }, (_, i) => i);
+  empty = n - 1;
+  let prev = -1;
+  const steps = n * 25;
+  for (let k = 0; k < steps; k++) {
+    const options = neighbours(empty).filter(c => c !== prev);
+    const cell = options[Math.floor(Math.random() * options.length)];
+    const i = pos.indexOf(cell);
+    pos[i] = empty; prev = empty; empty = cell;
+  }
+  if (correct() > (n - 1) / 2) return shuffle();   // trop facile : on remélange
+  moves = 0; solvedOnce = false;
+  board.classList.remove("done");
+  document.getElementById("win").classList.remove("show");
+  tiles.forEach((t, i) => { t.classList.remove("fixed"); t.style.transition = "none"; place(i); });
+  requestAnimationFrame(() => tiles.forEach(t => t.style.transition = ""));
+  update();
+}
+
+function correct() { return pos.filter((p, i) => p === i).length; }
+
+// Toucher un morceau : s'il est sur la même ligne ou colonne que la case vide, la rangée glisse
+function tap(i) {
+  if (solvedOnce) return;
+  const cell = pos[i];
+  const ec = empty % cols, er = Math.floor(empty / cols);
+  const c = cell % cols, r = Math.floor(cell / cols);
+  let step;
+  if (r === er && c !== ec) step = c < ec ? -1 : 1;
+  else if (c === ec && r !== er) step = r < er ? -cols : cols;
+  else return;
+  while (empty !== cell) {
+    const next = empty + step;
+    const j = pos.indexOf(next);
+    pos[j] = empty; empty = next; place(j);
+  }
+  moves++;
+  update();
+}
+
+// Flèches du clavier : la flèche indique le sens du déplacement du morceau
+board.addEventListener("keydown", e => {
+  const ec = empty % cols, er = Math.floor(empty / cols);
+  const map = { ArrowLeft: ec < cols - 1 ? empty + 1 : -1, ArrowRight: ec > 0 ? empty - 1 : -1,
+                ArrowUp: er < rows - 1 ? empty + cols : -1, ArrowDown: er > 0 ? empty - cols : -1 };
+  if (!(e.key in map)) return;
+  e.preventDefault();
+  if (map[e.key] >= 0) tap(pos.indexOf(map[e.key]));
+});
+
+function update() {
+  const ok = correct();
+  document.getElementById("ok").textContent = ok;
+  document.getElementById("moves").textContent = moves;
+  document.getElementById("progress").style.width = (ok / (n - 1) * 100) + "%";
+  if (ok === n - 1 && !solvedOnce) {
+    solvedOnce = true;
+    tiles.forEach(t => t.classList.add("fixed"));
+    board.classList.add("done");
+    document.getElementById("winText").textContent = `Vous avez reconstitué la photo du bâtiment de l'IMT en ${moves} coups.`;
+    document.getElementById("key").innerHTML = KEY_HTML;
+    document.getElementById("win").classList.add("show");
+  }
+}
+
+function setLevel(level) {
+  document.getElementById("easy").setAttribute("aria-pressed", level === "easy");
+  document.getElementById("hard").setAttribute("aria-pressed", level === "hard");
+  setup(level);
+}
+document.getElementById("easy").addEventListener("click", () => setLevel("easy"));
+document.getElementById("hard").addEventListener("click", () => setLevel("hard"));
+document.getElementById("shuffle").addEventListener("click", shuffle);
+document.getElementById("again").addEventListener("click", shuffle);
+document.getElementById("nums").addEventListener("click", e => {
+  const on = e.currentTarget.getAttribute("aria-pressed") !== "true";
+  e.currentTarget.setAttribute("aria-pressed", on);
+  board.classList.toggle("shownum", on);
+});
+document.getElementById("hint").addEventListener("click", e => {
+  const on = e.currentTarget.getAttribute("aria-pressed") !== "true";
+  e.currentTarget.setAttribute("aria-pressed", on);
+  document.getElementById("model").classList.toggle("show", on);
+});
+
+setLevel("easy");
+</script>
+</body>
+</html>
