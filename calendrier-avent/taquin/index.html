@@ -148,6 +148,26 @@
     .tile .num { min-width: 20px; height: 20px; font-size: 11px; left: 3px; top: 3px; }
   }
 </style>
+<script>
+  // Statistiques GoatCounter (sans cookies) : uniquement à partir du 1er décembre 2026, 0 h (heure de Paris).
+  // Ajoutez ?nostats à l'adresse pour ne pas compter vos propres visites.
+  window.goatcounter = { no_onload: true };
+  (function () {
+    var q = new URLSearchParams(location.search);
+    var off = q.has("nostats") || q.has("apercu") || location.hash === "#apercu" || Date.now() < Date.parse("2026-11-30T23:00:00Z");
+    window.stat = function (path, title, event) {
+      if (off) return;
+      var tries = 0;
+      var timer = setInterval(function () {
+        if (window.goatcounter && window.goatcounter.count) {
+          clearInterval(timer);
+          try { window.goatcounter.count({ path: path, title: title, event: event !== false }); } catch (e) {}
+        } else if (++tries > 50) clearInterval(timer);
+      }, 200);
+    };
+  })();
+</script>
+<script data-goatcounter="https://chrislab.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
 <body>
 <div class="card">
@@ -296,6 +316,7 @@ function update() {
   document.getElementById("moves").textContent = moves;
   document.getElementById("progress").style.width = (ok / (n - 1) * 100) + "%";
   if (ok === n - 1 && !solvedOnce) {
+    stat("fin-taquin", "Fin : taquin IMT (case 20)");
     solvedOnce = true;
     tiles.forEach(t => t.classList.add("fixed"));
     board.classList.add("done");
@@ -326,6 +347,7 @@ document.getElementById("hint").addEventListener("click", e => {
 });
 
 setLevel("easy");
+stat(location.pathname, document.title, false);
 </script>
 </body>
 </html>

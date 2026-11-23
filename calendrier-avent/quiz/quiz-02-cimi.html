@@ -122,6 +122,26 @@
   }
   .key b.letter { font-size: 22px; color: var(--accent); letter-spacing: .05em; }
 </style>
+<script>
+  // Statistiques GoatCounter (sans cookies) : uniquement à partir du 1er décembre 2026, 0 h (heure de Paris).
+  // Ajoutez ?nostats à l'adresse pour ne pas compter vos propres visites.
+  window.goatcounter = { no_onload: true };
+  (function () {
+    var q = new URLSearchParams(location.search);
+    var off = q.has("nostats") || q.has("apercu") || location.hash === "#apercu" || Date.now() < Date.parse("2026-11-30T23:00:00Z");
+    window.stat = function (path, title, event) {
+      if (off) return;
+      var tries = 0;
+      var timer = setInterval(function () {
+        if (window.goatcounter && window.goatcounter.count) {
+          clearInterval(timer);
+          try { window.goatcounter.count({ path: path, title: title, event: event !== false }); } catch (e) {}
+        } else if (++tries > 50) clearInterval(timer);
+      }, 200);
+    };
+  })();
+</script>
+<script data-goatcounter="https://chrislab.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
 <body>
 <div class="card">
@@ -234,6 +254,7 @@ function choose(i) {
 }
 
 function showResult() {
+  stat("fin-quiz-02", "Fin : quiz CIMI (case 7)");
   bar.style.width = "100%";
   const msgs = [
     "Il est temps d'aller faire un tour sur le site du Labex CIMI !",
@@ -259,6 +280,7 @@ function showResult() {
 }
 
 render();
+stat(location.pathname, document.title, false);
 </script>
 </body>
 </html>

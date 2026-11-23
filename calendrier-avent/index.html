@@ -139,6 +139,26 @@
   footer .flogos{display:flex;align-items:center;gap:16px}
   footer .flogos img{height:34px;width:auto;display:block}
 </style>
+<script>
+  // Statistiques GoatCounter (sans cookies) : uniquement à partir du 1er décembre 2026, 0 h (heure de Paris).
+  // Ajoutez ?nostats à l'adresse pour ne pas compter vos propres visites.
+  window.goatcounter = { no_onload: true };
+  (function () {
+    var q = new URLSearchParams(location.search);
+    var off = q.has("nostats") || q.has("apercu") || location.hash === "#apercu" || Date.now() < Date.parse("2026-11-30T23:00:00Z");
+    window.stat = function (path, title, event) {
+      if (off) return;
+      var tries = 0;
+      var timer = setInterval(function () {
+        if (window.goatcounter && window.goatcounter.count) {
+          clearInterval(timer);
+          try { window.goatcounter.count({ path: path, title: title, event: event !== false }); } catch (e) {}
+        } else if (++tries > 50) clearInterval(timer);
+      }, 200);
+    };
+  })();
+</script>
+<script data-goatcounter="https://chrislab.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
 <body>
 <div id="snow" aria-hidden="true"></div>
@@ -493,10 +513,12 @@ function wireMystere(){
     const res = $("#mystere-res");
     if (!v) { res.className = "mystere-res"; res.textContent = ""; return; }
     if (v.endsWith("SCHWARTZ")) {
+      stat("mystere-trouve", "Mot mystère trouvé (SCHWARTZ)");
       res.className = "mystere-res ok";
       res.innerHTML = `<b>🎉 Bravo, c'est bien l'amphithéâtre Laurent SCHWARTZ !</b><br>Laurent Schwartz (1915-2002) a reçu la médaille Fields en 1950 pour sa <b>théorie des distributions</b>, qui donne un sens mathématique précis à des objets que les physiciens utilisaient déjà, comme la « fonction » de Dirac. L'amphithéâtre de l'IMT où l'on remet le prix Fermat porte son nom.`;
     } else {
       res.className = "mystere-res ko";
+      stat("mystere-erreur", "Mot mystère : mauvaise réponse");
       res.textContent = "Ce n'est pas ça… Vérifiez vos lettres : le mot mystère en compte 8.";
     }
   };
@@ -504,6 +526,7 @@ function wireMystere(){
 
 function show(n){
   const d = DAYS[n];
+  stat(`case-${String(n).padStart(2, "0")}`, `Case ${n} : ${d.title}`);
   $("#m-day").textContent = `${n === 1 ? "1ᵉʳ" : n} décembre`;
   $("#m-title").textContent = d.title;
   $("#m-tag").textContent = TAGS[d.type];
@@ -547,6 +570,7 @@ function snow(){
 }
 
 renderStatus(); build(); snow();
+stat("calendrier", "Calendrier : visite", false);
 window.addEventListener("hashchange", ()=>location.reload());
 // Lien direct vers une case : ?jour=5 ou #jour-5 (utile pour un post LinkedIn). Aperçu complet : ?apercu ou #apercu
 const j = +(params.get("jour") || (location.hash.match(/^#jour-(\d+)$/)||[])[1]);
