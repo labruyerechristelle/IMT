@@ -54,7 +54,6 @@
   .door:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
   .door .num{font-size:clamp(26px,4.4vw,40px);font-weight:800;letter-spacing:-.03em;text-shadow:0 2px 0 rgba(0,0,0,.12)}
   .slot.big .door .num{font-size:clamp(54px,9vw,84px)}
-  .door .sym{position:absolute;top:7px;right:9px;font-size:13px;opacity:.55;font-weight:600}
   .door .lock{position:absolute;bottom:7px;left:0;right:0;font-size:10.5px;font-weight:600;opacity:.75;letter-spacing:.03em}
   .door.c0{background:var(--rose)}
   .door.c1{background:var(--dark)}
@@ -62,7 +61,6 @@
   .door.c3{background:var(--violet-dk)}
   .door.c4{background:var(--violet)}
   .slot.big .door{background:linear-gradient(140deg,var(--rose),var(--red-dk))}
-  .slot.big .door .sym{font-size:22px;opacity:.95;color:#fff}
   .door.ribbon::before,.door.ribbon::after{content:"";position:absolute;background:var(--gold);opacity:.9}
   .door.ribbon::before{left:50%;top:0;bottom:0;width:10px;transform:translateX(-50%)}
   .door.ribbon::after{top:50%;left:0;right:0;height:10px;transform:translateY(-50%)}
@@ -315,7 +313,6 @@ const DAYS = {
      links:[{label:"IMT", url:"https://www.math.univ-toulouse.fr"},{label:"Labex CIMI", url:"https://www.cimi.univ-toulouse.fr/"},{label:"EUR MINT", url:"https://mint.math.univ-toulouse.fr"}]}
 };
 const TAGS = {enigme:"Énigme", savoir:"Le saviez-vous ?", nombre:"Le nombre du jour", toulouse:"Maths à Toulouse", jeu:"Jeu", noel:"Joyeux Noël"};
-const SYMS = ["π","∑","∞","√","∫","e","φ","∂","≈","∀","∃","ℝ","ℕ","Δ","λ","θ"];
 // Ordre des cases dans la grille (mélangé comme un vrai calendrier) ; le 24 est la grande case.
 const ORDER = [7,18,3,24,12,21,1,15,9,22,5,14,10,2,19,6,23,11,16,13,4,20,8,17];
 
@@ -436,7 +433,6 @@ function build(){
     slot.innerHTML = `
       <div class="inside">${n===24?"🎁":"✦"}<small>${TAGS[info.type]}</small></div>
       <button class="door c${(i*7+n)%5}${n===24?" ribbon":""}" aria-label="Case du ${n} décembre">
-        <span class="sym">${n===24?"★":SYMS[(n*5)%SYMS.length]}</span>
         <span class="num">${n}</span>
         ${n>LIMIT?'<span class="lock">🔒 '+n+' déc.</span>':'<span class="seen">✓ déjà ouverte</span>'}
       </button>`;
